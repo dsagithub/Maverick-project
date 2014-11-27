@@ -12,6 +12,7 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -28,8 +29,14 @@ import javax.ws.rs.core.Response.Status;
 import org.apache.commons.codec.digest.DigestUtils;
 
 
+
+
+
+
+
 import edu.upc.eetac.dsa.dsaqt1415g3.Maverick.api.model.Users;
 import edu.upc.eetac.dsa.dsaqt1415g3.Maverick.api.model.UsersCollection;
+
 
 
 
@@ -45,6 +52,7 @@ public class UserResource {
 	private final static String INSERT_USER_INTO_USER_ROLES = "insert into user_roles values (?, 'artist')";
 	private final static String GET_USER_BY_USERNAME ="select * from users where username=?";
 	private final static String DELETE_USER_QUERY = "Delete from users where username=? ";
+	private final static String UPDATE_USER_QUERY ="update users set userpass=ifnull(?, userpass), name=ifnull(?, name), email=ifnull(?, email), description=ifnull(?, description)  where username=?;";
 	
 	//Metodo para loguearse
 	@Path("/login")
@@ -197,9 +205,98 @@ public class UserResource {
 	
 	
 	//Metodo para modificar perfil
+	@PUT
+	@Path("/{username}")
+	@Consumes(MediaType.MAVERICK_API_USER)
+	@Produces(MediaType.MAVERICK_API_USER)
+	public Users updateUser(@PathParam("username") String username, Users user) {
+		
+		
+		Connection conn = null;
+		try {
+			conn = ds.getConnection();
+		} catch (SQLException e) {
+			throw new ServerErrorException("Could not connect to the database",
+					Response.Status.SERVICE_UNAVAILABLE);
+		}
+	 
+		PreparedStatement stmt = null;
+		try {
+			
+			
+			stmt = conn.prepareStatement(UPDATE_USER_QUERY);
+			stmt.setString(5, username);
+			stmt.setString(1, user.getUserpass());
+			stmt.setString(2, user.getName());
+			stmt.setString(3, user.getEmail());
+			
+			stmt.setString(4, user.getDescription());
+			System.out.println(stmt);
+	 
+			int rows = stmt.executeUpdate();
+			if (rows == 1)
+				user = getupdateUserFromDatabase(username);
+	 
+		} catch (SQLException e) {
+			throw new ServerErrorException(e.getMessage(),
+					Response.Status.INTERNAL_SERVER_ERROR);
+		} finally {
+			try {
+				if (stmt != null)
+					stmt.close();
+				conn.close();
+			} catch (SQLException e) {
+			}
+		}
+	 
+		return user;
+	}
+	private Users getupdateUserFromDatabase(String username) {// Cogemos datos del
+		// username
+		Users user = new Users();
+
+// Hacemos la conexión a la base de datos
+	Connection conn = null;
+	try {
+		conn = ds.getConnection();
+		} catch (SQLException e) {
+			throw new ServerErrorException("Could not connect to the database",
+					Response.Status.SERVICE_UNAVAILABLE);	
+			}
+
+	PreparedStatement stmt = null;
+	try {
+		stmt = conn.prepareStatement(GET_USER_BY_USERNAME_QUERY);
+		stmt.setString(1, username);
+		ResultSet rs = stmt.executeQuery();
+		if (rs.next()) {
+			user.setUsername(rs.getString("username"));
+			user.setName(rs.getString("name"));
+			user.setEmail(rs.getString("email"));
+			user.setDescription(rs.getString("description"));
+
+		} else {
+			throw new NotFoundException("There's no user with username ="
+					+ username);
+		}
+
+	} catch (SQLException e) {
+		throw new ServerErrorException(e.getMessage(),
+				Response.Status.INTERNAL_SERVER_ERROR);
+	} finally {
+		try {
+			if (stmt != null)
+				stmt.close();
+			conn.close();
+		} catch (SQLException e) {
+
+		}
+	}
+	return user;
+
+		}
 	
-	
-	
+		
 	//Metodo para borrar perfil
 	@DELETE 
 	@Path("/{username}")
@@ -242,6 +339,71 @@ public class UserResource {
 	
 	
 	
+	//Metodo para buscar un usuario
+	@GET
+	@Path("/search")
+	@Produces(MediaType.MAVERICK_API_USER_COLLECTION)
+	public UsersCollection getUserbyUsername(@QueryParam("username") String username) {
+		
+		UsersCollection users = new UsersCollection();
+		validateSearch(username);
+		Connection conn = null;
+		try{ conn =ds.getConnection();
+		}catch (SQLException e)
+		{
+			throw new ServerErrorException("Could not connect to the databes", 
+					Response.Status.SERVICE_UNAVAILABLE);
+		}
+		PreparedStatement stmt = null;
+		System.out.println("datos: " + username);
+		try{
+			
+			
+				stmt = conn.prepareStatement(GET_USER_BY_USERNAME);
+				stmt.setString (1, username);
+				
+				
+			
+	
+			System.out.println("Query salida: " + stmt);
+		ResultSet rs = stmt.executeQuery();
+		while (rs.next()){
+			Users user = new Users();
+			user.setUsername(rs.getString("username"));
+			user.setName(rs.getString("name"));
+			user.setEmail(rs.getString("email"));
+			user.setDescription(rs.getString("description"));
+			
+			
+			users.addUser(user);
+		}
+			}
+			
+		
+		catch (SQLException e) {
+			throw new ServerErrorException(e.getMessage(),
+					Response.Status.INTERNAL_SERVER_ERROR);
+		}
+		finally {
+			try {
+				if (stmt != null)
+					stmt.close();
+				conn.close();
+			} catch (SQLException e) {
+			}
+		}
+		return users;
+		
+	
+	}
+	
+	private void validateSearch(String username){
+		
+		if (username == null)
+			throw new BadRequestException(
+					"No se han introducido datos en el campo de búsqueda");
+		
+	}
 	
 	
 	
