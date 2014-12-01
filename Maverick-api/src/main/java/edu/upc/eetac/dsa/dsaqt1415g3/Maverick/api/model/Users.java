@@ -36,6 +36,13 @@ public class Users {
 	private String description;
 	private String userpass;
 	private String email;
+	private String rolename;
+	public String getRolename() {
+		return rolename;
+	}
+	public void setRolename(String rolename) {
+		this.rolename = rolename;
+	}
 	private boolean loginSuccessful;
 	public boolean isLoginSuccessful() {
 		return loginSuccessful;

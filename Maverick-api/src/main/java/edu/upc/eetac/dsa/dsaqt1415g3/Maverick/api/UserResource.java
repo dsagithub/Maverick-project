@@ -49,7 +49,7 @@ public class UserResource {
 	private DataSource ds = DataSourceSPA.getInstance().getDataSource();
 	private String GET_USER_BY_USERNAME_QUERY = "select * from users where username=?";
 	private final static String INSERT_USER_INTO_USERS = "insert into users values(?, MD5(?), ?, ?, ?)";
-	private final static String INSERT_USER_INTO_USER_ROLES = "insert into user_roles values (?, 'artist')";
+	private final static String INSERT_USER_INTO_USER_ROLES = "insert into user_roles values (?, ?)";
 	private final static String GET_USER_BY_USERNAME ="select * from users where username=?";
 	private final static String DELETE_USER_QUERY = "Delete from users where username=? ";
 	private final static String UPDATE_USER_QUERY ="update users set userpass=ifnull(?, userpass), name=ifnull(?, name), email=ifnull(?, email), description=ifnull(?, description)  where username=?;";
@@ -162,6 +162,8 @@ public class UserResource {
  //damos valor
 			System.out.println(stmtInsertUserIntoUsers);
 			stmtInsertUserIntoUserRoles.setString(1, user.getUsername());
+			stmtInsertUserIntoUserRoles.setString(2, user.getRolename());
+			System.out.println(stmtInsertUserIntoUserRoles);
 			stmtInsertUserIntoUserRoles.executeUpdate(); //ejecutamos
  
 			conn.commit(); // se inserta en la base de datos en las dos tablas
