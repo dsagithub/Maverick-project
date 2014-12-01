@@ -502,6 +502,87 @@ public class UserResource {
 		
 	}
 
+	@Path("/{username}/following")
+	@POST
+	@Consumes(MediaType.MAVERICK_API_USER_COLLECTION)
+	public Users createFollower(@PathParam("username") String username, Users user) {
+		
+		Connection conn = null;
+		try {
+			conn = ds.getConnection();
+		} catch (SQLException e) {
+			throw new ServerErrorException("Could not connect to the database",
+					Response.Status.SERVICE_UNAVAILABLE);
+		}
 
+		PreparedStatement stmt = null;
+		try {
+			stmt = conn.prepareStatement(buildCreateFollower());
+			stmt.setString(1, user.getUsername());
+			stmt.setString(2, username);
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new ServerErrorException(e.getMessage(),
+					Response.Status.INTERNAL_SERVER_ERROR);
+		} finally {
+			try {
+				if (stmt != null)
+					stmt.close();
+				conn.close();
+			} catch (SQLException e) {
+			}
+		}
+
+		return user;
+
+	}
+	
+	private String buildCreateFollower() {
+
+		return "insert into Follow (followingname, followername) values (?, ?);";
+	}
+		
+	@Path("/{username}/following")
+	@GET
+	@Produces(MediaType.MAVERICK_API_USER_COLLECTION)
+	public UsersCollection getFollowing(@PathParam("username") String username) {
+		UsersCollection following = new UsersCollection();
+		Connection conn = null;
+		try {
+			conn = ds.getConnection();
+		} catch (SQLException e) {
+			throw new ServerErrorException("Could not connect to the database",
+					Response.Status.SERVICE_UNAVAILABLE);
+		}
+
+		PreparedStatement stmt = null;
+		try {
+			stmt = conn.prepareStatement(buildGetFollowingById());
+			stmt.setString(1, username);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				Users user = new Users();
+				user.setUsername(rs.getString("username"));
+				user.setName(rs.getString("name"));
+				user.setDescription(rs.getString("description"));
+				following.addUser(user);
+			}
+		} catch (SQLException e) {
+			throw new ServerErrorException(e.getMessage(),
+					Response.Status.INTERNAL_SERVER_ERROR);
+		} finally {
+			try {
+				if (stmt != null)
+					stmt.close();
+				conn.close();
+			} catch (SQLException e) {
+			}
+		}
+
+		return following;
+	}
+	private String buildGetFollowingById() {
+		return "select u.* from users u, Follow f where f.followingname = u.username and f.followername = ?";
+	}
 	
 }
