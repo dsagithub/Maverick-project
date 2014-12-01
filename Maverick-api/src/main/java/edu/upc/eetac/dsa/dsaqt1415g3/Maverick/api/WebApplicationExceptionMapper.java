@@ -19,7 +19,7 @@ public class WebApplicationExceptionMapper implements
 		MaverickError error = new MaverickError(
 				exception.getResponse().getStatus(), exception.getMessage());
 		return Response.status(error.getStatus()).entity(error) //crea la respuesta a manopla con el estado y el mensaje que le hemos puesta en esta excepcion
-				.type(MediaType.BEETER_API_ERROR).build(); //status el codigo http de la respuesta, el entity es el body de la respuesto y el tipo es el content type, y el build permite crear la respuesta
+				.type(MediaType.MAVERICK_API_ERROR).build(); //status el codigo http de la respuesta, el entity es el body de la respuesto y el tipo es el content type, y el build permite crear la respuesta
 	}
  
 }
