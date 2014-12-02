@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.ws.rs.core.Link;
 
+
 public class SongsCollection {
 	private List<Link> links;
 	private List<Songs> songs;
@@ -43,6 +44,9 @@ public class SongsCollection {
 	}
 	public void setOldestTimestamp(long oldestTimestamp) {
 		this.oldestTimestamp = oldestTimestamp;
+	}
+	public void add(Songs song) {
+		songs.add(song);
 	}
 
 }
