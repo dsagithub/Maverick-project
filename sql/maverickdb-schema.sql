@@ -19,13 +19,13 @@ create table user_roles (
 );
 
 create table Songs (
-	songid varchar(36) not null,
+	songid int not null auto_increment unique,
 	username	varchar(20) not null,
 	song_name	varchar(100) not null,
 	album_name varchar(100),
 	description	varchar(500),
 	style	varchar(50) not  null,
-	last_modified	timestamp,
+	last_modified	timestamp default current_timestamp ON UPDATE CURRENT_TIMESTAMP,
 	likes int not null,
 	
 	foreign key(username) references users(username),
@@ -33,13 +33,13 @@ create table Songs (
 	index(songid)
 );
 create table comments (
-commentid int not null auto_increment unique,
-songid int not null,
-username varchar(50) not null,
-text varchar(500),
-time timestamp,
-foreign key(username) references users (username) on delete cascade,
-foreign key(songid) references songs (songid) on delete cascade
+	commentid int not null auto_increment unique,
+	songid int not null,
+	username varchar(50) not null,
+    text varchar(500),
+    time timestamp,
+    foreign key(username) references users (username) on delete cascade,
+	foreign key(songid) references songs (songid) on delete cascade
 
 );
 
