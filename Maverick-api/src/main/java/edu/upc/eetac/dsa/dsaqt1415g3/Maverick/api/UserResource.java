@@ -49,7 +49,7 @@ public class UserResource {
 	private DataSource ds = DataSourceSPA.getInstance().getDataSource();
 	private String GET_USER_BY_USERNAME_QUERY = "select * from users where username=?";
 	private final static String INSERT_USER_INTO_USERS = "insert into users values(?, MD5(?), ?, ?, ?)";
-	private final static String INSERT_USER_INTO_USER_ROLES = "insert into user_roles values (?, 'artist')";
+	private final static String INSERT_USER_INTO_USER_ROLES = "insert into user_roles values (?, ?)";
 	private final static String GET_USER_BY_USERNAME ="select * from users where username=?";
 	private final static String DELETE_USER_QUERY = "Delete from users where username=? ";
 	private final static String UPDATE_USER_QUERY ="update users set userpass=ifnull(?, userpass), name=ifnull(?, name), email=ifnull(?, email), description=ifnull(?, description)  where username=?;";
@@ -162,6 +162,8 @@ public class UserResource {
  //damos valor
 			System.out.println(stmtInsertUserIntoUsers);
 			stmtInsertUserIntoUserRoles.setString(1, user.getUsername());
+			stmtInsertUserIntoUserRoles.setString(2, user.getRolename());
+			System.out.println(stmtInsertUserIntoUserRoles);
 			stmtInsertUserIntoUserRoles.executeUpdate(); //ejecutamos
  
 			conn.commit(); // se inserta en la base de datos en las dos tablas
@@ -334,10 +336,6 @@ public class UserResource {
 	}
 	
 	
-	//Metodo para seguir un usuario
-	//Metodo para dejar de seguir un usuario
-	
-	
 	
 	//Metodo para buscar un usuario
 	@GET
@@ -501,7 +499,130 @@ public class UserResource {
 		
 		
 	}
+//seguir usuario
+	@Path("/{username}/following")
+	@POST
+	@Consumes(MediaType.MAVERICK_API_USER_COLLECTION)
+	public Users createFollower(@PathParam("username") String username, Users user) {
+		
+		Connection conn = null;
+		try {
+			conn = ds.getConnection();
+		} catch (SQLException e) {
+			throw new ServerErrorException("Could not connect to the database",
+					Response.Status.SERVICE_UNAVAILABLE);
+		}
 
+		PreparedStatement stmt = null;
+		try {
+			stmt = conn.prepareStatement(buildCreateFollower());
+			stmt.setString(1, user.getUsername());
+			stmt.setString(2, username);
+			stmt.executeUpdate();
+		} catch (SQLException e) {
+			throw new ServerErrorException(e.getMessage(),
+					Response.Status.INTERNAL_SERVER_ERROR);
+		} finally {
+			try {
+				if (stmt != null)
+					stmt.close();
+				conn.close();
+			} catch (SQLException e) {
+			}
+		}
 
+		return user;
+
+	}
+	
+	private String buildCreateFollower() {
+
+		return "insert into Follow (followingname, followername) values (?, ?);";
+	}
+	
+	
+	
+	//Dejar de seguir usuario
+	
+	@Path("/{username}/following/{following}")
+	@DELETE
+	public void deleteFollowing(@PathParam("username") String username, @PathParam("following") String following) {
+		Connection conn = null;
+		try {
+			conn = ds.getConnection();
+		} catch (SQLException e) {
+			throw new ServerErrorException("Could not connect to the database",
+					Response.Status.SERVICE_UNAVAILABLE);
+		}
+	
+		PreparedStatement stmt = null;
+		try {
+			String sql = buildDeleteFollow();
+			stmt = conn.prepareStatement(sql);
+			stmt.setString(1, username);
+			stmt.setString(2, following);
+			int rows = stmt.executeUpdate();
+			if (rows == 0)
+				throw new NotFoundException("There's no User with username="
+						+ username + " or " + following);
+		} catch (SQLException e) {
+			throw new ServerErrorException(e.getMessage(),
+					Response.Status.INTERNAL_SERVER_ERROR);
+		} finally {
+			try {
+				if (stmt != null)
+					stmt.close();
+				conn.close();
+			} catch (SQLException e) {
+			}
+		}
+	}
+	
+	private String buildDeleteFollow() {
+		return "delete from Follow where followername = ? and followingname = ?";
+	}
+	//Lista de seguidores
+		@Path("/{username}/following")
+		@GET
+		@Produces(MediaType.MAVERICK_API_USER_COLLECTION)
+		public UsersCollection getFollowing(@PathParam("username") String username) {
+			UsersCollection following = new UsersCollection();
+			Connection conn = null;
+			try {
+				conn = ds.getConnection();
+			} catch (SQLException e) {
+				throw new ServerErrorException("Could not connect to the database",
+						Response.Status.SERVICE_UNAVAILABLE);
+			}
+
+			PreparedStatement stmt = null;
+			try {
+				stmt = conn.prepareStatement(buildGetFollowingById());
+				stmt.setString(1, username);
+				ResultSet rs = stmt.executeQuery();
+				while (rs.next()) {
+					Users user = new Users();
+					user.setUsername(rs.getString("username"));
+					user.setName(rs.getString("name"));
+					user.setDescription(rs.getString("description"));
+					following.addUser(user);
+				}
+			} catch (SQLException e) {
+				throw new ServerErrorException(e.getMessage(),
+						Response.Status.INTERNAL_SERVER_ERROR);
+			} finally {
+				try {
+					if (stmt != null)
+						stmt.close();
+					conn.close();
+				} catch (SQLException e) {
+				}
+			}
+
+			return following;
+		}
+		private String buildGetFollowingById() {
+			return "select u.* from users u, Follow f where f.followingname = u.username and f.followername = ?";
+		}
 	
 }
