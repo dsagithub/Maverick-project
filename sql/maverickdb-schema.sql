@@ -19,7 +19,7 @@ create table user_roles (
 );
 
 create table Songs (
-	songid varchar(36) not null,
+	songid int not null auto_increment unique,
 	username	varchar(20) not null,
 	song_name	varchar(100) not null,
 	album_name varchar(100),
