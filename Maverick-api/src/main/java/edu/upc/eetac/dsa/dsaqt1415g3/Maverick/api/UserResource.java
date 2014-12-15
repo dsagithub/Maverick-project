@@ -581,7 +581,7 @@ public class UserResource {
 	private String buildDeleteFollow() {
 		return "delete from Follow where followername = ? and followingname = ?";
 	}
-	//Lista de seguidores
+	//Lista de usuarios seguidores
 		@Path("/{username}/following")
 		@GET
 		@Produces(MediaType.MAVERICK_API_USER_COLLECTION)
@@ -624,5 +624,8 @@ public class UserResource {
 		private String buildGetFollowingById() {
 			return "select u.* from users u, Follow f where f.followingname = u.username and f.followername = ?";
 		}
-	
 }
+	
+		
+		
+		
