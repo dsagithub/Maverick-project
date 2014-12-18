@@ -88,6 +88,10 @@
 	
 	<role-name>artist</role-name>
 </security-role>
+<security-role>
+	
+	<role-name>fan</role-name>
+</security-role>
  
 <security-constraint>
 	<web-resource-collection>

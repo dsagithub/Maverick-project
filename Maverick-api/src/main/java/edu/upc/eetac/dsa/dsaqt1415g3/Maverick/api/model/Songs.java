@@ -76,5 +76,20 @@ public class Songs {
 	private long date;
 	private String songURL;
 	private String likes;
+	private long lastModified;
+	public long getLastModified() {
+		return lastModified;
+	}
+	public void setLastModified(long lastModified) {
+		this.lastModified = lastModified;
+	}
+	public long getCreationTimestamp() {
+		return creationTimestamp;
+	}
+	public void setCreationTimestamp(long creationTimestamp) {
+		this.creationTimestamp = creationTimestamp;
+	}
+	private long creationTimestamp;
+ 
 	
 }

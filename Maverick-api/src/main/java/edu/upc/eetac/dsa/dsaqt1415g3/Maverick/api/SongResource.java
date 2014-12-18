@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 
 import javax.sql.DataSource;
 import javax.ws.rs.DELETE;
@@ -16,6 +17,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.ServerErrorException;
 import javax.ws.rs.core.Response;
+
 
 
 import edu.upc.eetac.dsa.dsaqt1415g3.Maverick.api.DataSourceSPA;
@@ -81,7 +83,7 @@ public class SongResource {
 	//Metodo para actualizar una cancion
 	//Metodo para buscar canciones
 	
-	private String GET_SEARCH_SONG = " SELECT * from songs where song_name LIKE ? ";
+	private String GET_SEARCH_SONG = " SELECT * from songs where song_name LIKE ? ;";
 	@Path("/search")
 	@GET
     @Produces(MediaType.MAVERICK_API_SONG)
@@ -120,7 +122,7 @@ public class SongResource {
 					song.setStyle(rs.getString("style"));
 					song.setDate(rs.getTimestamp("last_modified")
 							.getTime());
-					song.setSongURL(rs.getString("songURL"));
+					//song.setSongURL(rs.getString("songURL"));
 					song.setLikes(rs.getString("likes"));
 					
 					System.out.println("Query salida: " + stmt);
@@ -150,6 +152,134 @@ public class SongResource {
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	private String GET_SONGS_QUERY_FROM_LAST = "select s.* from songs s, follow f where f.followername = ? and s.username = f.followingname and last_modified > ? order by last_modified desc";
+	private String GET_SONGS_QUERY = "select s.* from Songs s, Follow f where f.followername = ? and s.username = f.followingname and last_modified < ifnull(?, now())  order by last_modified desc limit ?";
 	//Metodo para listar las canciones de los usuarios a los que sigo
+	@GET 
+	@Path("/{username}")
+	@Produces(MediaType.MAVERICK_API_SONG_COLLECTION)
+	public SongsCollection getStings(@PathParam("username") String username ,@QueryParam("length") int length,
+			@QueryParam("before") long before, @QueryParam("after") long after) {
+		
+		SongsCollection songs = new SongsCollection();
+	 
+		Connection conn = null;
+		try {
+			conn = ds.getConnection();
+		} catch (SQLException e) {
+			throw new ServerErrorException("Could not connect to the database",
+					Response.Status.SERVICE_UNAVAILABLE);
+		}
+	 
+		PreparedStatement stmt = null;
+		try {
+			boolean updateFromLast = after > 0;
+			stmt = updateFromLast ? conn
+					.prepareStatement(GET_SONGS_QUERY_FROM_LAST) : conn
+					.prepareStatement(GET_SONGS_QUERY);
+					
+					stmt.setString(1, username);
+			if (updateFromLast) {
+				stmt.setTimestamp(2, new Timestamp(after));
+			} else {
+				if (before > 0)
+					stmt.setTimestamp(2, new Timestamp(before));
+				else
+					stmt.setTimestamp(2, null);
+				length = (length <= 0) ? 30 : length;
+				stmt.setInt(3, length);
+			}
+			System.out.println(stmt);
+			ResultSet rs = stmt.executeQuery();
+			boolean first = true;
+			long oldestTimestamp = 0;
+			while (rs.next()) {
+				Songs song = new Songs();
+				song.setSong_name(rs.getString("song_name"));
+				song.setUsername(rs.getString("username"));
+				song.setAlbum(rs.getString("album_name"));
+				song.setDescription(rs.getString("description"));
+				song.setStyle(rs.getString("style"));
+				//song.setSongURL(rs.getString("songurl"));
+				song.setLikes(rs.getString("likes"));
+				//song.setDate(rs.getLong("date"));
+				
+				oldestTimestamp = rs.getTimestamp("last_modified").getTime();
+				song.setLastModified(oldestTimestamp);
+				if (first) {
+					first = false;
+					songs.setNewestTimestamp(song.getLastModified());
+				}
+				songs.addSong(song);
+			}
+			songs.setOldestTimestamp(oldestTimestamp);
+		} catch (SQLException e) {
+			throw new ServerErrorException(e.getMessage(),
+					Response.Status.INTERNAL_SERVER_ERROR);
+		} finally {
+			try {
+				if (stmt != null)
+					stmt.close();
+				conn.close();
+			} catch (SQLException e) {
+			}
+		}
+	 
+		return songs;
+	}
 
 }
