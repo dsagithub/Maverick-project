@@ -1,6 +1,39 @@
 package edu.upc.eetac.dsa.dsaqt1415g3.Maverick.api.model;
 
+import java.util.List;
+
+import javax.ws.rs.core.Link;
+
+import org.glassfish.jersey.linking.InjectLinks;
+
+
+import org.glassfish.jersey.linking.InjectLink;
+import org.glassfish.jersey.linking.InjectLink.Style;
+import org.glassfish.jersey.linking.Binding;
+
+
+
+
+import edu.upc.eetac.dsa.dsaqt1415g3.Maverick.api.MaverickRootAPIResource;
+import edu.upc.eetac.dsa.dsaqt1415g3.Maverick.api.MediaType;
+import edu.upc.eetac.dsa.dsaqt1415g3.Maverick.api.UserResource;
+
 public class Users {
+	//@InjectLinks({
+		//@InjectLink(resource = UserResource.class, style = Style.ABSOLUTE, rel = "self edit", title = "Userprofile", type=MediaType.MAVERICK_API_USER, method = "getProfile",  bindings = @Binding(name = "username", value = "${instance.username}")),
+		
+	//	 })
+	
+	private String username;
+	private String name;
+	private List<Link> links;
+	private String description;
+	private String userpass;
+	private String email;
+	private String rolename;
+	
+	
+	
 	public String getUsername() {
 		return username;
 	}
@@ -31,12 +64,8 @@ public class Users {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	private String username;
-	private String name;
-	private String description;
-	private String userpass;
-	private String email;
-	private String rolename;
+	
+	
 	public String getRolename() {
 		return rolename;
 	}
@@ -50,5 +79,13 @@ public class Users {
 	public void setLoginSuccessful(boolean loginSuccessful) {
 		this.loginSuccessful = loginSuccessful;
 	}
+	public List<Link> getLinks() {
+		return links;
+	}
+ 
+	public void setLinks(List<Link> links) {
+		this.links = links;
+	}
+	
 
 }

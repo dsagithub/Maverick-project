@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ws.rs.core.Link;
 
 public class Songs {
+	
 
 	private List<Link> links;
 	public List<Link> getLinks() {
@@ -77,6 +78,13 @@ public class Songs {
 	private String songURL;
 	private String likes;
 	private long lastModified;
+	private String text;
+	public String getText() {
+		return text;
+	}
+	public void setText(String text) {
+		this.text = text;
+	}
 	public long getLastModified() {
 		return lastModified;
 	}

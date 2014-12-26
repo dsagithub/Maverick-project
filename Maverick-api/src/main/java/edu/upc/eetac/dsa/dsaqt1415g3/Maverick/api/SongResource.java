@@ -8,10 +8,12 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 
 import javax.sql.DataSource;
+import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.NotFoundException;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -25,9 +27,13 @@ import javax.ws.rs.core.Response;
 
 
 
+
+import javax.ws.rs.core.SecurityContext;
+
 import edu.upc.eetac.dsa.dsaqt1415g3.Maverick.api.DataSourceSPA;
 import edu.upc.eetac.dsa.dsaqt1415g3.Maverick.api.model.Songs;
 import edu.upc.eetac.dsa.dsaqt1415g3.Maverick.api.model.SongsCollection;
+
 
 
 
@@ -35,6 +41,8 @@ import edu.upc.eetac.dsa.dsaqt1415g3.Maverick.api.model.SongsCollection;
 public class SongResource {
 	@Context
 	private Application app;
+	@Context
+	private SecurityContext security;
 	
 	private DataSource ds = DataSourceSPA.getInstance().getDataSource();
 	//private SecurityContext security;
@@ -351,5 +359,153 @@ public class SongResource {
 		return songs;
 	}
 
+	private String INSERT_COMMENT_QUERY = "insert into comments (songid, username, text) values (?,?,?); ";
+	//Metodo para comentar una canción
+	@POST 
+	@Path("/{songid}/comment")
+	@Consumes(MediaType.MAVERICK_API_COMMENT) 
+	@Produces(MediaType.MAVERICK_API_COMMENT)
+	public Songs createComment(@PathParam("songid") String songid, Songs song) {
+		//validateSong(song);
+		Connection conn = null;
+		try {
+			conn = ds.getConnection();
+		} catch (SQLException e) {
+			throw new ServerErrorException("Could not connect to the database",
+					Response.Status.SERVICE_UNAVAILABLE);
+		}
+	 
+		PreparedStatement stmt = null;
+		try {
+			stmt = conn.prepareStatement(INSERT_COMMENT_QUERY,
+					Statement.RETURN_GENERATED_KEYS); 
+			
+			stmt.setString(2, song.getUsername()); 
+			System.out.println(song.getUsername());
+			stmt.setString(1, songid);
+			System.out.println(songid);
+			stmt.setString(3, song.getText());
+			System.out.println(song.getText());
+			
+			System.out.println(stmt);
+		
+			stmt.executeUpdate();
+			ResultSet rs = stmt.getGeneratedKeys(); 
+			if (rs.next()) {
+				int commentid = rs.getInt(1);
+
+				song = getCommentFromDatabase(Integer.toString(commentid));
+			} else {
+				// Something has failed...
+			}
+		} catch (SQLException e) {
+			throw new ServerErrorException(e.getMessage(),
+					Response.Status.INTERNAL_SERVER_ERROR);
+		} finally {
+			try {
+				if (stmt != null)
+					stmt.close();
+				conn.close();
+			} catch (SQLException e) {
+			}
+		}
+	 
+		return song;
+	}
+	
+	
+	private void validateSong(Songs song) {
+
+		if (song.getText().length() > 500)
+			throw new BadRequestException("Text can't be greater than 500 characters.");
+	}
+	private String GET_COMMENTS_QUERY = "select * from comments where commentid = ?;";
+	
+	private Songs getCommentFromDatabase(String songid) {
+		Songs song = new Songs();
+		Connection conn = null;
+		try {
+			conn = ds.getConnection();
+		} catch (SQLException e) {
+			throw new ServerErrorException("Could not connect to the database",
+					Response.Status.SERVICE_UNAVAILABLE);
+		}
+
+		PreparedStatement stmt = null;
+		try {
+			stmt = conn.prepareStatement(GET_COMMENTS_QUERY);
+			stmt.setInt(1, Integer.valueOf(songid));
+			ResultSet rs = stmt.executeQuery();
+			long oldestTimestamp = 0;
+			if (rs.next()) {
+				song.setSongid(songid);
+				song.setUsername(rs.getString("username"));
+				song.setText(rs.getString("text"));
+				song.setLastModified(rs.getTimestamp("time")
+						.getTime());
+			
+
+			} else {
+				// Something has failed...
+			}
+		} catch (SQLException e) {
+			throw new ServerErrorException(e.getMessage(),
+					Response.Status.INTERNAL_SERVER_ERROR);
+		} finally {
+			try {
+				if (stmt != null)
+					stmt.close();
+				conn.close();
+			} catch (SQLException e) {
+			}
+		}
+		return song;
+	}
+	
+	
+	//Metodo para borrar el comentario de una canción
+	private String DELETE_COMMENT_QUERY = "delete from comments where commentid = ?;";
+	@DELETE
+	@Path("/{songid}/comment/{commentid}")
+	public void DeleteComment(@PathParam("songid") String songid, @PathParam("commentid") String commentid) {
+		
+
+		Connection conn = null;
+		try {
+			conn = ds.getConnection();
+		} catch (SQLException e) {
+			throw new ServerErrorException("Could not connect to the database",
+					Response.Status.SERVICE_UNAVAILABLE);
+		}
+
+		PreparedStatement stmt = null;
+		try {
+			stmt = conn.prepareStatement(DELETE_COMMENT_QUERY, Statement.RETURN_GENERATED_KEYS);
+			stmt.setString(1, commentid);
+			System.out.println(stmt);
+
+			int rows = stmt.executeUpdate();
+			if (rows == 0) {
+				throw new NotFoundException("No hay una comentario para esta cancion"
+						+ songid);
+			} else {
+				System.out.println("comentario eliminado");
+			}
+		} catch (SQLException e) {
+			throw new ServerErrorException(e.getMessage(),
+					Response.Status.INTERNAL_SERVER_ERROR);
+		} finally {
+			try {
+				if (stmt != null)
+					stmt.close();
+				conn.close();
+			} catch (SQLException e) {
+			}
+		}
+
+		// no retorna nada el delete, es un void!
+	}
+	
+	
 
 }

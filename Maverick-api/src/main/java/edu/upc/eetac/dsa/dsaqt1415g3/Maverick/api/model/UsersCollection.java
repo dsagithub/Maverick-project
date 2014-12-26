@@ -6,6 +6,7 @@ import java.util.List;
 import javax.ws.rs.core.Link;
 
 public class UsersCollection {
+	
 	private List<Link> links;
 	private List<Users> users;
 	

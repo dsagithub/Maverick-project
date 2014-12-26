@@ -6,5 +6,6 @@ public interface MediaType {
 	public final static String MAVERICK_API_USER_COLLECTION = "application/vnd.maverick.api.user.collection+json"; //coleción usuarios
 	public final static String MAVERICK_API_SONG = "application/vnd.maverick.api.song+json";
 	public final static String MAVERICK_API_SONG_COLLECTION = "application/vnd.maverick.api.song.collection+json"; //coleción stings
+	public final static String MAVERICK_API_COMMENT = "application/vnd.maverick.api.comment+json";
 	public final static String MAVERICK_API_ERROR = "application/vnd.dsa.maverick.error+json";
 }

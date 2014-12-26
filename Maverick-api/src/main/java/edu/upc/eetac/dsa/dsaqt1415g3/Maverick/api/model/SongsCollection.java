@@ -7,6 +7,7 @@ import javax.ws.rs.core.Link;
 
 
 public class SongsCollection {
+	
 	private List<Link> links;
 	private List<Songs> songs;
 	private long newestTimestamp;
