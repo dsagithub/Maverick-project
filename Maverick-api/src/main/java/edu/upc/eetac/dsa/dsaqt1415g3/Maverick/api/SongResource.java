@@ -359,13 +359,13 @@ public class SongResource {
 		return songs;
 	}
 
-	private String INSERT_COMMENT_QUERY = "insert into comments (songid, username, text) values (?,?,?); ";
+	private String INSERT_COMMENT_QUERY = "insert into comments (song_name,username, text) values (?,?,?); ";
 	//Metodo para comentar una canción
 	@POST 
-	@Path("/{songid}/comment")
+	@Path("/{song_name}/comment")
 	@Consumes(MediaType.MAVERICK_API_COMMENT) 
 	@Produces(MediaType.MAVERICK_API_COMMENT)
-	public Songs createComment(@PathParam("songid") String songid, Songs song) {
+	public Songs createComment(@PathParam("song_name") String song_name, Songs song) {
 		//validateSong(song);
 		Connection conn = null;
 		try {
@@ -382,8 +382,8 @@ public class SongResource {
 			
 			stmt.setString(2, song.getUsername()); 
 			System.out.println(song.getUsername());
-			stmt.setString(1, songid);
-			System.out.println(songid);
+			stmt.setString(1, song_name);
+			System.out.println(song_name);
 			stmt.setString(3, song.getText());
 			System.out.println(song.getText());
 			
@@ -466,8 +466,8 @@ public class SongResource {
 	//Metodo para borrar el comentario de una canción
 	private String DELETE_COMMENT_QUERY = "delete from comments where commentid = ?;";
 	@DELETE
-	@Path("/{songid}/comment/{commentid}")
-	public void DeleteComment(@PathParam("songid") String songid, @PathParam("commentid") String commentid) {
+	@Path("/{song_name}/comment/{commentid}")
+	public void DeleteComment(@PathParam("song_name") String song_name, @PathParam("commentid") String commentid) {
 		
 
 		Connection conn = null;
@@ -486,8 +486,8 @@ public class SongResource {
 
 			int rows = stmt.executeUpdate();
 			if (rows == 0) {
-				throw new NotFoundException("No hay una comentario para esta cancion"
-						+ songid);
+				throw new NotFoundException("No hay una comentario para esta cancion "
+						+ song_name);
 			} else {
 				System.out.println("comentario eliminado");
 			}

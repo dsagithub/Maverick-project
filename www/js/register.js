@@ -1,27 +1,19 @@
 var API_BASE_URL = "http://localhost:8080/Maverick-api/users";
-$('input[type="checkbox"]').click(function(){
-            if($(this).prop("checked") == true){
-                
-				
-				role= {
-				"rolename" : "artist"}
-				
 
-            }
-            else if($(this).prop("checked") == false){
-           
-				
-				role={
-				"rolename" : "fan"}
-					
-				
-            }
-			
-			crearUser(role);
-        });
+$('#fan').click(function (e){
+	role = $('#fan').val();
+	console.log(role);
+});
+var role;
+$('#artist').click(function (e){
+	role = $('#artist').val();
+	console.log(role);
+});
+
 $("#signin").click(function(e){
 	e.preventDefault();
 	$("#result").text(' ');
+	
 		  
 	var nuevoUser ;
 	nuevoUser= {
@@ -30,6 +22,7 @@ $("#signin").click(function(e){
 			"name" : $("#name").val(),
 			"email" : $("#email").val(),
 			"description" : $("#description").val(),
+			"rolename" : role
 			
 			 
 		
@@ -56,11 +49,21 @@ console.log(data);
 		data : data,
 	}).done(function(data, status, jqxhr) {
 		var info= data;
+		$.cookie('username', info.username);
+		$.cookie('username');
+		$.cookie('role', info.role);
+		$.cookie('role');
+
 		
 			window.location.replace("C:/Users/david/Desktop/dashboard.html");
   	}).fail(function() {
+	if (status == "409"){ alert("Ya existe un usuario con este username"); 
+	}else if (stauts =="500"){
 	
-		 alert("Se ha producido un error"); 
+		 alert("Se ha producido un error"); }
+		 else if (stauts =="400"){
+	
+		 alert("No se ha selecionado ningún rol de usuario"); }
 	});
 
 }
