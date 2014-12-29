@@ -89,7 +89,7 @@ public class SongResource {
 				song.setLast_modified(rs.getDate("last_modified"));
 				song.setSongURL(app.getProperties().get("uploadFolder")
 						+ song.getSongid()+ ".mp3");
-				song.setLikes(rs.getString("likes"));
+				song.setLikes(rs.getInt("likes"));
 				songs.add(song);
 				System.out.println("Query salida: " + stmt);
 				
@@ -146,7 +146,7 @@ public class SongResource {
 			stmt.setString(4, album_name);
 			stmt.setString(5, description);
 			stmt.setString(6, style);
-			stmt.setString(7, likes); //inicialmente 0
+		    stmt.setString(7, likes); //inicialmente 0
 			
 			System.out.println("Query salida: " + stmt);
 			stmt.executeUpdate();
@@ -257,70 +257,16 @@ public class SongResource {
 
 	
 	//Metodo para actualizar una cancion
-	/*@PUT
-	@Path("/{songid}")
-	@Consumes(MediaType.MAVERICK_API_SONG)
-	@Produces(MediaType.MAVERICK_API_SONG)
-	public Songs updateBook(@PathParam("songid") String songid, Songs song) {
-
-		
-		
-		//Falta por añadir que el usuario que edite la cncion sea el creador
-		// Alicia solo edita lo de Alicia
-		Connection conn = null;
-		try {
-			conn = ds.getConnection();
-		} catch (SQLException e) {
-			throw new ServerErrorException("Could not connect to the database",
-					Response.Status.SERVICE_UNAVAILABLE);
-		}
-
-		PreparedStatement stmt = null;
-		try {
-			// llamamos a la función para la query y la hacemos la database
-			String sql = buildUpdateSong();
-			stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-			stmt.setString(1, song.getSong_name());
-			stmt.setString(2, songid);
-
-			stmt.executeUpdate(); // para añadir con los datos de la BBDD
-									
-			// si todo va bien...
-			
-//Listar!					song = getSongFromDatabase(songid);
-
-			
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (stmt != null)
-					stmt.close();
-				conn.close();
-			} catch (SQLException e) {
-				throw new ServerErrorException(e.getMessage(),
-						Response.Status.INTERNAL_SERVER_ERROR);
-			}
-		}
-
-		return song;
-
-	}
-	
-	// PUT para hacer un update de canciones
-	
-	private String buildUpdateSong() {
-		return "update songs set song_name = ? where songid = ? ";
-	}*/
 	// PUT de una cancion, donde solo puede modificar el usuario que sube la canción.
-			private String PUT_UPDATE_SONG = " UPDATE songs set song_name= ? where songid = ?  ";	
-			@PUT
-			@Path("/{song_name}/{songid}")
+			//private String PUT_UPDATE_SONG = " UPDATE songs set song_name= ? where songid = ?  ";	
+	private String PUT_UPDATE_SONG = "update songs set songid=ifnull(?, songid), style=ifnull(?, style) where song_name = ?;";
+	 		
+	        @PUT
+			@Path("/{song_name}")
 			@Consumes(MediaType.MAVERICK_API_SONG)
 			@Produces(MediaType.MAVERICK_API_SONG)
-			public Songs updateSong(@PathParam("song_name") String song_name,@PathParam("songid") String songid, Songs song) {	
-				//
+			public Songs updateSong(@PathParam("song_name") String song_name, Songs song) {	
+				
 				// solo puede el registrado
 				//if (!security.isUserInRole("registered"))
 				//	throw new ForbiddenException("You are not allowed to delete a book");
@@ -339,23 +285,34 @@ public class SongResource {
 				PreparedStatement stmt = null;
 				try {
 					
-						if (song_name != null) {
+						//if (song_name != null) {
 							stmt = conn.prepareStatement(PUT_UPDATE_SONG);
-							stmt.setString(1, song_name);
-							stmt.setInt(2,Integer.valueOf(songid));
+							stmt.setString(1, song.getSongid());
+							stmt.setString(2, song.getStyle());
+							stmt.setString(3, song_name);
+							//stmt.setString(1, song_name);
+							//stmt.setInt(2,Integer.valueOf(songid));
 							
 							
-							stmt.executeUpdate(); // para añadir con los datos de la BBDD
+							int rows = stmt.executeUpdate(); // para añadir con los datos de la BBDD
 							System.out.println("Query salida: " + stmt);
 							
-						}
+							if (rows == 0){
+								throw new NotFoundException("No hay una cancion llamada " + song_name);
+								}
+							else {
+								System.out.println("canción actualizada");
+								
+							}
+				
+						//}
 						
 											
 					// si todo va bien...
 
 //Hace el put pero no saca la lista, falta por acabar					
 					
-					song = getSongFromDatabase(song_name);
+					//song = getSongFromDatabase(song_name);
 
 					
 
@@ -408,7 +365,7 @@ public class SongResource {
 						song.setStyle(rs.getString("style"));
 						//song.setDate(rs.getTimestamp("last_modified").getTime());
 						//song.setSongURL(rs.getString("songURL"));
-						song.setLikes(rs.getString("likes"));
+						song.setLikes(rs.getInt("likes"));
 						
 						System.out.println("Query salida: " + stmt);
 					}
@@ -486,23 +443,13 @@ public class SongResource {
 				return song;
 			}
 			*/
-//private String GET_SONG_BY_SONG_NAME = "select s.*, u.name from stings s, users u where u.username=s.username ";
-
- /*  @GET
-	@Path("/{song_name}")
-	@Produces(MediaType.MAVERICK_API_SONG)
-		public Response getSting(@PathParam("song_name") String song,
-				@Context Request request) {
-		return song;
-	}
-*/
-			 
+		 
 
 		
 		// MEtodo para listar canciones por género	
 		
-		private String GET_STYLE_SONG = " SELECT * from songs where style LIKE ? ";
-		@Path("/{style}")
+		private String GET_STYLE_SONG = " SELECT * from songs where style LIKE ?;";
+		@Path("/style")
 		@GET
 	    @Produces(MediaType.MAVERICK_API_SONG)
 		public SongsCollection SearchStyles(@QueryParam("style") String style) {
@@ -512,7 +459,7 @@ public class SongResource {
 			try {
 				conn = ds.getConnection();
 			} catch (SQLException e) {
-				throw new ServerErrorException("Could not connect to the databes",
+				throw new ServerErrorException("Could not connect to the database",
 						Response.Status.SERVICE_UNAVAILABLE);
 			}
 			System.out.println("datos: " + style);
@@ -527,20 +474,32 @@ public class SongResource {
 					stmt.setString(1, style);
 				}
 
-		
+		        
 				ResultSet rs = stmt.executeQuery();
 				System.out.println(stmt);
 					while (rs.next()) {
 						Songs song = new Songs();
 						song.setSong_name(rs.getString("song_name"));
+						
 						song.setUsername(rs.getString("username"));
 						song.setSongid(rs.getString("songid"));
 						song.setAlbum(rs.getString("album_name"));
 						song.setDescription(rs.getString("description"));
+
+
 						song.setStyle(rs.getString("style"));
 						//song.setDate(rs.getTimestamp("last_modified").getTime());
+
+						//song.setSongURL(rs.getString("songURL"));
+
+						//song.setStyle(rs.getString("style"));
+						song.setLast_modified(rs.getDate("last_modified"));
+						song.setSongURL(app.getProperties().get("uploadFolder")
+								+ song.getSongid()+ ".mp3");
+						//song.setDate(rs.getTimestamp("last_modified").getTime());
 						song.setSongURL(rs.getString("songURL"));
-						song.setLikes(rs.getString("likes"));
+						song.setLikes(rs.getInt("likes"));
+
 						
 						System.out.println("Query salida: " + stmt);
 					
@@ -548,7 +507,9 @@ public class SongResource {
 					}
 				
 			} catch (SQLException e) {
-				e.printStackTrace();
+				throw new ServerErrorException(e.getMessage(),
+						Response.Status.INTERNAL_SERVER_ERROR);
+
 			} finally {
 				try {
 					if (stmt != null)
@@ -612,7 +573,7 @@ public class SongResource {
 						//	+ song.getSongid()+ ".mp3");
 					//song.setDate(rs.getTimestamp("last_modified").getTime());
 					//song.setSongURL(rs.getString("songURL"));
-					song.setLikes(rs.getString("likes"));
+				    song.setLikes(rs.getInt("likes"));
 					
 					System.out.println("Query salida: " + stmt);
 				
@@ -677,7 +638,7 @@ public class SongResource {
 					song.setLast_modified(rs.getDate("last_modified"));
 					song.setSongURL(app.getProperties().get("uploadFolder")
 							+ song.getSongid()+ ".mp3");
-					song.setLikes(rs.getString("likes"));
+					song.setLikes(rs.getInt("likes"));
 					
 					System.out.println("Query salida: " + stmt);
 				
@@ -744,7 +705,7 @@ public class SongResource {
 				song.setStyle(rs.getString("style"));
 				//song.setDate(rs.getTimestamp("last_modified").getTime());
 				//song.setSongURL(rs.getString("songURL"));
-				song.setLikes(rs.getString("likes"));
+				song.setLikes(rs.getInt("likes"));
 				
 				System.out.println("Query salida: " + stmt);
 			
@@ -828,7 +789,7 @@ public class SongResource {
 					song.setLast_modified(rs.getDate("last_modified"));
 					song.setSongURL(app.getProperties().get("uploadFolder")
 							+ song.getSongid()+ ".mp3");
-					song.setLikes(rs.getString("likes"));
+					song.setLikes(rs.getInt("likes"));
 					
 					System.out.println("Query salida: " + stmt);
 				
@@ -902,7 +863,7 @@ public class SongResource {
 				song.setDescription(rs.getString("description"));
 				song.setStyle(rs.getString("style"));
 				//song.setSongURL(rs.getString("songurl"));
-				song.setLikes(rs.getString("likes"));
+				song.setLikes(rs.getInt("likes"));
 				//song.setDate(rs.getLong("date"));
 				
 				oldestTimestamp = rs.getTimestamp("last_modified").getTime();
@@ -1076,6 +1037,116 @@ public class SongResource {
 		// no retorna nada el delete, es un void!
 	}
 	
+	//Crear Like
 	
+	private String UPDATE_LIKE = "UPDATE songs set likes = ? where song_name = ?";
+	
+
+	@PUT
+	@Path("/likes/{song_name}")
+	@Consumes(MediaType.MAVERICK_API_SONG)
+	@Produces(MediaType.MAVERICK_API_SONG)
+
+	public Songs CreateLike(Songs songs, @PathParam("song_name") String song_name)
+	{
+		
+		Connection conn = null;
+		try {
+			conn = ds.getConnection();
+		} catch (SQLException e) {
+			throw new ServerErrorException("Could not connect to the database",
+					Response.Status.SERVICE_UNAVAILABLE);
+		}
+		
+		PreparedStatement stmt = null;
+		
+		try{
+			int numero = 1;
+			stmt = conn.prepareStatement(UPDATE_LIKE, Statement.RETURN_GENERATED_KEYS);
+			stmt.setInt(1, songs.getLikes() + numero);	
+			stmt.setString(2, song_name);
+			
+		
+			System.out.println(stmt);
+			
+			
+			int rows = stmt.executeUpdate();
+			if (rows == 0) {
+				throw new NotFoundException("No hay una cancion con este nombre"
+						+ song_name);// Updating inexistent sting
+			} else {
+				
+				System.out.println("like actualizado");
+			}
+		
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+			try {
+				if (stmt != null)
+					stmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		System.out.println(songs);
+		return songs;
+	}
+	
+	//Borrar like
+	
+	@PUT
+	@Path("/likesquitar/{song_name}")
+	@Consumes(MediaType.MAVERICK_API_SONG)
+	@Produces(MediaType.MAVERICK_API_SONG)
+
+	public Songs BorrarLike(Songs songs, @PathParam("song_name") String song_name)
+	{
+		
+		Connection conn = null;
+		try {
+			conn = ds.getConnection();
+		} catch (SQLException e) {
+			throw new ServerErrorException("Could not connect to the database",
+					Response.Status.SERVICE_UNAVAILABLE);
+		}
+		
+		PreparedStatement stmt = null;
+		
+		try{
+			int numero = 1;
+			stmt = conn.prepareStatement(UPDATE_LIKE, Statement.RETURN_GENERATED_KEYS);
+			stmt.setInt(1, songs.getLikes() - numero);	
+			stmt.setString(2, song_name);
+			
+		
+			System.out.println(stmt);
+			
+			
+			int rows = stmt.executeUpdate();
+			if (rows == 0) {
+				throw new NotFoundException("No hay una cancion con este nombre"
+						+ song_name);// Updating inexistent sting
+			} else {
+				
+				System.out.println("like actualizado");
+			}
+		
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+			try {
+				if (stmt != null)
+					stmt.close();
+				conn.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		System.out.println(songs);
+		return songs;
+	}
+
 
 }

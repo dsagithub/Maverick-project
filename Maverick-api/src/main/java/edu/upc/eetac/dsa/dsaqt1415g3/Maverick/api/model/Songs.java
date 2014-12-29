@@ -19,7 +19,14 @@ public class Songs {
 	private String description;
 	private String style;
 	private String songURL;
-	private String likes;
+	private int likes;
+	public int getLikes() {
+		return likes;
+	}
+	public void setLikes(int likes) {
+		this.likes = likes;
+	}
+
 	private Date last_modified;
 	public Date getLast_modified() {
 		return last_modified;
@@ -87,12 +94,7 @@ public class Songs {
 	public void setSongURL(String songURL) {
 		this.songURL = songURL;
 	}
-	public String getLikes() {
-		return likes;
-	}
-	public void setLikes(String likes) {
-		this.likes = likes;
-	}
+	
 	private long lastModified;
 	private String text;
 	public String getText() {
