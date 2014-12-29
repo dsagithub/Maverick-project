@@ -1,5 +1,9 @@
 package edu.upc.eetac.dsa.dsaqt1415g3.Maverick.api.model;
 
+
+
+
+import java.sql.Date;
 import java.util.List;
 
 import javax.ws.rs.core.Link;
@@ -8,6 +12,24 @@ public class Songs {
 	
 
 	private List<Link> links;
+	private String songid;
+	private String username;
+	private String song_name;
+	private String album;
+	private String description;
+	private String style;
+	private String songURL;
+	private String likes;
+	private Date last_modified;
+	public Date getLast_modified() {
+		return last_modified;
+	}
+	public void setLast_modified(Date last_modified) {
+		this.last_modified = last_modified;
+	}
+
+	
+
 	public List<Link> getLinks() {
 		return links;
 	}
@@ -50,15 +72,18 @@ public class Songs {
 	public void setStyle(String style) {
 		this.style = style;
 	}
+	/*
 	public long getDate() {
 		return date;
 	}
 	public void setDate(long date) {
 		this.date = date;
 	}
+	*/
 	public String getSongURL() {
 		return songURL;
 	}
+	
 	public void setSongURL(String songURL) {
 		this.songURL = songURL;
 	}
@@ -68,15 +93,6 @@ public class Songs {
 	public void setLikes(String likes) {
 		this.likes = likes;
 	}
-	private String songid;
-	private String username;
-	private String song_name;
-	private String album;
-	private String description;
-	private String style;
-	private long date;
-	private String songURL;
-	private String likes;
 	private long lastModified;
 	private String text;
 	public String getText() {
@@ -99,5 +115,6 @@ public class Songs {
 	}
 	private long creationTimestamp;
  
+
 	
 }

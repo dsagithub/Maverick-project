@@ -25,22 +25,9 @@ import javax.ws.rs.core.EntityTag;
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
-
 import org.apache.commons.codec.digest.DigestUtils;
-
-
-
-
-
-
-
-
 import edu.upc.eetac.dsa.dsaqt1415g3.Maverick.api.model.Users;
 import edu.upc.eetac.dsa.dsaqt1415g3.Maverick.api.model.UsersCollection;
-
-
-
-
 
 
 
@@ -566,8 +553,7 @@ public class UserResource {
 			stmt.setString(2, following);
 			int rows = stmt.executeUpdate();
 			if (rows == 0)
-				throw new NotFoundException("There's no User with username="
-						+ username + " or " + following);
+				throw new NotFoundException("There's no User with username=" + username + " or " + following);
 		} catch (SQLException e) {
 			throw new ServerErrorException(e.getMessage(),
 					Response.Status.INTERNAL_SERVER_ERROR);

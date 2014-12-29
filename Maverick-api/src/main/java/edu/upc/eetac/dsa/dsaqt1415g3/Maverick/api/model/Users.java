@@ -22,7 +22,7 @@ public class Users {
 	//@InjectLinks({
 		//@InjectLink(resource = UserResource.class, style = Style.ABSOLUTE, rel = "self edit", title = "getProfile", type=MediaType.MAVERICK_API_USER, method = "getProfile",  bindings = @Binding(name = "username", value = "${instance.username}"))
 		//@InjectLink(resource = UserResource.class, style = Style.ABSOLUTE, rel = "following", title = "Following", type = MediaType.MAVERICK_API_USER_COLLECTION, method = "getFollowing", bindings = @Binding(name = "username", value = "${instance.username}")),
-		// })
+		 //})
 	
 	private String username;
 	private String name;
