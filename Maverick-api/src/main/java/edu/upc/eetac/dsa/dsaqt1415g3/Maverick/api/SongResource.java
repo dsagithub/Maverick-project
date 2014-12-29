@@ -368,7 +368,6 @@ public class SongResource {
 								Response.Status.INTERNAL_SERVER_ERROR);
 					}
 				}
-
 				return song;
 
 			}
