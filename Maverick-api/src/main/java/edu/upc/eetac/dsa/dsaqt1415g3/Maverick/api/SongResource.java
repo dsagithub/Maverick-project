@@ -604,12 +604,12 @@ public class SongResource {
 
 					song.setStyle(rs.getString("style"));
 					//song.setDate(rs.getTimestamp("last_modified").getTime());
-					song.setSongURL(rs.getString("songURL"));
+					//song.setSongURL(rs.getString("songURL"));
 
-					song.setStyle(rs.getString("style"));
+					//song.setStyle(rs.getString("style"));
 					song.setLast_modified(rs.getDate("last_modified"));
-					song.setSongURL(app.getProperties().get("uploadFolder")
-							+ song.getSongid()+ ".mp3");
+					//song.setSongURL(app.getProperties().get("uploadFolder")
+						//	+ song.getSongid()+ ".mp3");
 					//song.setDate(rs.getTimestamp("last_modified").getTime());
 					//song.setSongURL(rs.getString("songURL"));
 					song.setLikes(rs.getString("likes"));
