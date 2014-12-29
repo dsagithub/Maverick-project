@@ -563,8 +563,7 @@ public class UserResource {
 			stmt.setString(2, following);
 			int rows = stmt.executeUpdate();
 			if (rows == 0)
-				throw new NotFoundException("There's no User with username="
-						+ username + " or " + following);
+				throw new NotFoundException("There's no User with username=" + username + " or " + following);
 		} catch (SQLException e) {
 			throw new ServerErrorException(e.getMessage(),
 					Response.Status.INTERNAL_SERVER_ERROR);
