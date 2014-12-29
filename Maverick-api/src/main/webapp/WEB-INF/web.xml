@@ -88,6 +88,10 @@
 	
 	<role-name>artist</role-name>
 </security-role>
+<security-role>
+	
+	<role-name>fan</role-name>
+</security-role>
  
 <security-constraint>
 	<web-resource-collection>
@@ -112,9 +116,7 @@
 		<http-method>PUT</http-method>
 		<http-method>DELETE</http-method>
 	</web-resource-collection>
-	<auth-constraint>
-		<role-name>artist</role-name>
-	</auth-constraint>
+	
 </security-constraint>
     
     

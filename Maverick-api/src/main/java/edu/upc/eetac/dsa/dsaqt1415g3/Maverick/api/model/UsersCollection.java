@@ -5,7 +5,17 @@ import java.util.List;
 
 import javax.ws.rs.core.Link;
 
+import org.glassfish.jersey.linking.Binding;
+import org.glassfish.jersey.linking.InjectLink;
+import org.glassfish.jersey.linking.InjectLinks;
+import org.glassfish.jersey.linking.InjectLink.Style;
+
+import edu.upc.eetac.dsa.dsaqt1415g3.Maverick.api.MediaType;
+import edu.upc.eetac.dsa.dsaqt1415g3.Maverick.api.UserResource;
+
 public class UsersCollection {
+	
+	
 	private List<Link> links;
 	private List<Users> users;
 	

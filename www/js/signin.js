@@ -1,14 +1,13 @@
 var API_BASE_URL = "http://localhost:8080/Maverick-api";
-
+var username;
 $("#button_signin").click(function(e) {
 	e.preventDefault();
 	
 	var login = new Object();
 	login.username=$("#username").val();
 	login.userpass=$("#password").val();
-	document.cookie = "username=" + login.username;
-	document.cookie = "userpass=" + login.userpass;
-	console.log(document.cookie);
+  
+	
 	Login(login);
 });
 
@@ -32,7 +31,26 @@ function Login(login){
 	}).done(function(data, status, jqxhr) {
 				var info= data;
 				console.log(info);
-				window.location.replace("C:/Users/david/Desktop/dashboard.html");
+				console.log(info.loginSuccessful);
+				if (info.loginSuccessful == true){
+					$.cookie('username', info.username);
+					$.cookie('username');
+							console.log(info.loginSuccessful);
+	
+				window.location.replace("file:///C:/Users/david/Desktop/dashboard.html");
+
+				}
+				else {		alert("contraseña incorrecta"); 
+					console.log(info.loginSuccessful);
+						
+		      
+					
+					
+					
+					
+					
+				
+			}
 		 
 
 	}).fail(function() {
@@ -40,13 +58,4 @@ function Login(login){
 	});
 
 
-}
-function getCookie(name) {
-	var pattern = RegExp(name + "=.[^;]*");
-	matched = document.cookie.match(pattern);
-	if (matched) {
-		var cookie = matched[0].split('=');
-		return cookie[1];
-	}
-	return false;
 }

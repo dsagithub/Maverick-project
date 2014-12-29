@@ -16,6 +16,7 @@ public class DataSourceSPA {
 			envContext = new InitialContext();
 			Context initContext = (Context) envContext.lookup("java:/comp/env");
 			dataSource = (DataSource) initContext.lookup("jdbc/maverickdb"); //se obtiene la referencia al datasource, por eso podemos garantziar q solo hay una referencia
+		//	dataSource = (DataSource) initContext.lookup("jdbc/mediadb");
 		} catch (NamingException e1) {
 			e1.printStackTrace();
 		}

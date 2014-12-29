@@ -34,6 +34,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 
 
 
+
 import edu.upc.eetac.dsa.dsaqt1415g3.Maverick.api.model.Users;
 import edu.upc.eetac.dsa.dsaqt1415g3.Maverick.api.model.UsersCollection;
 
@@ -47,12 +48,12 @@ import edu.upc.eetac.dsa.dsaqt1415g3.Maverick.api.model.UsersCollection;
 @Path("/users")
 public class UserResource {
 	private DataSource ds = DataSourceSPA.getInstance().getDataSource();
-	private String GET_USER_BY_USERNAME_QUERY = "select * from users where username=?";
+	private String GET_USER_BY_USERNAME_QUERY = "select * from users where username=?;";
 	private final static String INSERT_USER_INTO_USERS = "insert into users values(?, MD5(?), ?, ?, ?)";
 	private final static String INSERT_USER_INTO_USER_ROLES = "insert into user_roles values (?, ?)";
 	private final static String GET_USER_BY_USERNAME ="select * from users where username=?";
 	private final static String DELETE_USER_QUERY = "Delete from users where username=? ";
-	private final static String UPDATE_USER_QUERY ="update users set userpass=ifnull(?, userpass), name=ifnull(?, name), email=ifnull(?, email), description=ifnull(?, description)  where username=?;";
+	private final static String UPDATE_USER_QUERY ="update users set name=ifnull(?, name), email=ifnull(?, email), description=ifnull(?, description)  where username=?;";
 	
 	//Metodo para loguearse
 	@Path("/login")
@@ -64,12 +65,13 @@ public class UserResource {
 		if (user.getUsername() == null || user.getUserpass() == null)
 			throw new BadRequestException(
 					"username and password cannot be null.");
- 
+
 		String pwdDigest = DigestUtils.md5Hex(user.getUserpass()); //calculamos el md5 de la contraseña
 		String storedPwd = getUserFromDatabase(user.getUsername(), true) //nos devuelve el pasword en md5 y en hexadecimal y se puede comparar con el de la base de datos y que sean iguales
 				.getUserpass();
- 
+		
 		user.setLoginSuccessful(pwdDigest.equals(storedPwd)); //ponemos el atributo de login si es true o false si coinciden
+		 
 		user.setUserpass(null); //cuando nos pasan el user, de manera que la contraseña no aparece
 		System.out.println("Usuario logueado");
 		return user;
@@ -84,11 +86,12 @@ public class UserResource {
 			throw new ServerErrorException("Could not connect to the database",
 					Response.Status.SERVICE_UNAVAILABLE);
 		}
- 
+		
 		PreparedStatement stmt = null;
 		try {
 			stmt = conn.prepareStatement(GET_USER_BY_USERNAME_QUERY);
 			stmt.setString(1, username);
+			
 			System.out.println(stmt);
  
 			ResultSet rs = stmt.executeQuery();
@@ -227,12 +230,12 @@ public class UserResource {
 			
 			
 			stmt = conn.prepareStatement(UPDATE_USER_QUERY);
-			stmt.setString(5, username);
-			stmt.setString(1, user.getUserpass());
-			stmt.setString(2, user.getName());
-			stmt.setString(3, user.getEmail());
+			stmt.setString(4, username);
+		
+			stmt.setString(1, user.getName());
+			stmt.setString(2, user.getEmail());
 			
-			stmt.setString(4, user.getDescription());
+			stmt.setString(3, user.getDescription());
 			System.out.println(stmt);
 	 
 			int rows = stmt.executeUpdate();

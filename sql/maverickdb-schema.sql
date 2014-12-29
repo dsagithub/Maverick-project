@@ -18,10 +18,10 @@ create table user_roles (
 	primary key (username, rolename)
 );
 
-create table Songs (
-	songid int not null auto_increment unique,
+create table songs (
+	songid varchar(50) not null,
 	username	varchar(20) not null,
-	song_name	varchar(100) not null,
+	song_name	varchar(100) not null unique,
 	album_name varchar(100),
 	description	varchar(500),
 	style	varchar(50) not  null,
@@ -34,18 +34,19 @@ create table Songs (
 );
 create table comments (
 	commentid int not null auto_increment unique,
-	songid int not null,
+	songid varchar(50) not null,
+	song_name varchar(100) not null,
 	username varchar(50) not null,
     text varchar(500),
     time timestamp,
     foreign key(username) references users (username) on delete cascade,
-	foreign key(songid) references songs (songid) on delete cascade
+	foreign key(song_name) references songs (song_name) on delete cascade
 
 );
 
 
 
-create table Follow(
+create table follow(
 	followingname varchar(20),
 	followername varchar(20),
 	foreign key(followingname) references users(username) on delete cascade,
