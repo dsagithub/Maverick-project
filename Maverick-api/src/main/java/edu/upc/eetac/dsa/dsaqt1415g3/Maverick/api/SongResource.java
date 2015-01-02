@@ -820,7 +820,7 @@ public class SongResource {
 	@GET 
 	@Path("/{username}")
 	@Produces(MediaType.MAVERICK_API_SONG_COLLECTION)
-	public SongsCollection getStings(@PathParam("username") String username ,@QueryParam("length") int length,
+	public SongsCollection getCancionesFollowing(@PathParam("username") String username ,@QueryParam("length") int length,
 			@QueryParam("before") long before, @QueryParam("after") long after) {
 		
 		SongsCollection songs = new SongsCollection();
