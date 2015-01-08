@@ -82,19 +82,17 @@ public class SongResource {
 				Songs song = new Songs();
 				song.setSong_name(rs.getString("song_name"));
 				song.setUsername(rs.getString("username"));
-				song.setSongid(rs.getString("songid"));
+				song.setSongid(rs.getString("songid") + ".mp3");
 				song.setAlbum(rs.getString("album_name"));
 				song.setDescription(rs.getString("description"));
 				song.setStyle(rs.getString("style"));
 				song.setLast_modified(rs.getDate("last_modified"));
-				song.setSongURL(app.getProperties().get("uploadFolder")
-						+ song.getSongid()+ ".mp3");
+				song.setSongURL(app.getProperties().get("songBaseURL")
+						+ song.getSongid());
 				song.setLikes(rs.getInt("likes"));
 				songs.add(song);
 				System.out.println("Query salida: " + stmt);
 				
-				
-			
 				
 			}
 		} catch (SQLException e) {
@@ -139,7 +137,7 @@ public class SongResource {
 		}
 		PreparedStatement stmt = null;
 		try {
-			stmt = conn.prepareStatement("insert into songs (songid, song_name, username, album_name, description, style, likes) values (?,?,?,?,?,?,?) ");
+			stmt = conn.prepareStatement("insert into songs (songid, song_name, username, album_name, description, style, likes) values (?,?,?,?,?,?,?) ", Statement.RETURN_GENERATED_KEYS);
 			stmt.setString(1, uuid.toString());
 			stmt.setString(3, username);
 			stmt.setString(2, song_name);
@@ -147,9 +145,9 @@ public class SongResource {
 			stmt.setString(5, description);
 			stmt.setString(6, style);
 		    stmt.setString(7, likes); //inicialmente 0
-			
 			System.out.println("Query salida: " + stmt);
 			stmt.executeUpdate();
+			
 			
 		} catch (SQLException e) {
 			throw new ServerErrorException(e.getMessage(),
@@ -160,13 +158,16 @@ public class SongResource {
 					stmt.close();
 				conn.close();
 			} catch (SQLException e) {
-			}
 		}
 		
-		//songs.setFilename(uuid.toString() + ".mp3"); //unico formato
-		//songs.setTitle(song_name);
-		//songs.setSongURL(app.getProperties().get("songBaseURL") + songData.getFilename());
-		//System.out.println(propiedades.getProperty("songBaseURL"));
+	
+		
+		
+		
+		}
+		
+		songs.setSongid(uuid.toString() + ".mp3");
+		songs.setSongURL(app.getProperties().get("songBaseURL") + songs.getSongid());
 		
 		
 		return songs;
@@ -564,7 +565,7 @@ public class SongResource {
 		
 	
 
-	private String GET_SEARCH_SONG = " SELECT * from songs where song_name LIKE ? ;";
+	private String GET_SEARCH_SONG = " SELECT * from songs where song_name LIKE  ?  ;";
 	@Path("/search")
 	@GET
     @Produces(MediaType.MAVERICK_API_SONG)
@@ -597,25 +598,15 @@ public class SongResource {
 					Songs song = new Songs();
 					song.setSong_name(rs.getString("song_name"));
 					song.setUsername(rs.getString("username"));
-					song.setSongid(rs.getString("songid"));
+					song.setSongid(rs.getString("songid") + ".mp3");
 					song.setAlbum(rs.getString("album_name"));
 					song.setDescription(rs.getString("description"));
-
-
-					song.setStyle(rs.getString("style"));
-					//song.setDate(rs.getTimestamp("last_modified").getTime());
-					song.setSongURL(rs.getString("songURL"));
-
 					song.setStyle(rs.getString("style"));
 					song.setLast_modified(rs.getDate("last_modified"));
-					song.setSongURL(app.getProperties().get("uploadFolder")
-							+ song.getSongid()+ ".mp3");
-					//song.setDate(rs.getTimestamp("last_modified").getTime());
-					//song.setSongURL(rs.getString("songURL"));
-				    song.setLikes(rs.getInt("likes"));
-					
+					song.setSongURL(app.getProperties().get("songBaseURL")
+							+ song.getSongid());
+					song.setLikes(rs.getInt("likes"));
 					System.out.println("Query salida: " + stmt);
-				
 					songs.add(song);
 				}
 			

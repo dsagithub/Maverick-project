@@ -1,5 +1,5 @@
 var API_BASE_URL = "http://localhost:8080/Maverick-api";
-var username = getCookie("username");
+var username = getCookie('username');
 console.log(username);	
 
 $(document).ready(function() {
@@ -11,20 +11,18 @@ followsongs(username);
 
 $("#profile").click(function(e) {
 	e.preventDefault();
-	window.location.replace("C:/Users/david/Desktop/userprofile.html");
+	window.location.replace("file:///C:/Users/DaviD/Desktop/wwwproyecto/userProfile.html");
 });
 $("#ranking").click(function(e) {
   e.preventDefault();
-  window.location.replace("file:///C:/Users/david/Desktop/ranking.html");
+  window.location.replace("file:///C:/Users/DaviD/Desktop/wwwproyecto/ranking.html");
 });
-$("#searchartist").click(function(e) {
+$('#searchartist').click(function(e) {
 	e.preventDefault();
-  var elementobusqueda = $("#artisttosearch").val();
+  var elementobusqueda = $('artisttosearch').val();
   $.cookie('elementobusqueda', elementobusqueda);
     $.cookie('elementobusqueda');
-  
- 
-	window.location.replace("file:///C:/Users/david/Desktop/search.html");
+	window.location.replace("file:///C:/Users/DaviD/Desktop/wwwproyecto/search.html");
 });
 
 
@@ -35,7 +33,7 @@ var url = API_BASE_URL + '/songs/' + username;
 
 console.log(url);
   
-  $("#searchtab").text('');
+  $('#searchtab').text('');
 
   $.ajax({
     url : url,
@@ -46,25 +44,17 @@ console.log(url);
 
   var listausers = data;
       
-        
-        $.each(listausers.songs, function(i,v){
+		$.each(listausers.songs, function(i,v){
           var song = v;
           console.log(song);
             
-          
-          
-        
-          $('<strong> Song: </strong>' + song.song_name + '<br>').appendTo($('#myResults'));
+            $('<strong> Song: </strong>' + song.song_name + '<br>').appendTo($('#myResults'));
             $('<strong> Artist: </strong>' + song.username + '<br>').appendTo($('#myResults'));
           
           
           $('</p>').appendTo($('#myResults'));
         
         });
-        
-        
-        
-
         
         
       }).fail(function() {
@@ -85,3 +75,6 @@ function getCookie(name){
   }
   return false;
 }
+
+
+

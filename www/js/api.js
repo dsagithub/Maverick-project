@@ -1,5 +1,5 @@
 var API_BASE_URL = "http://localhost:8080/Maverick-api/";
-var username = getCookie("username");
+var username = getCookie('username');
 //console.log(username);	
 var search = getCookie("search");
 
@@ -10,17 +10,17 @@ Userdata(username);
 
 
 
-$("#searchartist").click(function(e) {
+$('#searchartist').click(function(e) {
 	e.preventDefault();
   var elementobusqueda = $("#artisttosearch").val();
   $.cookie('elementobusqueda', elementobusqueda);
     $.cookie('elementobusqueda');
   
  
-	window.location.replace("file:///C:/Users/david/Desktop/search.html");
+	window.location.replace("file:///C:/Users/DaviD/Desktop/wwwproyecto/search.html");
 });
 
-$("#followingtab").click(function(e){
+$('#followingtab').click(function(e){
 	
 	e.preventDefault();
 	$("#result").text(' ');
@@ -30,8 +30,8 @@ $("#followingtab").click(function(e){
 	
 });
 
-$("#deleteprofilefinal").click(function(e){
-	var usernametodelete =getCookie("username");
+$('#deleteprofilefinal').click(function(e){
+	var usernametodelete =getCookie('username');
 	e.preventDefault();
 	$("#result").text(' ');
 		  
@@ -43,9 +43,9 @@ $("#deleteprofilefinal").click(function(e){
 
 $("#updateButton").click(function(e){
 	var useredit={
-		"name" : $("#nametoedit").val(),
-		"email" : $("#emailtoedit").val(),
-	"description" : $("#descriptiontoedit").val()
+		"name" : $('#nametoedit').val(),
+		"email" : $('#emailtoedit').val(),
+	"description" : $('#descriptiontoedit').val()
 	
 	
 }
@@ -65,7 +65,7 @@ var url = API_BASE_URL + 'search?username=' + artisttosearch;
 
 console.log(url);
 	
-	$("#searchtab").text('');
+	$("'#searchtab').text('');
 
 	$.ajax({
 		url : url,
@@ -109,7 +109,7 @@ var url = API_BASE_URL + 'users/' + username;
 
 console.log(url);
 	
-	$("#searchtab").text('');
+	$('#searchtab').text('');
 
 	$.ajax({
 		url : url,
@@ -148,7 +148,7 @@ var url = API_BASE_URL + 'users/' + username;
 
 console.log(url);
 	
-	$("#searchtab").text('');
+	$('#searchtab').text('');
 
 	$.ajax({
 		url : url,
@@ -158,8 +158,8 @@ console.log(url);
 		dataType : 'json',
 	}).done(function(data, status, jqxhr) {
 
-	 alert("Usuario eliminado correctamente, Esperamos volver a verle algún día");
-	 window.location.replace("file:///C:/Users/david/Desktop/signin.html");
+	 alert('Usuario eliminado correctamente, Esperamos volver a verle algún día');
+	 window.location.replace("file:///C:/Users/DaviD/Desktop/wwwproyecto/signin.html");
 				
 				
 				
@@ -168,7 +168,7 @@ console.log(url);
 				
 				
 			}).fail(function() {
-				 alert("No se ha podido borrar");
+				 alert('No se ha podido borrar');
 	});
 
 }
@@ -178,7 +178,7 @@ var url = API_BASE_URL + 'users/' + username;
 console.log(useredit);
 console.log(url);
 	var todo = JSON.stringify(useredit);
-	$("#searchtab").text('');
+	$('#searchtab').text('');
 
 	$.ajax({
 		url : url,
@@ -189,11 +189,11 @@ console.log(url);
 		data: todo,
 	}).done(function(data, status, jqxhr) {
 console.log(data);
-	 alert("Datos Modificados Correctamente");
+	 alert('Datos Modificados Correctamente');
 	 location.reload();
 				
 			}).fail(function() {
-				 alert("No se ha podido editar");
+				 alert('No se ha podido editar');
 	});
 
 }

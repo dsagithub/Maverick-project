@@ -25,7 +25,7 @@ create table songs (
 	album_name varchar(100),
 	description	varchar(500),
 	style	varchar(50) not  null,
-	last_modified	timestamp default current_timestamp ON UPDATE CURRENT_TIMESTAMP,
+	last_modified timestamp default current_timestamp ON UPDATE CURRENT_TIMESTAMP,
 	likes int not null,
 	
 	foreign key(username) references users(username),

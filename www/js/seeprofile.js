@@ -1,5 +1,5 @@
 var API_BASE_URL = "http://localhost:8080/Maverick-api/";
-var verusername = getCookie("verusername");
+var verusername = getCookie('verusername');
 //console.log(username);	
 var search = getCookie("search");
 
@@ -7,20 +7,20 @@ $(document).ready(function() {
 	$('<strong> </strong>' + verusername + '<br>').appendTo($('#usernameprofile'));
 Userdata(verusername);
 });
-$("#searchartist").click(function(e) {
+$('#searchartist').click(function(e) {
 	e.preventDefault();
-  var elementobusqueda = $("#artisttosearch").val();
+  var elementobusqueda = $('#artisttosearch').val();
   $.cookie('elementobusqueda', elementobusqueda);
     $.cookie('elementobusqueda');
   
  
-	window.location.replace("file:///C:/Users/david/Desktop/search.html");
+	window.location.replace("file:///C:/Users/DaviD/Desktop/wwwproyecto/search.html");
 });
 
 
 
 
-$("#followingtab").click(function(e){
+$('#followingtab').click(function(e){
 	
 	e.preventDefault();
 	$("#result").text(' ');
@@ -42,7 +42,7 @@ var url = API_BASE_URL + 'search?username=' + artisttosearch;
 
 console.log(url);
 	
-	$("#searchtab").text('');
+	$('#searchtab').text('');
 
 	$.ajax({
 		url : url,
@@ -86,7 +86,7 @@ var url = API_BASE_URL + 'users/' + verusername;
 
 console.log(url);
 	
-	$("#searchtab").text('');
+	$('#searchtab').text('');
 
 	$.ajax({
 		url : url,

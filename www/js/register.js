@@ -10,19 +10,19 @@ $('#artist').click(function (e){
 	console.log(role);
 });
 
-$("#signin").click(function(e){
+$('#signin').click(function(e){
 	e.preventDefault();
 	$("#result").text(' ');
 	
 		  
 	var nuevoUser ;
 	nuevoUser= {
-			"username" : $("#username").val(),
-			"userpass" : $("#password").val(),
+			'username' : $('#username').val(),
+			'userpass' : $('#password').val(),
 			"name" : $("#name").val(),
 			"email" : $("#email").val(),
 			"description" : $("#description").val(),
-			"rolename" : role
+			'rolename' : role
 			
 			 
 		
@@ -55,15 +55,15 @@ console.log(data);
 		$.cookie('role');
 
 		
-			window.location.replace("C:/Users/david/Desktop/dashboard.html");
+			window.location.replace("file:///C:/Users/DaviD/Desktop/wwwproyecto/dashboard.html");
   	}).fail(function() {
-	if (status == "409"){ alert("Ya existe un usuario con este username"); 
+	if (status == "409"){ alert('Ya existe un usuario con este username'); 
 	}else if (stauts =="500"){
 	
-		 alert("Se ha producido un error"); }
+		 alert('Se ha producido un error'); }
 		 else if (stauts =="400"){
 	
-		 alert("No se ha selecionado ningún rol de usuario"); }
+		 alert('No se ha selecionado ningún rol de usuario'); }
 	});
 
 }

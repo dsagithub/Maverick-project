@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="file:///C:/Users/david/Desktop/music.jpg">
+    <link rel="icon" href="C:/Users/DaviD/Desktop/wwwproyecto/jpg/music.jpg">
 
     <title>Maverick </title>
 <link rel="stylesheet"
@@ -29,9 +29,11 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+	
+		<link rel="stylesheet" href="reproductor/css/reproductor.css" />
   </head>
 
-  <body>
+  <body background="jpg/fondo.png">
 
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container-fluid">
@@ -42,24 +44,27 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-		  <img src="file:///C:/Users/david/Desktop/music.jpg"  border="0" height="55" width="55"class="img-rounded">
+		  <img src="C:/Users/DaviD/Desktop/wwwproyecto/jpg/music.jpg"  border="0" height="55" width="55"class="img-rounded">
        
         </div>
 		   
         <div class="navbar-collapse collapse">
 		<ul class="nav navbar-nav navbar-left">
+		<font size=6>
 		<p style="color:red;">MAVERICK</p>
+	    </font >
 		 </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li onclick = "location='dashboard.html'"><a href="#" style="color: #00FF00">Stream</a></li>
-            <li onclick = "location='ranking.html'"><a href="#" style="color: #00FF00">Top List</a></li>
-            <li onclick = "location='userprofile.html'"><a href="#" class="icon-user" style="color: #00FF00" id="profile">Profile</a></li>
+            <li onclick = "location='C:/Users/DaviD/Desktop/wwwproyecto/jpg/dashboard.html'"><a href="#" style="color: #00FF00">Stream</a></li>
+            <li onclick = "location='C:/Users/DaviD/Desktop/wwwproyecto/jpg/ranking.html'"><a href="#" style="color: #00FF00">Top List</a></li>
+            <li onclick = "location='C:/Users/DaviD/Desktop/wwwproyecto/jpg/userprofile.html'"><a href="#" class="icon-user" style="color: #00FF00" id="profile">Profile</a></li>
             
 			
           </ul>
           <form class="navbar-form navbar-right">
-            <input type="text" class="form-control" id="artisttosearch" placeholder="Search artists">
+            <input type="text" class="form-control" id="artisttosearch" placeholder="Search artists" >
 			<button id="searchartist" type="submit" class="btn" style="background-color: #00FF00">Search</button>
+			
           </form>
 		  <form class="navbar-form navbar-right">
             <input type="text" class="form-control" id="songtosearch" placeholder="Search songs">
@@ -70,34 +75,52 @@
     </div>
 	
 	  <ul class="nav nav-tabs" id="myTab">
-				
-				<li><a id="searchtab"  style="color:red;" href="#" data-toggle="collapse"><span
+			<li><a id="searchtab"  style="color:white;" href="#" data-toggle="collapse"><span
 												class="glyphicon glyphicon-search"></span> Search</a></li>
-				
-				
-			</ul>
- <ul class="nav nav-tabs" id="myResults">
-				
-	
-				
-				
-			</ul>
-              
-          </div>
+	  </ul>
+	  <ul class="nav nav-tabs" id="myResults" style="color:white;" align >
+				<!--<button type="button" class="btn btn-lg btn-primary" disabled="disabled">Botón principal</button>-->
+				<!--<p><a class="btn btn-primary btn-lg" role="button">Leer más</a></p>-->
+				<!--<button id="like" class="btn btn-primary btn-xs" ><img src="jpg/like.png"></button>-->		
+	  </ul>
+
+		<div id="divReproductor">				
+		<div id="divControles">
+					<input type="button" id="btnReproducir" title="Reproducir">
+					<input type="button" id="btnPausar" title="Pausar/Continuar">
+					<input type="button" id="btnSubirVolumen" title="Subir volumen">
+					<input type="button" id="btnBajarVolumen" title="Bajar volumen">
+					<input type="button" id="btnSilencio" title="Poner/Quitar silencio">
+					<input type="button" id="btnLike" title="Like¿?">
+					
+				</div>
+		<div id="divProgreso">
+				<div id="divBarra"></div>
+		</div>
+		
+		<div id="divInfoCancion">
+		<label id="lblDuracion"><strong>Duraci&oacute;n: </strong><span>-</span></label>
+		<label id="lblEstado"><strong>Transcurrido: </strong><span>-</span></label>
+					</div>
+		<div style="clear: both"></div>
+		</div>
+		
+
        
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-		
-		<script type="text/javascript" src="search.js"></script>
-      <script type="text/javascript" src="jquery.js"></script>
-  <script type="text/javascript" src="linkheaders.js"></script>
-  <script type="text/javascript" src="uritemplate.js"></script>
-   <script type="text/javascript" src="jquery-1.10.2.min.js"></script>
-  <script type="text/javascript" src="jquery.cookie.js"></script>
-  <script src="jquery.base64.js"></script>
+	<script type="text/javascript" src="js/search.js"></script>
+	<script type="text/javascript" src="js/reproductor.js"></script>
+    <script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/linkheaders.js"></script>
+	<script type="text/javascript" src="js/uritemplate.js"></script>
+	<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery.cookie.js"></script>
+	<script src="js/jquery.base64.js"></script>
+	
 		
   
   </body>

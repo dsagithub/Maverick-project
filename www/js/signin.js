@@ -4,8 +4,8 @@ $("#button_signin").click(function(e) {
 	e.preventDefault();
 	
 	var login = new Object();
-	login.username=$("#username").val();
-	login.userpass=$("#password").val();
+	login.username=$('#username').val();
+	login.userpass=$('#password').val();
   
 	
 	Login(login);
@@ -13,11 +13,11 @@ $("#button_signin").click(function(e) {
 
 $("#button_register").click(function(e) {
 	e.preventDefault();
-	window.location.replace("C:/Users/david/Desktop/register.html");
+	window.location.replace('C:/Users/DaviD/Desktop/wwwproyecto/register.html');
 });
 
 function Login(login){
-	var url= API_BASE_URL+'/users/login';
+	var url= API_BASE_URL + '/users/login';
 	var data = JSON.stringify(login);
 	console.log(data);
 	
@@ -37,10 +37,10 @@ function Login(login){
 					$.cookie('username');
 							console.log(info.loginSuccessful);
 	
-				window.location.replace("file:///C:/Users/david/Desktop/dashboard.html");
+				window.location.replace('C:/Users/DaviD/Desktop/wwwproyecto/dashboard.html');
 
 				}
-				else {		alert("contraseña incorrecta"); 
+				else {		alert('contraseña incorrecta'); 
 					console.log(info.loginSuccessful);
 						
 		      
@@ -54,7 +54,7 @@ function Login(login){
 		 
 
 	}).fail(function() {
-		 alert("Username o contraseña incorrectos");  
+		 alert('Username o contraseña incorrectos');  
 	});
 
 
