@@ -34,11 +34,10 @@ create table songs (
 );
 create table comments (
 	commentid int not null auto_increment unique,
-	songid varchar(50) not null,
 	song_name varchar(100) not null,
 	username varchar(50) not null,
     text varchar(500),
-    time timestamp,
+    fechacomment timestamp default current_timestamp ON UPDATE CURRENT_TIMESTAMP,
     foreign key(username) references users (username) on delete cascade,
 	foreign key(song_name) references songs (song_name) on delete cascade
 

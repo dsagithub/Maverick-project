@@ -521,7 +521,7 @@ public class SongResource {
 		
 	
 
-	private String GET_SEARCH_SONG = " SELECT * from songs where song_name LIKE  ?  ;";
+	private String GET_SEARCH_SONG = " SELECT * from songs where song_name LIKE ? ";
 	@Path("/search")
 	@GET
     @Produces(MediaType.MAVERICK_API_SONG)
@@ -544,7 +544,7 @@ public class SongResource {
 
 			if (song_name != null) {
 				stmt = conn.prepareStatement(GET_SEARCH_SONG);
-				stmt.setString(1, song_name);
+				stmt.setString(1, "%" + song_name +"%");
 			}
 
 	        
@@ -862,7 +862,8 @@ public class SongResource {
 				song.setAlbum(rs.getString("album_name"));
 				song.setDescription(rs.getString("description"));
 				song.setStyle(rs.getString("style"));
-				//song.setSongURL(rs.getString("songurl"));
+				song.setSongURL(app.getProperties().get("songBaseURL")
+						+ song.getSongid());
 				song.setLikes(rs.getInt("likes"));
 				//song.setDate(rs.getLong("date"));
 				
@@ -890,6 +891,58 @@ public class SongResource {
 		return songs;
 	}
 
+		// Metodo para listar comentarios de una cancion
+		private String ListarComment = "select * from comments where song_name like ?;";
+		@Path("/{song_name}/comments")
+		@GET
+		@Produces(MediaType.MAVERICK_API_COMMENT)
+		public SongsCollection getSongs(@PathParam("song_name") String song_name) {
+		
+				SongsCollection songs = new SongsCollection();
+				
+				System.out.println("no conectados a la BD");
+				Connection conn = null;
+				try {
+					conn = ds.getConnection();
+				} catch (SQLException e) {
+					throw new ServerErrorException("Could not connect to the database",
+							Response.Status.SERVICE_UNAVAILABLE);
+				}
+				System.out.println("conectados a la BD");
+				PreparedStatement stmt = null;
+				try {
+					stmt = conn.prepareStatement(ListarComment);
+					stmt.setString(1, song_name);
+					System.out.println(song_name);
+					ResultSet rs = stmt.executeQuery();
+					System.out.println(stmt);
+					
+					while (rs.next()) {
+
+						Songs song = new Songs();
+						song.setCommentid(rs.getInt("commentid"));
+						song.setUsername(rs.getString("username"));
+						song.setText(rs.getString("text"));
+						song.setLast_modified(rs.getDate("fechacomment"));
+						songs.add(song);
+						System.out.println("Query salida: " + stmt);
+						
+					}
+				} catch (SQLException e) {
+					throw new ServerErrorException(e.getMessage(),
+							Response.Status.INTERNAL_SERVER_ERROR);
+				} finally {
+					try {
+						if (stmt != null)
+							stmt.close();
+						conn.close();
+					} catch (SQLException e) {
+					}
+				}
+				System.out.println(songs);
+				return songs;
+			}
+	
 	private String INSERT_COMMENT_QUERY = "insert into comments (song_name,username, text) values (?,?,?); ";
 	//Metodo para comentar una canción
 	@POST 
@@ -972,7 +1025,7 @@ public class SongResource {
 				song.setSongid(songid);
 				song.setUsername(rs.getString("username"));
 				song.setText(rs.getString("text"));
-				song.setLastModified(rs.getTimestamp("time")
+				song.setFechacomment(rs.getTimestamp("fechacomments")
 						.getTime());
 			
 

@@ -10,8 +10,6 @@ insert into user_roles values ('raja', 'artist');
 insert into users values('david', MD5('david'),  'david@maverick.com','David', 'Hola me llamo David');
 insert into user_roles values ('david', 'artist');
 
-insert into songs (songid, username, song_name, album_name, description, style, likes) values('id','david', 'maverick', 'albert neve', 'New song', 'edm', 1);
-insert into songs (songid, username, song_name, album_name, description, style, likes) values('texto','canada', 'tema', 'autor', 'update', 'rock', 100);
 insert into  follow values('felipe','david');
 insert into  follow values('felipe','canada');
 insert into  follow values('canada','felipe');

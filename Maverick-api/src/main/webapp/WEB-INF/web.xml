@@ -108,7 +108,7 @@
 	</web-resource-collection>
 </security-constraint>
  
-<security-constraint>
+<!-- <security-constraint>
 	<web-resource-collection>
 		<web-resource-name>Songs</web-resource-name>
 		<url-pattern>/songs/*</url-pattern>
@@ -117,7 +117,7 @@
 		<http-method>DELETE</http-method>
 	</web-resource-collection>
 	
-</security-constraint>
+</security-constraint>-->
     
     
     

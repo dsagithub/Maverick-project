@@ -363,6 +363,7 @@ public class UserResource {
 			user.setDescription(rs.getString("description"));
 			
 			
+			
 			users.addUser(user);
 		}
 			}
