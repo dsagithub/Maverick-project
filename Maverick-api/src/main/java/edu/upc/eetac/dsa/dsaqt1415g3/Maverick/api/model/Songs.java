@@ -124,14 +124,13 @@ public class Songs {
 		this.songURL = songURL;
 	}
 	
+	public long getFechacomment() {
+		return fechacomment;
+	}
+	public void setFechacomment(long fechacomment) {
+		this.fechacomment = fechacomment;
+	}
 	private long lastModified;
-	private String text;
-	public String getText() {
-		return text;
-	}
-	public void setText(String text) {
-		this.text = text;
-	}
 	public long getLastModified() {
 		return lastModified;
 	}
@@ -140,6 +139,22 @@ public class Songs {
 	}
 	public long getCreationTimestamp() {
 		return creationTimestamp;
+	}
+	private long fechacomment;
+	private String text;
+	private int commentid;
+
+	public int getCommentid() {
+		return commentid;
+	}
+	public void setCommentid(int commentid) {
+		this.commentid = commentid;
+	}
+	public String getText() {
+		return text;
+	}
+	public void setText(String text) {
+		this.text = text;
 	}
 	public void setCreationTimestamp(long creationTimestamp) {
 		this.creationTimestamp = creationTimestamp;
