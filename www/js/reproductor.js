@@ -9,7 +9,7 @@ $(function(){
 	//variable para almacenar la cancion que se esta reproduciendo
 	var iCancionActual=0;
 	//obtenemos la cantidad total de canciones en la lista (mas abajo la necesitaremos)
-	var iTotalCanciones=$('#olCanciones li').length;
+	//var iTotalCanciones=$('#olCanciones li').length;
 	
 	//le asignamos al reproductor la primera cancion de la lista
 	//objReproductor.src=$('#olCanciones').children().eq(0).attr('rel');
@@ -28,14 +28,14 @@ $(function(){
 	//clic en el boton play
 	$('#btnReproducir').on('click',function(){
 		//llamamos a la funcion que reproduce los archivos
-		//alert(songsResult.songs[0].songURL);
+		alert(songsResult.songs.length);
 		$.fntReproducir();
 	});
 	
 	//reproducir el siguiente archivo de la lista
 	$('#btnSiguiente').on('click',function(){
 		//verificamos si siguen mas canciones en la lista
-		if(iCancionActual<iTotalCanciones-1){
+		if(iCancionActual<songsResult.songs.length-1){
 			//pasamos a la siguiente cancion
 			iCancionActual++;
 		}else{
@@ -69,6 +69,7 @@ $(function(){
 		//$objContenedorCancion.addClass('clsSeleccionado');
 		
 		//reproducir la cancion con el metodo play
+		//$objContenedorCancion.addClass('clsSeleccionado');
 		url = songsResult.songs[0].songURL;
 	    objReproductor.src = url;
 		objReproductor.play();
@@ -126,12 +127,12 @@ $(function(){
 	});
 	
 	//evento al hacer clic en cualquiera de las canciones
-	$('#olCanciones li').on('click',function(){
+	//$('#olCanciones li').on('click',function(){
 		//establecemos el numero de cancion (usando el indice del li clickeado)
-		iCancionActual=$(this).index();
+	//	iCancionActual=$(this).index();
 		//llamamos a la funcion que reproduce los archivos de audio
-		$.fntReproducir();
-	});
+	//	$.fntReproducir();
+	//});
 	
 	//errores del reproductor
 	//$(objReproductor).on('error',function(){

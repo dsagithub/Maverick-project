@@ -14,7 +14,7 @@ $('#searchartist').click(function(e) {
     $.cookie('elementobusqueda');
   
  
-	window.location.replace("file:///C:/Users/DaviD/Desktop/wwwproyecto/search.html");
+	window.location.replace("search.html");
 });
 
 
@@ -119,6 +119,7 @@ console.log(url);
 	});
 
 }
+
 
 
 

@@ -17,7 +17,7 @@ $('#searchartist').click(function(e) {
     $.cookie('elementobusqueda');
   
  
-	window.location.replace("file:///C:/Users/DaviD/Desktop/wwwproyecto/search.html");
+	window.location.replace("search.html");
 });
 
 $('#followingtab').click(function(e){
@@ -29,7 +29,129 @@ $('#followingtab').click(function(e){
         
 	
 });
+/*
+$('#uploadButton').click(function(e){
+	
+	e.preventDefault();
+	var newSong = new Object();
+	newSong.song_name = $("#inputSong").val()
+	newSong.username = $("#inputUsername").val()
+	newSong.album_name = $("#album").val()
+	newSong.description = $("#description").val()
+	newSong.style = $("#inputStyke").val()
+	newSong.songfile = $("#inputFile").val()
+	newSong.likes = $("#inputLikes").val()
+	createSong(newSong);
+	console.log(newSong);
+	
+        
+	
+});
+*/
+/*
+	function createSong(newSong) {
+	var url = API_BASE_URL + 'songs/';
+	alert("dins");
+	//var formData = new FormData($('form')[0]);
+	var formData = new FormData(newSong);
+	$.ajax({
+		url: url,
+		type: 'POST',
+		xhr: function() {  
+	    	var myXhr = $.ajaxSettings.xhr();
+	        if(myXhr.upload){ 
+	        myXhr.upload.addEventListener('progress',progressHandlingFunction, false); // For handling the progress of the upload
+	        }
+	        return myXhr;
+        },
+		crossDomain : true,
+		data: formData,
+		cache: false,
+		contentType:false,
+        processData: false
+	}).done(function(data, status, jqxhr) {
+		console.log(data);
+		var response = $.parseJSON(jqxhr.responseText);
+        $('#uploadedAudio').attr('src', response.songURL);	
+		$('<div class="alert alert-success"> <strong>Ok!</strong> Repository Created</div>').appendTo($("#create_result"));	
+			
+  	}).fail(function (jqXHR, textStatus) {
+    	alert("KO");
+		console.log(formData);
+	});
+}
+	*/
 
+$('#imageForm').submit(function(e){
+	alert("hjhkjh");
+	e.preventDefault();
+	$('progress').toggle();
+	var url = API_BASE_URL + "songs/";
+	var formData = new FormData($('#imageForm')[0]);
+	
+	console.log(url);
+	$.ajax({
+					url: url,
+					type: 'POST',
+					xhr: function() {  
+						var myXhr = $.ajaxSettings.xhr();
+						if(myXhr.upload){ 
+							alert("jkhkjhk");
+							myXhr.upload.addEventListener('progress',progressHandlingFunction, false); // For handling the progress of the upload
+						}
+						return myXhr;
+					},
+						crossDomain : true,
+						data: formData,
+						cache: false,
+						contentType: false,
+						processData: false
+	})
+	.done(function (data, status, jqxhr)
+	{
+		var response = $.parseJSON(jqxhr.responseText);
+		lastFilename = response.filename;
+		$('#uploadedImage').attr('src', response.songURL);
+		$('progress').toggle();
+		$('#imageForm')[0].reset();
+	}).fail(function (jqXHR, textStatus) {
+    	alert("KO");
+		console.log(textStatus);
+	});
+});
+
+function progressHandlingFunction(e){
+if (e.lengthComputable) {
+		$('progress').attr({value:e.loaded,max:e.total});
+
+	}
+}
+
+
+/*
+function createSong(newSong) {
+	var url = API_BASE_URL + 'songs/';
+	var data = form-data.(newSong);
+
+	$("#create_result").text('');
+
+	$.ajax({
+		url : url,
+		type : 'POST',
+		crossDomain : true,
+		dataType : 'form-data',
+		contentType : 'multipart/form-data;',
+		data : data,
+	}).done(function(data, status, jqxhr) {
+		console.log(data);
+		$('<div class="alert alert-success"> <strong>Ok!</strong> Repository Created</div>').appendTo($("#create_result"));				
+  	}).fail(function() {
+		$('<div class="alert alert-danger"> <strong>Oh!</strong> Error </div>').appendTo($("#create_result"));
+		console.log(newSong);
+	});
+
+}
+*/
 $('#deleteprofilefinal').click(function(e){
 	var usernametodelete =getCookie('username');
 	e.preventDefault();
@@ -65,7 +187,7 @@ var url = API_BASE_URL + 'search?username=' + artisttosearch;
 
 console.log(url);
 	
-	$("'#searchtab').text('');
+	$('#searchtab').text('');
 
 	$.ajax({
 		url : url,
@@ -159,7 +281,7 @@ console.log(url);
 	}).done(function(data, status, jqxhr) {
 
 	 alert('Usuario eliminado correctamente, Esperamos volver a verle algún día');
-	 window.location.replace("file:///C:/Users/DaviD/Desktop/wwwproyecto/signin.html");
+	 window.location.replace("signin.html");
 				
 				
 				
@@ -173,7 +295,7 @@ console.log(url);
 
 }
 
-function 	editUser(useredit) {
+function editUser(useredit) {
 var url = API_BASE_URL + 'users/' + username;
 console.log(useredit);
 console.log(url);

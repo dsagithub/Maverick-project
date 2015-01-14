@@ -11,18 +11,18 @@ followsongs(username);
 
 $("#profile").click(function(e) {
 	e.preventDefault();
-	window.location.replace("file:///C:/Users/DaviD/Desktop/wwwproyecto/userProfile.html");
+	window.location.replace("userProfile.html");
 });
 $("#ranking").click(function(e) {
   e.preventDefault();
-  window.location.replace("file:///C:/Users/DaviD/Desktop/wwwproyecto/ranking.html");
+  window.location.replace("ranking.html");
 });
 $('#searchartist').click(function(e) {
 	e.preventDefault();
   var elementobusqueda = $('artisttosearch').val();
   $.cookie('elementobusqueda', elementobusqueda);
     $.cookie('elementobusqueda');
-	window.location.replace("file:///C:/Users/DaviD/Desktop/wwwproyecto/search.html");
+	window.location.replace("search.html");
 });
 
 
@@ -50,6 +50,8 @@ console.log(url);
             
             $('<strong> Song: </strong>' + song.song_name + '<br>').appendTo($('#myResults'));
             $('<strong> Artist: </strong>' + song.username + '<br>').appendTo($('#myResults'));
+			$('<div class="col-sd-4"><audio id ="song' + song.songid +'" src="'+ song.songURL +'" type="audio/mp3" style=background-color:#CEF6EC" controls><div><button onclick="document.getElementById(\'song ' + song.songid +'\').play()">Reproducir</button> <button onclick="document.getElementById(\'song ' + song.songid +'\').pause()">Pausar</button><button onclick="document.getElementById(\'song ' + song.songid +'\').volume+=0.1">Sube Volumen</button><button onclick="document.getElementById(\'song ' + song.songid +'\').volume-=0.1">Baja Volumen</button> </div></audio></div>').appendTo($('#myResults'));
+			
           
           
           $('</p>').appendTo($('#myResults'));

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="C:/Users/DaviD/Desktop/wwwproyecto/jpg/music.jpg">
+    <link rel="icon" href="jpg/music.jpg">
 
     <title>Maverick </title>
 <link rel="stylesheet"
@@ -31,6 +31,8 @@
     <![endif]-->
 	
 		<link rel="stylesheet" href="reproductor/css/reproductor.css" />
+
+	
   </head>
 
   <body background="jpg/fondo.png">
@@ -44,7 +46,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-		  <img src="C:/Users/DaviD/Desktop/wwwproyecto/jpg/music.jpg"  border="0" height="55" width="55"class="img-rounded">
+		  <img src="jpg/music.jpg"  border="0" height="55" width="55"class="img-rounded">
        
         </div>
 		   
@@ -53,11 +55,12 @@
 		<font size=6>
 		<p style="color:red;">MAVERICK</p>
 	    </font >
+		
 		 </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li onclick = "location='C:/Users/DaviD/Desktop/wwwproyecto/jpg/dashboard.html'"><a href="#" style="color: #00FF00">Stream</a></li>
-            <li onclick = "location='C:/Users/DaviD/Desktop/wwwproyecto/jpg/ranking.html'"><a href="#" style="color: #00FF00">Top List</a></li>
-            <li onclick = "location='C:/Users/DaviD/Desktop/wwwproyecto/jpg/userprofile.html'"><a href="#" class="icon-user" style="color: #00FF00" id="profile">Profile</a></li>
+            <li onclick = "location=/dashboard.html'"><a href="#" style="color: #00FF00">Stream</a></li>
+            <li onclick = "location=/ranking.html'"><a href="#" style="color: #00FF00">Top List</a></li>
+            <li onclick = "location=/userprofile.html'"><a href="#" class="icon-user" style="color: #00FF00" id="profile">Profile</a></li>
             
 			
           </ul>
@@ -70,41 +73,66 @@
             <input type="text" class="form-control" id="songtosearch" placeholder="Search songs">
 			<button id="searchsong" type="submit" class="btn" style="background-color: #00FF00">Search</button>
           </form>
-        </div>
-      </div>
-    </div>
+		  
+		  <form class="navbar-form navbar-right">
+            <button id="logout" type="submit" class="btn" style="background-color: #00FF00">Logout</button>
+          </form>
+		 
+	
+						
+		 </div>
+	  </div>
+	</div>
 	
 	  <ul class="nav nav-tabs" id="myTab">
 			<li><a id="searchtab"  style="color:white;" href="#" data-toggle="collapse"><span
 												class="glyphicon glyphicon-search"></span> Search</a></li>
 	  </ul>
-	  <ul class="nav nav-tabs" id="myResults" style="color:white;" align >
+	  
+	  <div id="pan_central">
+			<ul class="nav nav-tabs" id="myResults" style="color:white;" style="text-align:center" >
+
 				<!--<button type="button" class="btn btn-lg btn-primary" disabled="disabled">Botón principal</button>-->
 				<!--<p><a class="btn btn-primary btn-lg" role="button">Leer más</a></p>-->
 				<!--<button id="like" class="btn btn-primary btn-xs" ><img src="jpg/like.png"></button>-->		
-	  </ul>
+			</ul>
+		<br>	
+	<font size=6>
+	<p style="color:white;">Datos Consulta</p>
+	<br>
+	</font>
+	<p> </p>
+      <form id="frm_Ins" name="frm_Ins" action="" method="post">
+              <table id="tableDeposits" class="table" > <!--table table-bordered-->
+                <thead>
+                 <tr>
+                  <td><strong>#Nombre Canci&oacute;n</strong></td>
+                  <td><strong>Username</strong></td>
+                  <td><strong>Style</strong></td>
+                  <td><strong>Fecha</strong></td>
+                  <td><strong>Likes</strong></td>
+				  <td><strong>Comentarios</strong></td>
+				  <td><strong>Reproducir</strong></td>
+                 </tr>
+                </thead>
+                <tbody>
+ 
+                </tbody>
+              </table>
+      </form> 
+ <style type="text/css">
+.table, td, th {  	border:1px solid white; 
+					border-collapse:separate;
+					border-spacing:30px;
+					background-color:#525151;
+					color:white;
+					font-size:15px;
+					padding:5px;}
+</style>
 
-		<div id="divReproductor">				
-		<div id="divControles">
-					<input type="button" id="btnReproducir" title="Reproducir">
-					<input type="button" id="btnPausar" title="Pausar/Continuar">
-					<input type="button" id="btnSubirVolumen" title="Subir volumen">
-					<input type="button" id="btnBajarVolumen" title="Bajar volumen">
-					<input type="button" id="btnSilencio" title="Poner/Quitar silencio">
-					<input type="button" id="btnLike" title="Like¿?">
-					
-				</div>
-		<div id="divProgreso">
-				<div id="divBarra"></div>
-		</div>
-		
-		<div id="divInfoCancion">
-		<label id="lblDuracion"><strong>Duraci&oacute;n: </strong><span>-</span></label>
-		<label id="lblEstado"><strong>Transcurrido: </strong><span>-</span></label>
-					</div>
-		<div style="clear: both"></div>
-		</div>
-		
+
+			<button type="button" class="btn btn-primary" id="button_consultar">Consultar</button>
+			<input type="text" class="form-control" id="nombrecomentarios">
 
        
 

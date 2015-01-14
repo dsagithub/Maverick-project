@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="file://C:/DSA/Proyectos/Maverick-project/www/jpg/music.jpg">
+    <link rel="icon" href="jpg/music.jpg">
 
     <title>Maverick </title>
 
@@ -41,7 +41,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-		  <img src="C:/Users/DaviD/Desktop/wwwproyecto/jpg/music.jpg"  border="0" height="55" width="55"class="img-rounded">
+		  <img src="jpg/music.jpg"  border="0" height="55" width="55"class="img-rounded">
        
         </div>
 		   
@@ -66,13 +66,16 @@
             <input type="text" class="form-control" placeholder="Search songs">
 			<button type="submit" class="btn" style="background-color: #00FF00">Search</button>
           </form>
+		  <form class="navbar-form navbar-right">
+            <button id="logout" type="submit" class="btn" style="background-color: #00FF00">Logout</button>
+          </form>
         </div>
       </div>
     </div>
 	
 	 <div class="jumbotron">
         <h1><p align="center" id="usernameprofile">  </p> </h1>
-        <div align="center"><img src="C:/Users/DaviD/Desktop/wwwproyecto/jpg/user.png"  align="center" border="0" height="55" width="55"class="img-rounded"></div>
+        <div align="center"><img src="jpg/user.png"  align="center" border="0" height="55" width="55"class="img-rounded"></div>
 		<div align="center">
 		<li><a href="#"  id="nameofuser"> </a></li> 
 		<li><a href="#" id="emailofuser"></a></li> 
@@ -85,10 +88,79 @@
 						
 							
 								
-								 <button type="button"   class="btn btn-success" style="background-color: #00FF00"  href="#success" data-toggle="modal" id="uploadsong">Upload Song</button>
+						<!--		 <button type="button"   class="btn btn-success" style="background-color: #00FF00"  href="#success" data-toggle="modal" id="uploadsong">Upload Song</button> -->
+								 <div class="container">
+											<form  id="imageForm" class="form-horizontal col-md-6" role="form" >
+													<div class="form-group">
+														<legend>Upload Song</legend>
+														<label for="inputsong_name">Nombre cancion</label>
+														<input name="song_name" type="text" id="inputsong_name" class="form-control"  required="required">
+													</div>
+													<div class="form-group">											
+														<label for="inputusername">Username</label>
+														<input name="username" type="text" id="inputusername" class="form-control"  required="required">
+													</div>
+													<div class="form-group">
+														<label for="inputalbum_name">Album</label>
+														<input name="album_name" type="text" id="inputalbum_name" class="form-control"   required="required">
+													</div>
+													<div class="form-group">
+														<label for="inputdescription">Descripcion</label>
+														<input name="description" type="text" id="inputdescription" class="form-control"  required="required">
+													</div><
+													<div class="form-group">
+														<label for="inputstyle">Estilo</label>
+														<input name="style" type="text" id="inputstyle" class="form-control"   required="required">
+													</div> 
+													<div class="form-group">	
+														<label for="inputsongfile">Fichero</label>
+														<input name="songfile" type="file" id="inputsongfile" required="required">
+													</div>
+													<div class="form-group">
+														<label for="inputlikes">Likes</label>
+														<input name="likes" type="number" id="inputlikes" class="form-control" required="required">
+													</div>
+													<button id="uploadButton" type="submit" class="btn btn-default">Upload</button>
+													<progress style="display: none;"></progress>
+											</form>
+
+											<div class="col-md-6">
+												<a>
+													<audio id="uploadedImage" type="audio/mp3" >
+												</a>	
+											
+											</div>	
+									</div>
 								
+	
 								
+							<!--	
+								<div class="container">
+										<form  id="AudioForm" class="form-horizontal col-md-6" role="form" >
+												<div class="form-group">
+													<legend>Upload image</legend>
+													<label for="inputTitle">Title</label>
+													<input name="title" type="text" id="inputTitle" class="form-control" placeholder="Enter image title" required="required">
+												</div>
+												<div class="form-group">	
+													<label for="inputFile">Image</label>
+													<input name="image" type="file" id="inputFile" required="required">
+												</div>
+												
+												
+												<button id="uploadButton" type="submit" class="btn btn-default">Upload</button>
+												<progress style="display: none;"></progress>
+										</form>
+
+										<div class="col-md-6">
+											<a>
+												<img id="uploadedImage" class="img-responsive">
+											</a>
+											
+										</div>
+									</div>
 								<!-- Modal -->
+								<!--
 								<div class="modal fade" id="success" tabindex="-1" role="dialog"
 									aria-labelledby="myModalLabel" aria-hidden="true">
 									<div class="modal-dialog">
@@ -98,84 +170,73 @@
 													aria-hidden="true">&times;</button>
 												<h4 class="modal-title">Upload Song</h4>
 											</div>
-											<div class="modal-body">
+											<!--
+											<div class="modal-body" >
 												<div class="container">
 													<form id="songForm" class="form-horizontal" role="form">
-														<div class="col-md-4">
-															<div class="form-group">
-																<span> <label for="inputTitle">Song name</label>
+													<!--	<div class="col-md-4">
+											<!--				<div class="form-group"  style="width:500px; margin:0 auto;">-->
+											<!--					<span> <label for="inputTitle">Song name</label>
 																	<input name="song" type="text" id="inputSong"
 																	class="form-control" placeholder="Enter song title"
-																	required="required"></span><span> <label
-																	for="inputTitle">Album</label> <input name="album"
+																	required="required"></span>
+																	
+																<span><label for="inputTitle">Username</label>
+																	<input name="username" type="text" id="inputUsername"
+																	class="form-control" placeholder="Enter username"
+																	required="required"></span>
+																	
+																<span><label for="inputTitle">Album</label> <input name="album"
 																	type="text" id="album" class="form-control"
 																	placeholder="Enter Album" required="required">
-																</span><span><label for="inputTitle">Description</label>
+																	</span>
+																	
+																<span><label for="inputTitle">Description</label>
 																	<textarea name="description" type="text"
 																		id="description" class="form-control"
 																		placeholder="Enter Description" required="required"></textarea></span>
-																<h5>
-																	<b>Style</b>
-																</h5>
+																
+																<span> <label for="inputTitle">Style</label>
+																	<input name="style" type="text" id="inputStyke"
+																	class="form-control" placeholder="Enter song styke"
+																	required="required"></span>
 
-																<div class="col-md-4">
-																	<div class="radio">
-																		<label> <input type="radio" name="style"
-																			id="indie" value="indie" checked> Indie
-																	</div>
-
-																	<div class="radio">
-																		<label> <input type="radio" name="style"
-																			id="edm" value="edm"> EDM
-																		</label>
-																	</div>
-
+																	
+																<div class="form-group">
+																	<label for="inputFile">Song</label> 
+																	<input name="songfile" type="file" id="inputFile"
+																		required="required">
 																</div>
-																<div class="col-md-4">
-																	<div class="radio">
-																		<label> <input type="radio" name="style"
-																			id="rock" value="rock"> Rock
-																		</label>
-																	</div>
-																	<div class="radio">
-																		<label> <input type="radio" name="style"
-																			id="pop" value="pop"> Pop
-																		</label>
-																	</div>
+																
+																<span> <label for="inputTitle">Likes</label>
+																		<input name="likes" type="number" value="0" id="inputLikes"
+																		class="form-control" placeholder="Enter song title"
+																		required="required"></span>
+																<progress style="display: none;"></progress>
+																
+																<button id="uploadButton" type="submit"
+																	class="btn btn-default">Upload</button>
+																
+																<div class="col-md-6">
+																<audio id="song"> <source src="song/music.mp3" type="audio/mp3" id="uploadedAudio">
+																</audio>
 																</div>
-																<div class="col-md-4">
-																	<div class="radio">
-																		<label> <input type="radio" name="style"
-																			id="pachangueo" value="pachangueo"> Pachangueo
-																		</label>
-																	</div>
-																	<div class="radio">
-																		<label> <input type="radio" name="style"
-																			id="otros" value="otros"> Otros
-																		</label>
-																	</div>
-																</div>
-
-															</div>
-															<div class="form-group">
-																<label for="inputFile">Song</label> <input
-																	name="songfile" type="file" id="inputFile"
-																	required="required">
-															</div>
-															<progress style="display: none;"></progress>
-															<button id="uploadButton" type="submit"
-																class="btn btn-default">Upload</button>
-														</div>
-													</form>
+															
+				
+															<!--	</div>
+																
+														</div>-->
+												<!--	</form> 
 												</div>
 
 											</div>
 										</div>
 										<!-- /.modal-content -->
-									</div>
+							<!--		</div>
 									<!-- /.modal-dialog -->
-								</div>
-							</div>
+							<!--	</div>  -->
+						<!--	</div> -->
+							
 							
 							
 						
@@ -300,9 +361,11 @@
   
   
   
-</div></div>
-      </div>
-	  
+</div>
+</div>
+     
+	 
+	 
 	  <ul class="nav nav-tabs" id="myTab">
 				
 				<li><a id="songstab"  style="color:red;" href="#" data-toggle="collapse"> Songs</a></li>
@@ -312,9 +375,9 @@
 				
 			</ul>
 			
-
+<span id="create_result"></span>
               
-          </div>
+      
        
 
     <!-- Bootstrap core JavaScript
@@ -329,15 +392,20 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-	   <script type="text/javascript" src="C:/Users/DaviD/Desktop/wwwproyecto/js/api.js"></script>
-	   			
-		   <script type="text/javascript" src="C:/Users/DaviD/Desktop/wwwproyecto/js/jquery.js"></script>
-	<script type="text/javascript" src="C:/Users/DaviD/Desktop/wwwproyecto/js/linkheaders.js"></script>
-	<script type="text/javascript" src="C:/Users/DaviD/Desktop/wwwproyecto/js/uritemplate.js"></script>
-	 <script type="text/javascript" src="C:/Users/DaviD/Desktop/wwwproyecto/js/jquery-1.10.2.min.js"></script>
-  <script type="text/javascript" src="C:/Users/DaviD/Desktop/wwwproyecto/js/jquery.cookie.js"></script>
-  <script src="C:/Users/DaviD/Desktop/wwwproyecto/js/jquery.base64.js"></script>
-  </body>
+	   
+	   <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+       <script type="text/javascript" src="js/jquery.cookie.js"></script>
+       <script type="text/javascript" src="js/jquery.base64.js"></script>
+	   
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<!-- Latest compiled and minified JavaScript -->
+	<script
+		src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+   
+ 
 	
   
   </body>
