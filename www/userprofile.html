@@ -98,8 +98,73 @@
 								
 			<!--		<button type="button"   class="btn btn-success" style="background-color: #00FF00"  href="#success" data-toggle="modal" id="uploadsong">Upload Song</button> -->
 						<button type="button"  class="btn btn-success" style="background-color: #00FF00"  href="#upload" data-toggle="modal" id="uploadsong">Upload Song</button>
-					
-						
+						<div class="modal fade" id="upload" tabindex="-1" role="dialog"
+
+									aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header modal-header-success">
+												<button type="button" class="close" data-dismiss="modal"
+													aria-hidden="true">&times;</button>
+												<h4 class="modal-title">Upload Song</h4>
+											</div>
+							<div class="modal-body">
+									<div class="container">
+							<!-- <div class="container"> -->
+											<form  id="imageForm" class="form-horizontal col-md-6" role="form" align="center" >
+													<div class="form-group">
+														<label for="inputsong_name">Nombre cancion</label>
+														<input name="song_name" type="text" id="inputsong_name" class="form-control"  required="required">
+													</div>
+													<div class="form-group">											
+														<label for="inputusername">Username</label>
+														<input name="username" type="text" id="inputusername" class="form-control"  required="required">
+													</div>
+													<div class="form-group">
+														<label for="inputalbum_name">Album</label>
+														<input name="album_name" type="text" id="inputalbum_name" class="form-control"   required="required">
+													</div>
+													<div class="form-group">
+														<label for="inputdescription">Descripcion</label>
+														<input name="description" type="text" id="inputdescription" class="form-control"  required="required">
+													</div>
+													<div class="form-group">
+														<label for="inputstyle">Estilo</label>
+														<select name="style">
+															<option value="Indie" selected>Indie</option>
+															<option value="Rock" selected>Rock</option>
+															<option value="Pop" selected>Pop</option>
+															<option value="Pachangeo" selected>Pachangeo</option>
+															<option value="EDM" selected>EDM</option>
+															<option value="Otros" selected>Otros</option>
+														</select>
+															
+													<!--	<input name="style" type="text" id="inputstyle" class="form-control"   required="required">-->
+													</div> 
+													<div class="form-group">	
+														<label for="inputsongfile">Fichero</label>
+														<input name="songfile" type="file" id="inputsongfile" required="required">
+													</div>
+													<div class="form-group">
+														<label for="inputlikes">Likes</label>
+														<input name="likes" type="number" readonly value="0" id="inputlikes" class="form-control" required="required">
+													</div>
+													<button id="uploadButton" type="submit" class="btn btn-default">Upload</button>
+													<progress style="display: none;"></progress>
+											</form>
+
+											<div class="col-md-6">
+												<a>
+													<audio id="uploadedImage" type="audio/mp3" >
+												</a>	
+											
+											</div>	
+									</div>
+							</div>
+					</div>
+					</div>
+					</div>
+					</div>
 							
 
 								 <button type="button"  class="btn btn-success" style="background-color: #00FF00"  href="#update" data-toggle="modal" id="updateprofile">Update Profile</button>
@@ -169,7 +234,7 @@
 								
 								 <button type="button" align="center" class="btn btn-success" href="#delete" style="background-color: #00FF00"  data-toggle="modal" id="deleteprofile">Delete Profile</button>
 								
-								<a class="UFILikeLink" href="#" role="button" aria-live="polite" id="megusta" title="Te gusta esto" data-ft="{&quot;tn&quot;:&quot;>&quot;}" data-reactid=".1u"><span data-reactid=".1u.1">Me gusta</span> </a>
+							
 								<!-- Modal -->
 								<div class="modal fade"  id="delete"tabindex="-1" role="dialog"
 									aria-labelledby="myModalLabel" aria-hidden="true">
