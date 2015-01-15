@@ -785,56 +785,6 @@ public class SongResource {
 	 
 		return songs;
 	}
-// Metodo para listar  comentarios de una cancion
-	private String ListarComment = "select * from comments where song_name like ?;";
-	@Path("/{song_name}/comments")
-	@GET
-	@Produces(MediaType.MAVERICK_API_COMMENT)
-	public SongsCollection getSongs(@PathParam("song_name") String song_name) {
-	
-			SongsCollection songs = new SongsCollection();
-			
-			System.out.println("no conectados a la BD");
-			Connection conn = null;
-			try {
-				conn = ds.getConnection();
-			} catch (SQLException e) {
-				throw new ServerErrorException("Could not connect to the database",
-						Response.Status.SERVICE_UNAVAILABLE);
-			}
-			System.out.println("conectados a la BD");
-			PreparedStatement stmt = null;
-			try {
-				stmt = conn.prepareStatement(ListarComment);
-				stmt.setString(1, song_name);
-				System.out.println(song_name);
-				ResultSet rs = stmt.executeQuery();
-				System.out.println(stmt);
-				
-				while (rs.next()) {
-
-					Songs song = new Songs();
-					song.setUsername(rs.getString("username"));
-					song.setDescription(rs.getString("text"));
-					//song.setLast_modified(rs.getDate("date"));
-					songs.add(song);
-					System.out.println("Query salida: " + stmt);
-					
-				}
-			} catch (SQLException e) {
-				throw new ServerErrorException(e.getMessage(),
-						Response.Status.INTERNAL_SERVER_ERROR);
-			} finally {
-				try {
-					if (stmt != null)
-						stmt.close();
-					conn.close();
-				} catch (SQLException e) {
-				}
-			}
-			System.out.println(songs);
-			return songs;
-		}
 
 		// Metodo para listar comentarios de una cancion
 		private String ListarComment = "select * from comments where song_name like ?;";
