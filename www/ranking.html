@@ -7,7 +7,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <link rel="icon" href="file:///C:/Users/Felipe/git/Maverick-project/www/jpg/music.jpg">
+    <link rel="icon" href="jpg/music.jpg">
 
    
 
@@ -35,7 +35,7 @@
     <![endif]-->
   </head>
 
-  <body>
+  <body  background="http://k44.kn3.net/5FEAE2E00.jpg" bgproperties="fixed">
 
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container-fluid">
@@ -47,7 +47,7 @@
             <span class="icon-bar"></span>
           </button>
 
-		  <img src="C:/Users/Felipe/git/Maverick-project/www/jpg/music.jpg"  border="0" height="55" width="55"class="img-rounded">
+		  <img src="jpg/music.jpg"  border="0" height="55" width="55"class="img-rounded">
 
 	
        
@@ -60,9 +60,9 @@
 	    </font >
 		 </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li onclick = "location='C:/Users/DaviD/Desktop/wwwproyecto/jpg/music.jpgdashboard.html'"><a href="#" style="color: #00FF00">Stream</a></li>
-            <li onclick = "location='C:/Users/DaviD/Desktop/wwwproyecto/ranking.html'"><a href="#" style="color: #00FF00">Top List</a></li>
-            <li onclick = "location='C:/Users/DaviD/Desktop/wwwproyecto/userprofile.html'"><a href="#" class="icon-user" style="color: #00FF00" id="profile">Profile</a></li>
+            <li onclick = "location='dashboard.html'"><a href="#" style="color: #00FF00">Stream</a></li>
+            <li onclick = "location='ranking.html'"><a href="#" style="color: #00FF00">Top List</a></li>
+            <li onclick = "location='userprofile.html'"><a href="#" class="icon-user" style="color: #00FF00" id="profile">Profile</a></li>
             
 			
           </ul>
@@ -84,19 +84,7 @@
 
 	  <ul class="nav nav-tabs" id="myTab">
 				
-				
-		 <!-- <form class="navbar-form navbar-left">
-            <input type="text" class="form-control" id="style_name" placeholder="Introduce estilo ">  
-			<button type="submit" class="btn" id="listsong" style="background-color: #00FG00">Listar</button>
-			<div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title">Lista de canciones</h3>
-              </div>
-              <div class="panel-body">
-                 <span id="songtolist2"></span>
-              </div>
-            </div>
-          </form> -->
+
 			  <li><a id="songstab"  style="color:red;"  href="#" data-toggle="collapse"> Rock</a></li>
 			  <li><a id="songstab2"  style="color:red;" href="#" data-toggle="collapse"> EDM</a></li>
 		      <li><a id="songstab3"  style="color:red;" href="#" data-toggle="collapse"> Indie</a></li>
@@ -105,23 +93,37 @@
                <li><a id="songstab6"  style="color:red;" href="#" data-toggle="collapse"> Otros</a></li>
                   <li><a id="songstab7"  style="color:red;" href="#" data-toggle="collapse"> Top List</a></li>
 				  </ul>
-				   <ul class="nav nav-tabs" id="myResults">
+				  
 				
-				
+	 <form id="frm_Ins" name="frm_Ins" action="" method="post">
+              <table id="tableDeposits" class="table" > <!--table table-bordered-->
+                <thead>
+                 <tr>
+                  <td><strong>#Nombre Canci&oacute;n</strong></td>
+                  <td><strong>Username</strong></td>
+				  <td><strong>Album</strong></td>
+				  <td><strong>Fecha</strong></td>
+                  <td><strong>Style</strong></td>
+                  <td><strong>Likes</strong></td>
+				  <td><strong>Comentarios</strong></td>
+				  <td><strong>Reproducir</strong></td>
+                 </tr>
+                </thead>
+                <tbody>
+ 
+                </tbody>
+              </table>
+      </form> 
+ <style type="text/css">
+.table, td, th {  	border:1px solid white; 
+					border-collapse:separate;
+					border-spacing:30px;
+					background-color:#525151;
+					color:white;
+					font-size:15px;
+					padding:5px;}
+</style>
 
-	 
-	 <ul class="nav nav-tabs" id="myTab">
-	
-					<li><a id="songstab"  style="color:red;" href="#" data-toggle="collapse"> Indie</a></li>
-					<li><a id="songstab"  style="color:red;" href="#" data-toggle="collapse"> Rock</a></li>
-					<li><a id="songstab"  style="color:red;" href="#" data-toggle="collapse"> Pop</a></li>
-					<li><a id="songstab"  style="color:red;" href="#" data-toggle="collapse"> Pachangeo</a></li>
-					<li><a id="songstab"  style="color:red;" href="#" data-toggle="collapse"> EDM</a></li>
-					<li><a id="songstab"  style="color:red;" href="#" data-toggle="collapse"> Otros</a></li>
-					<li><a id="songstab"  style="color:red;" href="#" data-toggle="collapse"> Top List</a></li>
-
-				
-			</ul>
 				  
 				  
 				
@@ -136,19 +138,19 @@
     <!-- Placed at the end of the document so the pages load faster -->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> 
-	
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script type="text/javascript" src="js/api.js"></script>
 	<script type="text/javascript" src="js/search.js"></script>
-				 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-		<script type="text/javascript" src="js/api.js"></script>
-		   <script type="text/javascript" src="js/jquery.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script type="text/javascript" src="js/api.js"></script>
+	<script type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/linkheaders.js"></script>
 	<script type="text/javascript" src="js/uritemplate.js"></script>
-	 <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
-  <script type="text/javascript" src="js/jquery.cookie.js"></script>
-  <script type="text/javascript" src="js/jquery.base64.js"></script>
+	<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="js/jquery.base64.js"></script>
+	<script type="text/javascript" src="js/getstyle.js"></script>
+	
 
   
   </body>

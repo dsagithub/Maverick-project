@@ -20,7 +20,7 @@ $("#searchartist").click(function(e) {
     $.cookie('elementobusqueda');
   
  
-	window.location.replace("file:///C:/Users/david/Desktop/search.html");
+	window.location.replace("search.html");
 });
 
 
@@ -82,14 +82,9 @@ console.log(url);
 				$.each(listausers.users, function(i,v){
 					var user = v;
 					console.log(user);
-						
-					
-					
-					
+
 					$('<strong> Username: </strong>' + user.username + '<br>').appendTo($('#myResults'));
-				    
-					
-					
+
 					$('</p>').appendTo($('#myResults'));
 				
 				});
@@ -176,8 +171,8 @@ function getfollow(nombres){
 		data: data,
 	}).done(function(data, status, jqxhr) {
 				console.log(data);
-$('#follow').hide();
-	 $('#unfollow').show();
+		$('#follow').hide();
+		$('#unfollow').show();
 
 		 
 
@@ -294,6 +289,186 @@ console.log(url);
 				$('<div class="alert alert-danger"> <strong>Oh!</strong> Todo not found </div>').appendTo($("#myResults"));
 	});
 
+}
+
+
+$("#followingtab2").click(function(e){
+	console.log("pulsamos el boton");
+	e.preventDefault(); 
+	getArtist2(verusername);
+        console.log("adios");
+	
+});
+
+
+
+function getArtist2(verusername){
+
+	var url = API_BASE_URL +'users/'+ verusername  +'/following';
+	console.log(url);
+
+	
+	
+	$.ajax({
+		url : url,
+		type : 'GET',
+		crossDomain : true,
+		dataType : 'json',
+	}).done(function(data, status, jqxhr){
+				var songs = data;
+				//console.log(songs);
+				var html='';
+			  // si la consulta ajax devuelve datos
+			 
+				//	if(data.length > 0){
+					songsResult = songs;
+					$.each(songs.users, function(i, v) {
+					var todo = v;
+					 html += '<tr>'
+					
+					 html += '<td>'+todo.username+'</td>'
+					 html += '<td>'+todo.description+'</td>'
+					 html += '<td>'+todo.name+'</td>'
+				   
+
+					console.log(data);
+					//$('</p>').appendTo($('#myResults'));
+				 html += '</tr>';
+				    });
+	
+              //} 
+			  // si no hay datos mostramos mensaje de no encontraron registros
+                if(html == '') html = '<tr><td colspan="6">No se encontraron registros, revisa los datos a consultar...</td></tr>'
+                // añadimos  a nuestra tabla todos los datos encontrados mediante la funcion html
+                $("#tableDeposits2 tbody").html(html);  
+                  
+			}).fail(function() {
+			
+			$('<div class="alert alert-danger"> <strong>Oh!</strong> No hay canciones con ese nombre </div>').appendTo($("#myResults"));
+	});
+	
+	//var song = songsResult.songs.song_name;
+	
+	
+}
+
+$("#followertab").click(function(e){
+	console.log("pulsamos el boton");
+	e.preventDefault();
+	
+		  
+	getArtist3(verusername);
+        console.log("adios");
+	
+});
+
+
+function getArtist3(verusername){
+	//var url = API_BASE_URL +'songs/style?style=' + style_name;
+	var url = API_BASE_URL +'users/'+ verusername +'/follower';
+
+	
+	$.ajax({
+		url : url,
+		type : 'GET',
+		crossDomain : true,
+		dataType : 'json',
+	}).done(function(data, status, jqxhr){
+				var songs = data;
+				//console.log(songs);
+				var html='';
+			  // si la consulta ajax devuelve datos
+			 
+				//	if(data.length > 0){
+					songsResult = songs;
+					$.each(songs.users, function(i, v) {
+					var todo = v;
+					 html += '<tr>'
+					
+					 html += '<td>'+todo.username+'</td>'
+					 html += '<td>'+todo.description+'</td>'
+					 html += '<td>'+todo.name+'</td>'
+				   
+
+					console.log(data);
+					//$('</p>').appendTo($('#myResults'));
+				 html += '</tr>';
+				    });
+	
+              //} 
+			  // si no hay datos mostramos mensaje de no encontraron registros
+                if(html == '') html = '<tr><td colspan="6">No se encontraron registros, revisa los datos a consultar...</td></tr>'
+                // añadimos  a nuestra tabla todos los datos encontrados mediante la funcion html
+                $("#tableDeposits2 tbody").html(html);  
+                  
+			}).fail(function() {
+			
+			$('<div class="alert alert-danger"> <strong>Oh!</strong> No hay canciones con ese nombre </div>').appendTo($("#myResults"));
+	});
+	
+	//var song = songsResult.songs.song_name;
+	
+	
+}
+
+$("#songs").click(function(e){
+	console.log("pulsamos el boton");
+	e.preventDefault();
+
+		  
+	getArtist4(verusername);
+        console.log("adios");
+	
+});
+
+function getArtist4(){
+	var url = API_BASE_URL +'songs/search2?username=' + verusername;
+
+	$.ajax({
+		url : url,
+		type : 'GET',
+		crossDomain : true,
+		dataType : 'json',
+	}).done(function(data, status, jqxhr){
+		var songs = data;
+				//console.log(songs);
+				var html='';
+			  // si la consulta ajax devuelve datos
+			 
+				//	if(data.length > 0){
+					songsResult = songs;
+					 
+					$.each(songs.songs, function(i, v) {
+					var todo = v;
+					 html += '<tr>'
+					
+					 html += '<td>'+todo.song_name+'</td>'
+					 html += '<td>'+todo.last_modified+'</td>'
+					 html += '<td>'+todo.style+'</td>'
+				     html += '<td>'+ todo.likes + '<button type="button" id=like class="btn btn-success">Like</button>'+'</td>'
+				     html +='<td>'+ '<button type="button" class="btn btn-danger" onclick=getComment('+ todo.song_name +').dialog("open")>Ver' +  '</td>'
+					 html += '<td>'+ '<div class="col-sd-4"><audio id ="song' + todo.songid +'" src="'+ todo.songURL+'" type="audio/mp3" style=background-color:#CEF6EC" controls><div><button  onclick="document.getElementById(\'song ' + todo.songid +'\').play()">Reproducir</button> style=background-color:#CEF6EC </div></audio></div>'+'</td>' 
+			         
+
+					console.log(data);
+					//$('</p>').appendTo($('#myResults'));
+				 html += '</tr>';
+				    });
+	
+              //} 
+			  // si no hay datos mostramos mensaje de no encontraron registros
+                if(html == '') html = '<tr><td colspan="6">No se encontraron registros, revisa los datos a consultar...</td></tr>'
+                // añadimos  a nuestra tabla todos los datos encontrados mediante la funcion html
+                $("#tableDeposits tbody").html(html);  
+                  
+			}).fail(function() {
+			
+			$('<div class="alert alert-danger"> <strong>Oh!</strong> No hay canciones con ese nombre </div>').appendTo($("#myResults"));
+	});
+	
+	//var song = songsResult.songs.song_name;
+	
+	
 }
 
 

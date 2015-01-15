@@ -94,7 +94,6 @@
 	</div>
 	  
 		<!--	<ul class="nav nav-tabs" id="myResults" style="color:white;" style="text-align:center" >
-
 				<!--<button type="button" class="btn btn-lg btn-primary" disabled="disabled">Botón principal</button>-->
 				<!--<p><a class="btn btn-primary btn-lg" role="button">Leer más</a></p>-->
 				<!--<button id="like" class="btn btn-primary btn-xs" ><img src="jpg/like.png"></button>-->		
@@ -115,7 +114,6 @@
                   <td><strong>Style</strong></td>
                   <td><strong>Fecha</strong></td>
                   <td><strong>Likes</strong></td>
-				  <td><strong>Comentarios</strong></td>
 				  <td><strong>Reproducir</strong></td>
                  </tr>
                 </thead>
@@ -135,36 +133,96 @@
 </style>
 
 
-			<button type="button" class="btn btn-primary" id="button_consultar">Consultar</button>
-			<button type="button" class="btn btn-primary" id="button_delete">Delete</button>
-			<button type="button" class="btn btn-primary" id="button_create">Create</button>
-			
-			<input type="text" class="form-control" id="nombrecomentarios">
-			<input type="text" class="form-control" id="nombreusername">
-			<input type="text" class="form-control" id="comentario">
-			<br>
-			<input type="number" class="form-control" id="idcomentarios">
-			
-<ul class="nav nav-pills">
-  <li class="active"><a href="#">Regular link</a></li>
-  <li class="dropdown" id="menu1">
-    <a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
-      Dropdown
-      <b class="caret"></b>
-    </a>
-    <ul class="dropdown-menu">
-      <li><a href="#">Action</a></li>
-      <li><a href="#">Another action</a></li>
-      <li><a href="#">Something else here</a></li>
-      <li class="divider"></li>
-      <li><a href="#">Separated link</a></li>
-    </ul>
-       
 
+<font size=6>
+	<p style="color:white;">Comentarios Canciones</p>
+	<br>
+	</font> 
+	<div class="container" align="center">
+	
+	<!--<button type="button" class="btn btn-primary" id="button_create">Create</button>-->
+	<div class="modal-body" align="center">
+												<div class="container" align="center">
+													<form id="songForm" class="form-horizontal" role="form">
+														<div class="col-md-4">
+															<div class="form-group">
+																<span> <label for="inputTitle">Nombre cancion</label>
+																	<input name="song_name" type="text" id="nombrecomentarios"
+																	class="form-control" placeholder="Introduce nombre de cancion"
+																	required="required"></span><span> <label
+																	for="inputTitle">Username</label> 
+																	<input name="username"
+																	type="text" id="nombreusername" class="form-control"
+																	placeholder="Introduce tu usuario" required="required">
+																</span><span><label for="inputTitle">Comentario</label>
+																	<textarea name="text" type="text"
+																		id="comentario" class="form-control"
+																		placeholder="Introduce tu comentario" required="required"></textarea></span>
+																<button type="button" class="btn btn-primary" id="button_create">Create</button>
+
+															</div>
+															
+														</div>
+													</form>
+												
+			<!--<input type="text" class="form-control" id="nombreusername">
+			<input type="text" class="form-control" id="comentario">
+			<input type="number" class="form-control" id="idcomentarios">-->
+		
+			</div>
+			</div>
+	
+			</div>
+	
+			
+					
+									
+								
+								
+								
+		<!--	<button type="button" class="btn btn-primary" id="button_delete">Delete</button>
+			<button type="button" class="btn btn-primary" id="button_create">Create</button>-->
+			<!--<input type="text" class="form-control" id="nombreusername">
+			<input type="text" class="form-control" id="comentario">
+			<input type="number" class="form-control" id="idcomentarios">	-->    
+
+	<div class="container" >
+ <form id="frm_Ins" name="frm_Ins" action="" method="post">
+              <table id="tableDeposits2" class="table" > <!--table table-bordered-->
+                <thead>
+                 <tr>
+                  <td><strong>Id comentario</strong></td>
+				  <td><strong>Username</strong></td>
+                  <td><strong>Comentario</strong></td>
+				  <td><strong>Fecha</strong></td>
+                 </tr>
+                </thead>
+                <tbody>
+ 
+                </tbody>
+              </table>
+      </form> 
+ <style type="text/css">
+.table, td, th {  	border:1px solid white; 
+					border-collapse:separate;
+					border-spacing:30px;
+					background-color:#525151;
+					color:white;
+					font-size:15px;
+					padding:5px;}
+</style>
+
+  
+
+ </div>    
+           
+		
+			
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/search.js"></script>
 	<script type="text/javascript" src="js/reproductor.js"></script>
     <script type="text/javascript" src="js/jquery.js"></script>

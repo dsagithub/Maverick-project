@@ -79,15 +79,7 @@ public class profileuser extends ListActivity {
         (new FetchBooksTask()).execute();
     }
 
-    @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        User user = maverickList.get(position);
-        Log.d(TAG, user.getLinks().get("self").getTarget());
 
-    Intent intent = new Intent(this, profiledetail.class);
-    intent.putExtra("url", user.getLinks().get("self").getTarget());
-    startActivity(intent);
-}
 
     private void addUsers(UsersCollection users){
         maverickList.addAll(users.getUsers());

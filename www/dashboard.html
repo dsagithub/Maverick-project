@@ -69,8 +69,6 @@
             <span class="icon-bar"></span>
           </button>
 
-		  <img src="jpg/music.jpg"  border="0" height="55" width="55"class="img-rounded">
-
 		  <img src="jpg/music.jpg" border="0" height="55" width="55"class="img-rounded">
        
         </div>
@@ -86,7 +84,7 @@
             <li onclick = "location='ranking.html'"><a href="#" style="color: #00FF00" id="ranking">Top List</a></li>
             <li onclick = "location='userprofile.html'"><a href="#" class="icon-user" style="color: #00FF00" id="profile">Profile</a></li>
           </ul>
-         
+        <
 		 <form class="navbar-form navbar-right">
             <input type="text" class="form-control" id="artisttosearch" placeholder="Search artists">
 			<button type="submit" class="btn" id="searchartist" style="background-color: #00FF00">Search</button>
@@ -111,61 +109,41 @@
 												class="glyphicon glyphicon-music"></span>  Stream</a></li>
 													
 	  </ul>
+	  <br>
      <!-- RESULTADO DEL STREAM, lo utiliza para los resultados de las busquedas-->
-	 
-		<ul class="nav nav-tabs" id="myResults">
-        </ul>
-		
-	
-	<!-- prueba reproductor -->
-	<!--
-	<center>
-	<font size=8>
-	<p style="color:white;">Prueba</p>
-	</center>
+	<font size=6>
+	<p style="color:white;">Canciones de los usuarios a los que sigo</p>
+	<br>
 	</font>
-	
-	<!--
- <div id="divContenedor">
-			<div id="divReproductor">
-				<div id="divInfo">
-					<div id="divLogo">
-						<img src="jpg/Logo_Maverick.png" align="left">
-					</div>
-					<div id="divInfoCancion">
-						<label id="lblCancion"><strong>Nombre: </strong><span>-</span></label>
-						<label id="lblArtista"><strong>Artista: </strong><span>-</span></label>
-						<label id="lblDuracion"><strong>Duraci&oacute;n: </strong><span>-</span></label>
-						<label id="lblEstado"><strong>Transcurrido: </strong><span>-</span></label>
-					</div>
-					<div style="clear: both"></div>
-				</div>
-				<div id="divControles">
-					<input type="button" id="btnReproducir" title="Reproducir">
-					<input type="button" id="btnPausar" title="Pausar/Continuar">
-					<input type="button" id="btnAnterior" title="Anterior">
-					<input type="button" id="btnSiguiente" title="Siguiente">
-					<input type="button" id="btnSubirVolumen" title="Subir volumen">
-					<input type="button" id="btnBajarVolumen" title="Bajar volumen">
-					<input type="button" id="btnSilencio" title="Poner/Quitar silencio">
-				</div>
-				<div id="divProgreso">
-					<div id="divBarra"></div>
-				</div>
-				<div id="divLista">
-					<ol id="olCanciones">
-					<!-- <li rel="song/music.mp3" type="audio/mp3" id="audio">
-							<strong>Music</strong>
-							<em>David</em>
-						</li>
-					<!--<audio src="song/music.mp3" preload="auto" controls></audio>-->
-				<!--	</ol>
-	<!--			</div>
-				
-			</div>
-		</div>
-		-->
-		
+	<p> </p>
+	<br>
+      <form id="frm_Ins" name="frm_Ins" action="" method="post">
+              <table id="tableDeposits" class="table" > <!--table table-bordered-->
+                <thead>
+                 <tr>
+                  <td><strong>#Nombre Canci&oacute;n</strong></td>
+                  <td><strong>Username</strong></td>
+                  <td><strong>Style</strong></td>
+                  <td><strong>Descripci&oacute;n</strong></td>
+                  <td><strong>Likes</strong></td>
+				  <td><strong>Comentarios</strong></td>
+				  <td><strong>Reproducir</strong></td>
+                 </tr>
+                </thead>
+                <tbody>
+ 
+                </tbody>
+              </table>
+      </form> 
+ <style type="text/css">
+.table, td, th {  	border:1px solid white; 
+					border-collapse:separate;
+					border-spacing:30px;
+					background-color:#525151;
+					color:white;
+					font-size:15px;
+					padding:5px;}
+</style>
 
 
 
@@ -174,28 +152,20 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
+	
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
-		<script type="text/javascript" src="js/dashboard.js"></script>			
-		   <script type="text/javascript" src="js/jquery.js"></script>
-	<script type="text/javascript" src="js/linkheaders.js"></script>
-	<script type="text/javascript" src="js/uritemplate.js"></script>
-	 <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
-  <script type="text/javascript" src="js/jquery.cookie.js"></script>
-  <script src="js/jquery.base64.js"></script>
+		
+			<script type="text/javascript" src="js/jquery.js"></script>
+			<script type="text/javascript" src="js/linkheaders.js"></script>
+			<script type="text/javascript" src="js/uritemplate.js"></script>
+			<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+			<script type="text/javascript" src="js/jquery.cookie.js"></script>
+			<script src="js/jquery.base64.js"></script>
 
-	<script type="text/javascript" src="js/dashboard.js"></script>
-	<script type="text/javascript" src="js/search.js"></script>
-	<script type="text/javascript" src="reproductor/js/ext/jquery-1.7.2.min.js"></script>
-	<script type="text/javascript" src="js/reproductor.js"></script>	
-	<!--<script type="text/javascript" src="js/search.js"></script>-->
-	<script type="text/javascript" src="js/jquery.js"></script>
-	<script type="text/javascript" src="js/linkheaders.js"></script>
-	<script type="text/javascript" src="js/uritemplate.js"></script>
-	<script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="js/jquery.cookie.js"></script>
-    <script type="text/javascript" src="js/jquery.base64.js"></script>
-
+			<script type="text/javascript" src="js/dashboard.js"></script>
+			<script type="text/javascript" src="reproductor/js/ext/jquery-1.7.2.min.js"></script>
+			<script type="text/javascript" src="js/reproductor.js"></script>	
   
   </body>
 </html>

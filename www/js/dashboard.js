@@ -17,56 +17,78 @@ $("#ranking").click(function(e) {
   e.preventDefault();
   window.location.replace("ranking.html");
 });
-$('#searchartist').click(function(e) {
+/*
+$("#searchsong").click(function(e) {
 	e.preventDefault();
-  var elementobusqueda = $('artisttosearch').val();
+  var elementobusqueda2 = $("#songtosearch").val();
+  $.cookie('elementobusqueda2', elementobusqueda2);
+    $.cookie('elementobusqueda2');
+	window.location.replace("search.html");
+});
+*/
+$("#searchartist").click(function(e) {
+	e.preventDefault();
+  var elementobusqueda = $("#artisttosearch").val();
   $.cookie('elementobusqueda', elementobusqueda);
     $.cookie('elementobusqueda');
-
 	window.location.replace("search.html");
 });
 
-
 function followsongs(username) {
-var url = API_BASE_URL + '/songs/' + username;
+var url = 'http://localhost:8080/Maverick-api/songs/' + username + '/devuelve';
 
 //console.log(url);
   
   $('#searchtab').text('');
 
-  $.ajax({
-    url : url,
-    type : 'GET',
-    crossDomain : true,
-    dataType : 'json',
-  }).done(function(data, status, jqxhr) {
-
-  var listausers = data;
+	
+	$.ajax({
+		url : url,
+		type : 'GET',
+		crossDomain : true,
+		dataType : 'json',
+	}).done(function(data, status, jqxhr) {
+				//console.log(songs);
+				var html='';
+			  // si la consulta ajax devuelve datos
+			 
+				//	if(data.length > 0){
+				var listausers = data;
       
 		$.each(listausers.songs, function(i,v){
           var song = v;
           console.log(song);
-            
-            $('<strong> Song: </strong>' + song.song_name + '<br>').appendTo($('#myResults'));
-            $('<strong> Artist: </strong>' + song.username + '<br>').appendTo($('#myResults'));
-			$('<div class="col-sd-4"><audio id ="song' + song.songid +'" src="'+ song.songURL +'" type="audio/mp3" style=background-color:#CEF6EC" controls><div><button onclick="document.getElementById(\'song ' + song.songid +'\').play()">Reproducir</button> <button onclick="document.getElementById(\'song ' + song.songid +'\').pause()">Pausar</button><button onclick="document.getElementById(\'song ' + song.songid +'\').volume+=0.1">Sube Volumen</button><button onclick="document.getElementById(\'song ' + song.songid +'\').volume-=0.1">Baja Volumen</button> </div></audio></div>').appendTo($('#myResults'));
+					 html += '<tr>'
+					//var song = v;
+					//$('<h4> Datos canción: </h4> ').appendTo($('#myResults'));
+					//$('<p>').appendTo($('#myResults'));
+				//	var button = $("tableDeposits").append('<button type="button" align="center" class="btn btn-success" href="#coments"  id="button">Coments</button>');
+					 html += '<td>'+ song.song_name+'</td>'
+					 html += '<td>'+ song.username+'</td>'
+				     html += '<td>'+ song.style+'</td>'
+					 html += '<td>'+ song.description+'</td>'
+				     html += '<td>'+ song.likes + '<button type="button" id=like class="btn btn-success">Like</button>'+'</td>'
+				     html +='<td>'+ '<button type="button" class="btn btn-danger" onclick=getComment('+ song.song_name +').dialog("open")>Ver' +  '</td>'
+					// html +='<td>'+ '<button type="button" class="btn btn-danger" onclick=getComent('+ v.song_name +')>Ver' + '<button type="button" class="btn btn-danger" onclick=crearComent('+ v.song_name +')>Crear' + '<button type="button" class="btn btn-danger" onclick=DeleteComent('+ v.song_name +')>Borrar' + '</td>'
+					 html += '<td>'+ '<div class="col-sd-4"><audio id ="song' +  song.songid +'" src="'+ song.songURL+'" type="audio/mp3" style=background-color:#CEF6EC" controls><div><button  onclick="document.getElementById(\'song ' + song.songid +'\').play()">Reproducir</button> style=background-color:#CEF6EC </div></audio></div>'+'</td>' 
+
+					console.log(data);
+					//$('</p>').appendTo($('#myResults'));
+				 html += '</tr>';
+				    });
+	
+              //} 
+			  // si no hay datos mostramos mensaje de no encontraron registros
+                if(html == '') html = '<tr><td colspan="6">No se encontraron registros, revisa los datos a consultar...</td></tr>'
+                // añadimos  a nuestra tabla todos los datos encontrados mediante la funcion html
+                $("#tableDeposits tbody").html(html);  
+                  
+			}).fail(function() {
 			
-          
-          
-          $('</p>').appendTo($('#myResults'));
-        
-        });
-        
-        
-      }).fail(function() {
-        $('<div class="alert alert-danger"> <strong>Oh!</strong> No se pueden cargar los datos del usuario </div>').appendTo($("#myResults"));
-  });
-
-}
-
-
-
-
+			$('<div class="alert alert-danger"> <strong>Oh!</strong> No hay canciones con ese nombre </div>').appendTo($("#myResults"));
+	});
+	}
+	
 function getCookie(name){
   var pattern = RegExp(name + "=.[^;]*");
   matched = document.cookie.match(pattern);

@@ -41,7 +41,6 @@ function Login(login){
 	
 
 				window.location.replace("dashboard.html");
-				window.location.replace('dashboard.html');
 
 				}
 				else {		alert('contraseña incorrecta'); 

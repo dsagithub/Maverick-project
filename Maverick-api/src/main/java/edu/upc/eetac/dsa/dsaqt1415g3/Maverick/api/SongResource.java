@@ -713,7 +713,7 @@ public class SongResource {
 	
 	//Metodo para listar las canciones de los usuarios a los que sigo
 	@GET 
-	@Path("/{username}")
+	@Path("/{username}/devuelve")
 	@Produces(MediaType.MAVERICK_API_SONG_COLLECTION)
 	public SongsCollection getCancionesFollowing(@PathParam("username") String username ,@QueryParam("length") int length,
 			@QueryParam("before") long before, @QueryParam("after") long after) {
