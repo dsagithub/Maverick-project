@@ -1,4 +1,4 @@
-var API_BASE_URL = "http://147.83.7.156:8080/grupo3.dsa.eetac/Maverick-api/";
+﻿var API_BASE_URL = "http://localhost:8080/Maverick-api/";
 var username = getCookie('username');
 //console.log(username);	
 var search = getCookie("search");
@@ -19,9 +19,6 @@ $('#searchartist').click(function(e) {
  
 
 	window.location.replace("/search.html");
-
-	window.location.replace("search.html");
-
 });
 
 
@@ -217,6 +214,7 @@ function getArtist4(){
 					 html += '<td>'+todo.last_modified+'</td>'
 					 html += '<td>'+todo.style+'</td>'
 				     html += '<td>'+ todo.likes + '<button type="button" id=like class="btn btn-success">Like</button>'+'</td>'
+				     html +='<td>'+ '<button type="button" class="btn btn-danger" onclick=getComment('+ todo.song_name +').dialog("open")>Ver' +  '</td>'
 					 html += '<td>'+ '<div class="col-sd-4"><audio id ="song' + todo.songid +'" src="'+ todo.songURL+'" type="audio/mp3" style=background-color:#CEF6EC" controls><div><button  onclick="document.getElementById(\'song ' + todo.songid +'\').play()">Reproducir</button> style=background-color:#CEF6EC </div></audio></div>'+'</td>' 
 			         
 
