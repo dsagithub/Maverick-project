@@ -114,6 +114,7 @@ $('#imageForm').submit(function(e){
 		$('#uploadedImage').attr('src', response.songURL);
 		$('progress').toggle();
 		$('#imageForm')[0].reset();
+		alert("Upload correcto");
 	}).fail(function (jqXHR, textStatus) {
     	alert("KO");
 		console.log(textStatus);
@@ -126,7 +127,6 @@ if (e.lengthComputable) {
 
 	}
 }
-
 
 /*
 function createSong(newSong) {

@@ -41,37 +41,57 @@ $('#button_consultar').click(function(e){
 	
 });
 
-function getComent(nombrecomentarios) {
-var url = API_BASE_URL + 'songs/' + nombrecomentarios + '/comments';
-$("#myResults").text('');
+$('#button_delete').click(function(e){
 	
+	e.preventDefault();
+	deleteComment($("#nombrecomentarios").val(),$("#idcomentarios").val())
+});
+
+function deleteComment(nombrecomentarios, idcomentarios) {
+	var url = API_BASE_URL +"songs/"+nombrecomentarios+ "/comment/"+idcomentarios;
+	console.log(url);
 	$.ajax({
 		url : url,
-		type : 'GET',
+		type : 'DELETE',
 		crossDomain : true,
 		dataType : 'json',
-	}).done(function(data, status, jqxhr) {
-				var songs = data;
-				console.log(data);
-				console.log(url);
-				$('<h4> Comentarios canción </h4>').appendTo($('#myResults'));
-			    $.each(songs.songs, function(i, v) {
-				var song = v;
-					
-					$('<strong> Nombre canción: </strong>' + song.song_name + '<br>').appendTo($('#myResults'));
-				    $('<strong> Autor: </strong>' + song.username + '<br>').appendTo($('#myResults'));
-				    $('<strong> Comentario : </strong>' + song.text + '<br>').appendTo($('#myResults'));
-					$('<strong> Fecha : </strong>' + song.fechacomment + '<br>').appendTo($('#myResults'));
-					$('</p>').appendTo($('#myResults'));
-			
-				    $("#myResults").append('</div>');
-					});
-				
-			}).fail(function() {
-			
-			$('<div class="alert alert-danger"> <strong>Oh!</strong> No hay canciones con ese nombre </div>').appendTo($("#myResults"));
+	}).done(function(data, status, jqxhr) {			
+		alert("comment eliminado");
+	}).fail(function() {
+		alert("ERROR");
 	});
+}
+
+$('#button_create').click(function(e){
 	
+	e.preventDefault();
+	 var newComment = new Object();
+	newComment.song_name = $("#nombrecomentarios").val();
+	newComment.username = $("#nombreusername").val();
+	newComment.text = $("#comentario").val();
+	createComment(newComment);
+});
+
+function createComment(newComment) {
+	var url = API_BASE_URL + 'songs/' + newComment.song_name + '/comment';
+	alert(newComment.song_name);
+	console.log(url);
+	var data = JSON.stringify(newComment);
+
+	$("#myResults").text('');
+
+	$.ajax({
+		url : url,
+		type : 'POST',
+		crossDomain : true,
+		dataType : 'json',
+		contentType : 'application/vnd.maverick.api.comment+json',
+		data : data,
+	}).done(function(data, status, jqxhr) {
+		$('<div class="alert alert-danger"> <strong>Ok!</strong> Error</div>').appendTo($("#myResults2"));				
+  	}).fail(function() {
+		$('<div class="alert alert-success"> <strong>Oh!</strong> Created </div>').appendTo($("#myResults2"));
+	});
 
 }
 
@@ -289,35 +309,43 @@ $("#myResults").text('');
 			  // si la consulta ajax devuelve datos
 			 
 				//	if(data.length > 0){
-					//songsResult = songs;
+					songsResult = songs;
+					 
 					$.each(songs.songs, function(i, v) {
-					
+					var song = v.song_name;
 					 html += '<tr>'
 					//var song = v;
 					//$('<h4> Datos canción: </h4> ').appendTo($('#myResults'));
 					//$('<p>').appendTo($('#myResults'));
-					var button = $("tableDeposits").append('<button type="button" align="center" class="btn btn-success" href="#coments"  id="button">Coments</button>');
+				//	var button = $("tableDeposits").append('<button type="button" align="center" class="btn btn-success" href="#coments"  id="button">Coments</button>');
 					 html += '<td>'+v.song_name+'</td>'
 					 html += '<td>'+ v.username+'</td>'
 				     html += '<td>'+v.style+'</td>'
 					 html += '<td>'+v.last_modified+'</td>'
 				     html += '<td>'+ v.likes + '<button type="button" id=like class="btn btn-success">Like</button>'+'</td>'
-					 html +='<td>'+ button + '</td>'
+				     html +='<td>'+ '<button type="button" class="btn btn-danger" onclick=getComment('+ v.song_name +').dialog("open")>Ver' +  '</td>'
+					// html +='<td>'+ '<button type="button" class="btn btn-danger" onclick=getComent('+ v.song_name +')>Ver' + '<button type="button" class="btn btn-danger" onclick=crearComent('+ v.song_name +')>Crear' + '<button type="button" class="btn btn-danger" onclick=DeleteComent('+ v.song_name +')>Borrar' + '</td>'
 					 html += '<td>'+ '<div class="col-sd-4"><audio id ="song' + v.songid +'" src="'+ v.songURL+'" type="audio/mp3" style=background-color:#CEF6EC" controls><div><button  onclick="document.getElementById(\'song ' + v.songid +'\').play()">Reproducir</button> style=background-color:#CEF6EC </div></audio></div>'+'</td>' 
+			         
 					
-					button.click(function(e){
+					
+					//alert(v.song_name);
+						//console.log(v.song_name);
+					//var nom = (songsResult.songs.song_name);
+				//	button.onclick(function(e){
+				//var busqueda= document.getElementById(tableDeposits[0]);
 	
-					e.preventDefault();
-					alert("dentro");
+					//e.preventDefault();
+					//alert("dentro");
 					//getComent($('v.song_name').val());
-					});
-	
-	
+					//});
+
 					
 					console.log(data);
 					//$('</p>').appendTo($('#myResults'));
 				 html += '</tr>';
 				    });
+	
               //} 
 			  // si no hay datos mostramos mensaje de no encontraron registros
                 if(html == '') html = '<tr><td colspan="6">No se encontraron registros, revisa los datos a consultar...</td></tr>'
@@ -328,8 +356,45 @@ $("#myResults").text('');
 			
 			$('<div class="alert alert-danger"> <strong>Oh!</strong> No hay canciones con ese nombre </div>').appendTo($("#myResults"));
 	});
+	
+	//var song = songsResult.songs.song_name;
+	
+	
+}
+
+function getComent(song) {
+var url = API_BASE_URL + 'songs/' + song + '/comments';
+$("#myResults").text('');
+	
+	$.ajax({
+		url : url,
+		type : 'GET',
+		crossDomain : true,
+		dataType : 'json',
+	}).done(function(data, status, jqxhr) {
+				var songs = data;
+				console.log(data);
+				console.log(url);
+				$('<h4> Comentarios canción </h4>').appendTo($('#myResults'));
+			    $.each(songs.songs, function(i, v) {
+				var song = v;
+					$('<strong> ID: </strong>' + song.commentid + '<br>').appendTo($('#myResults2'));
+				    $('<strong> Autor: </strong>' + song.username + '<br>').appendTo($('#myResults2'));
+				    $('<strong> Comentario : </strong>' + song.text + '<br>').appendTo($('#myResults2'));
+					$('<strong> Fecha : </strong>' + song.last_modified + '<br>').appendTo($('#myResults2'));
+					$('</p>').appendTo($('#myResults'));
+			
+				    $("#myResults").append('</div>');
+					});
+				
+			}).fail(function() {
+			
+			$('<div class="alert alert-danger"> <strong>Oh!</strong> No hay canciones con ese nombre </div>').appendTo($("#myResults2"));
+	});
+	
 
 }
+
 
 
 function getProfile(ver) {
@@ -382,4 +447,3 @@ function getCookie(name){
   }
   return false;
 }
-
