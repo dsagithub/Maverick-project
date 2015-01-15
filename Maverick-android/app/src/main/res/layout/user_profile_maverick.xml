@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+    <TextView
+        android:id="@+id/header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_launcher"
+        android:gravity="center_vertical"
+        android:layout_centerHorizontal="true"
+        android:text="@string/app_name"
+        android:textColor="#00FF00"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold"
+        />
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:gravity="center_vertical"
+        android:layout_centerHorizontal="true"
+        android:text="Perfil Usuario"
+        android:textColor="#00FF00"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal" />
+    <TextView
+        android:id="@+id/fotito"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:gravity="center_vertical"
+        android:layout_centerHorizontal="true"
+        android:drawableLeft="@drawable/user"
+        android:text="
+"
+
+        android:layout_gravity="center_horizontal"
+         />
+    <TextView
+        android:id="@+id/nombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:gravity="center_vertical"
+        android:layout_centerHorizontal="true"
+        android:text="Nombre:"
+        android:textColor="#00FF00"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal" />
+    <TextView
+        android:id="@+id/tvDetailName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dip"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:gravity="center_vertical"
+        android:layout_centerHorizontal="true"
+        android:text="Username:"
+        android:textColor="#00FF00"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal" />
+    <TextView
+        android:id="@+id/tvDetailUserName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dip"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    <TextView
+        android:id="@+id/descripcion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:gravity="center_vertical"
+        android:layout_centerHorizontal="true"
+        android:text="Descripcion:"
+        android:textColor="#00FF00"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal" />
+    <TextView
+        android:id="@+id/tvDetailDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dip"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+</LinearLayout>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#E5DBDB"
+    android:fillViewport="true"
+    tools:context=".HomeActivity"
+    >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+        <TextView
+            android:id="@+id/header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_launcher"
+            android:gravity="center_vertical"
+            android:layout_centerHorizontal="true"
+            android:text="@string/app_name"
+            android:textColor="#00FF00"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textStyle="bold"
+            />
+
+        <!-- Header starts -->
+        <!-- Header ends -->
+        <!-- Login form -->
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="30dip"
+            android:weightSum="1">
+
+
+
+
+            <TextView
+                android:id="@+id/Stream"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+
+
+            <Button
+                android:id="@+id/perfil"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dip"
+                android:onClick="startMaverickProfile"
+                android:textColor="#00FF00"
+                android:background="#000000"
+                android:text="Ver perfil usuarios" />
+
+            <Button
+                android:id="@+id/songs"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dip"
+                android:onClick="startMaverickSong"
+                android:textColor="#00FF00"
+                android:background="#000000"
+                android:text="Canciones de un usuario" />
+
+            <Button
+                android:id="@+id/toplist"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dip"
+                android:onClick="starttoplistActivity"
+                android:textColor="#00FF00"
+                android:background="#000000"
+                android:text="Top List" />
+
+        <Button
+            android:id="@+id/search"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dip"
+            android:onClick="startSearchActivity"
+            android:textColor="#00FF00"
+            android:background="#000000"
+            android:text="Búsqueda" />
+    </LinearLayout>
+
+    </RelativeLayout>
+
+
+</ScrollView>
