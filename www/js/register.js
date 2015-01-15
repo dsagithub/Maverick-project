@@ -1,4 +1,4 @@
-var API_BASE_URL = "http://localhost:8080/Maverick-api/users";
+var API_BASE_URL = "http://147.83.7.156:8080/grupo3.dsa.eetac/Maverick-api/users";
 
 $('#fan').click(function (e){
 	role = $('#fan').val();

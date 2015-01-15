@@ -1,4 +1,4 @@
-var API_BASE_URL = "http://localhost:8080/Maverick-api/";
+var API_BASE_URL = "http://147.83.7.156:8080/grupo3.dsa.eetac/Maverick-api/";
 var verusername = getCookie('verusername');
 //console.log(username);	
 var search = getCookie("search");

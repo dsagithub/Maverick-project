@@ -1,4 +1,4 @@
-var API_BASE_URL = "http://localhost:8080/Maverick-api";
+var API_BASE_URL = "http://147.83.7.156:8080/grupo3.dsa.eetac/Maverick-api";
 var username;
 $("#button_signin").click(function(e) {
 	e.preventDefault();

@@ -1,4 +1,4 @@
-var API_BASE_URL = "http://localhost:8080/Maverick-api/";
+var API_BASE_URL = "http://147.83.7.156:8080/grupo3.dsa.eetac/Maverick-api/";
 var username = getCookie('username');
 //console.log(username);	
 var search = getCookie('elementobusqueda');
@@ -289,7 +289,7 @@ console.log(url);
 				e.preventDefault();
 				// alert("Datos Modificados Correctamente");
 				 	
-					window.location.replace("file:///C:/Users/Felipe/git/Maverick-project/www/seeprofile.html");
+					window.location.replace("seeprofile.html");
 				// alert("Datos Modificados Correctamente");	
 					window.location.replace('seeprofile.html');
 				//loadProfile(userjs.getLink('self').href);

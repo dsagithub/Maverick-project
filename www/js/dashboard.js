@@ -1,4 +1,4 @@
-var API_BASE_URL = "http://localhost:8080/Maverick-api";
+var API_BASE_URL = "http://147.83.7.156:8080/grupo3.dsa.eetac/Maverick-api";
 var username = getCookie('username');
 console.log(username);	
 
@@ -68,7 +68,6 @@ var url = 'http://localhost:8080/Maverick-api/songs/' + username + '/devuelve';
 				     html += '<td>'+ song.style+'</td>'
 					 html += '<td>'+ song.description+'</td>'
 				     html += '<td>'+ song.likes + '<button type="button" id=like class="btn btn-success">Like</button>'+'</td>'
-				     html +='<td>'+ '<button type="button" class="btn btn-danger" onclick=getComment('+ song.song_name +').dialog("open")>Ver' +  '</td>'
 					// html +='<td>'+ '<button type="button" class="btn btn-danger" onclick=getComent('+ v.song_name +')>Ver' + '<button type="button" class="btn btn-danger" onclick=crearComent('+ v.song_name +')>Crear' + '<button type="button" class="btn btn-danger" onclick=DeleteComent('+ v.song_name +')>Borrar' + '</td>'
 					 html += '<td>'+ '<div class="col-sd-4"><audio id ="song' +  song.songid +'" src="'+ song.songURL+'" type="audio/mp3" style=background-color:#CEF6EC" controls><div><button  onclick="document.getElementById(\'song ' + song.songid +'\').play()">Reproducir</button> style=background-color:#CEF6EC </div></audio></div>'+'</td>' 
 
