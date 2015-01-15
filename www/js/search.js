@@ -149,6 +149,7 @@ var url = API_BASE_URL + 'users/search?username=' + search;
 					e.preventDefault();
 				// alert("Datos Modificados Correctamente");
 				 	
+					window.location.replace("file:///C:/Users/Felipe/git/Maverick-project/www/seeprofile.html");
 					window.location.replace('seeprofile.html');
 				//loadProfile(userjs.getLink('self').href);
 				//$('#searchpg').hide();
@@ -214,6 +215,9 @@ console.log(url);
 					
 					userlink.click(function (e){
 				e.preventDefault();
+				// alert("Datos Modificados Correctamente");
+				 	
+					window.location.replace("file:///C:/Users/Felipe/git/Maverick-project/www/seeprofile.html");
 				// alert("Datos Modificados Correctamente");	
 					window.location.replace('seeprofile.html');
 				//loadProfile(userjs.getLink('self').href);

@@ -13,7 +13,9 @@ $("#button_signin").click(function(e) {
 
 $("#button_register").click(function(e) {
 	e.preventDefault();
+	window.location.replace("register.html");
 	window.location.replace('register.html');
+
 });
 
 function Login(login){
@@ -37,6 +39,8 @@ function Login(login){
 					$.cookie('username');
 							console.log(info.loginSuccessful);
 	
+
+				window.location.replace("dashboard.html");
 				window.location.replace('dashboard.html');
 
 				}

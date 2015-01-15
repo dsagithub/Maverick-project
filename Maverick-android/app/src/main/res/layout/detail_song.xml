@@ -1,0 +1,118 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_marginRight="16dip"
+    android:layout_marginLeft="16dip"
+    android:background="#848484">
+
+    <TextView
+        android:id="@+id/header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:gravity="center_vertical"
+        android:layout_centerHorizontal="true"
+        android:text="Nombre:"
+        android:textColor="#00FF00"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:id="@+id/tvDetailSongName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dip"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+    <TextView
+        android:id="@+id/hola"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:gravity="center_vertical"
+        android:layout_centerHorizontal="true"
+        android:text="Autor:"
+        android:textColor="#00FF00"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/tvDetailUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dip"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/hh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:gravity="center_vertical"
+        android:layout_centerHorizontal="true"
+        android:text="Album:"
+        android:textColor="#00FF00"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textStyle="bold"
+        />
+
+    <TextView
+        android:id="@+id/tvDetailAlbum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dip"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+    <TextView
+        android:id="@+id/hhh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:gravity="center_vertical"
+        android:layout_centerHorizontal="true"
+        android:text="Descripcion:"
+        android:textColor="#00FF00"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:id="@+id/tvDetailDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dip"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+    <TextView
+        android:id="@+id/ahh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:gravity="center_vertical"
+        android:layout_centerHorizontal="true"
+        android:text="Style:"
+        android:textColor="#00FF00"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:id="@+id/tvDetailStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dip"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/foto"
+        android:layout_width="200dp"
+        android:gravity="center_vertical"
+        android:layout_height="300dp"
+        android:layout_gravity="center_horizontal"
+        android:drawableLeft="@drawable/onda"
+        android:text="
+" />
+
+
+
+
+
+
+</LinearLayout>

@@ -4,7 +4,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.core.Link;
+
+
+import org.glassfish.jersey.linking.Binding;
+import org.glassfish.jersey.linking.InjectLink;
+import org.glassfish.jersey.linking.InjectLinks;
+import org.glassfish.jersey.linking.InjectLink.Style;
+
+import edu.upc.eetac.dsa.dsaqt1415g3.Maverick.api.MediaType;
+import edu.upc.eetac.dsa.dsaqt1415g3.Maverick.api.SongResource;
+import edu.upc.eetac.dsa.dsaqt1415g3.Maverick.api.UserResource;
+
+
 public class UsersCollection {
+@InjectLinks({
+		
+	@InjectLink(resource = UserResource.class, style = Style.ABSOLUTE, rel = "users Collection", title = "getAllUsers"),
+	@InjectLink(resource = SongResource.class, style = Style.ABSOLUTE, rel = "self", title = "users", type = MediaType.MAVERICK_API_USER_COLLECTION),
+	
+
+	
+		
+		
+		
+		
+		})
 	
 	
 	private List<Link> links;

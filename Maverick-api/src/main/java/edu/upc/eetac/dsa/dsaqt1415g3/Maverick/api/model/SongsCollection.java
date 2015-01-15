@@ -18,6 +18,7 @@ import edu.upc.eetac.dsa.dsaqt1415g3.Maverick.api.UserResource;
 public class SongsCollection {
 	@InjectLinks({
 		
+		@InjectLink(resource = SongResource.class, style = Style.ABSOLUTE, rel = "self", title = "songs", type = MediaType.MAVERICK_API_SONG_COLLECTION),
 		
 		@InjectLink(resource = SongResource.class, style = Style.ABSOLUTE, rel = "song", title = "create song", type = javax.ws.rs.core.MediaType.MULTIPART_FORM_DATA),
 		@InjectLink(resource = SongResource.class, style = Style.ABSOLUTE, rel = "songs Collection", title = "getAllSongs"),

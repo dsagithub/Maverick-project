@@ -11,7 +11,7 @@ followsongs(username);
 
 $("#profile").click(function(e) {
 	e.preventDefault();
-	window.location.replace("userProfile.html");
+	window.location.replace("userprofile.html");
 });
 $("#ranking").click(function(e) {
   e.preventDefault();
@@ -22,16 +22,15 @@ $('#searchartist').click(function(e) {
   var elementobusqueda = $('artisttosearch').val();
   $.cookie('elementobusqueda', elementobusqueda);
     $.cookie('elementobusqueda');
+
 	window.location.replace("search.html");
 });
-
-
 
 
 function followsongs(username) {
 var url = API_BASE_URL + '/songs/' + username;
 
-console.log(url);
+//console.log(url);
   
   $('#searchtab').text('');
 

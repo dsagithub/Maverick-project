@@ -88,9 +88,17 @@
 						
 							
 								
+
+								 <button type="button"   class="btn btn-success" style="background-color: #00FF00"  href="#success" data-toggle="modal" id="uploadsong">Upload Song</button>
+								 
+								
+								<!-- Modal -->
+								
+								
 			<!--		<button type="button"   class="btn btn-success" style="background-color: #00FF00"  href="#success" data-toggle="modal" id="uploadsong">Upload Song</button> -->
 						<button type="button"  class="btn btn-success" style="background-color: #00FF00"  href="#upload" data-toggle="modal" id="uploadsong">Upload Song</button>
 						<div class="modal fade" id="upload" tabindex="-1" role="dialog"
+
 									aria-labelledby="myModalLabel" aria-hidden="true">
 									<div class="modal-dialog">
 										<div class="modal-content">
@@ -227,7 +235,7 @@
 								
 								 <button type="button" align="center" class="btn btn-success" href="#delete" style="background-color: #00FF00"  data-toggle="modal" id="deleteprofile">Delete Profile</button>
 								
-								
+								<a class="UFILikeLink" href="#" role="button" aria-live="polite" id="megusta" title="Te gusta esto" data-ft="{&quot;tn&quot;:&quot;>&quot;}" data-reactid=".1u"><span data-reactid=".1u.1">Me gusta</span> </a>
 								<!-- Modal -->
 								<div class="modal fade"  id="delete"tabindex="-1" role="dialog"
 									aria-labelledby="myModalLabel" aria-hidden="true">
@@ -263,7 +271,25 @@
 								</div>
 							</div>
 							
-							
+			<!--		<div class="row">
+          <div class="col-sm-8">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Resultado cancion</h3>
+              </div>
+              <div class="panel-body">
+                 <span id="todo_result"></span>
+              </div>
+            </div>
+          </div><!-- /.col-sm-8 -->
+       <!--   <div class="col-sm-4">
+            <button type="button" class="btn btn-info" id="button_get_todo">Me gusta</button>
+            <div class="input-group input-group-sm">
+              <span class="input-group-addon">SongName</span>
+              <input type="text" class="form-control" id="todo_id">
+            </div>
+          </div>
+        </div> -->
 						
 					
   
@@ -277,12 +303,20 @@
 	 
 	  <ul class="nav nav-tabs" id="myTab">
 				
-				<li><a id="songstab"  style="color:red;" href="#" data-toggle="collapse"> Songs</a></li>
+				<li><a id="songs"  style="color:red;" href="#" data-toggle="collapse"> Songs</a></li>
 				<li><a id="followingtab"  style="color:red;" href="#" data-toggle="collapse">
 						Following</a></li>
 				<li><a id="followertab" style="color:red;" href="#" data-toggle="collapse">Follower</a></li>
 				
 			</ul>
+
+			 <ul class="nav nav-tabs" id="myResults">
+				
+				
+				
+			</ul>
+
+
 			
 <span id="create_result"></span>
               
@@ -302,6 +336,17 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
 	   
+
+	  	
+		   <script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/linkheaders.js"></script>
+	<script type="text/javascript" src="js/uritemplate.js"></script>
+	
+ 
+
+ <!--  <script type="text/javascript" src="js/getstyle.js"></script> -->
+  
+
 	   <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
        <script type="text/javascript" src="js/jquery.cookie.js"></script>
        <script type="text/javascript" src="js/jquery.base64.js"></script>
@@ -317,6 +362,7 @@
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
    
  
+
 	
   
   </body>
