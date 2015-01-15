@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link rel="icon" href="file:///C:/Users/Felipe/git/Maverick-project/www/jpg/music.jpg">
+
+   
+
+
+    <title>Maverick </title>
+<link rel="stylesheet"
+	href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="http://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="http://getbootstrap.com/examples/dashboard/dashboard.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="http://getbootstrap.com/assets/js/ie-emulation-modes-warning.js"></script>
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="http://getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+
+		  <img src="C:/Users/Felipe/git/Maverick-project/www/jpg/music.jpg"  border="0" height="55" width="55"class="img-rounded">
+
+	
+       
+        </div>
+		   
+        <div class="navbar-collapse collapse">
+		<ul class="nav navbar-nav navbar-left">
+		<font size=6>
+		<p style="color:red;">MAVERICK</p>
+	    </font >
+		 </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li onclick = "location='C:/Users/DaviD/Desktop/wwwproyecto/jpg/music.jpgdashboard.html'"><a href="#" style="color: #00FF00">Stream</a></li>
+            <li onclick = "location='C:/Users/DaviD/Desktop/wwwproyecto/ranking.html'"><a href="#" style="color: #00FF00">Top List</a></li>
+            <li onclick = "location='C:/Users/DaviD/Desktop/wwwproyecto/userprofile.html'"><a href="#" class="icon-user" style="color: #00FF00" id="profile">Profile</a></li>
+            
+			
+          </ul>
+          <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" id="artisttosearch" placeholder="Search artists">
+			<button type="submit" class="btn" id="searchartist" style="background-color: #00FF00">Search</button>
+          </form>
+		  <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" id="songtosearch" placeholder="Search songs">
+			<button type="submit" class="btn" id="searchsong" style="background-color: #00FF00">Search</button>
+          </form>
+		  <form class="navbar-form navbar-right">
+            <button id="logout" type="submit" class="btn" style="background-color: #00FF00">Logout</button>
+          </form>
+        </div>
+      </div>
+    </div>
+	
+
+	  <ul class="nav nav-tabs" id="myTab">
+				
+				
+		 <!-- <form class="navbar-form navbar-left">
+            <input type="text" class="form-control" id="style_name" placeholder="Introduce estilo ">  
+			<button type="submit" class="btn" id="listsong" style="background-color: #00FG00">Listar</button>
+			<div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Lista de canciones</h3>
+              </div>
+              <div class="panel-body">
+                 <span id="songtolist2"></span>
+              </div>
+            </div>
+          </form> -->
+			  <li><a id="songstab"  style="color:red;"  href="#" data-toggle="collapse"> Rock</a></li>
+			  <li><a id="songstab2"  style="color:red;" href="#" data-toggle="collapse"> EDM</a></li>
+		      <li><a id="songstab3"  style="color:red;" href="#" data-toggle="collapse"> Indie</a></li>
+              <li><a id="songstab4"  style="color:red;" href="#" data-toggle="collapse"> Pop</a></li>
+               <li><a id="songstab5"  style="color:red;" href="#" data-toggle="collapse"> Pachangeo</a></li>
+               <li><a id="songstab6"  style="color:red;" href="#" data-toggle="collapse"> Otros</a></li>
+                  <li><a id="songstab7"  style="color:red;" href="#" data-toggle="collapse"> Top List</a></li>
+				  </ul>
+				   <ul class="nav nav-tabs" id="myResults">
+				
+				
+
+	 
+	 <ul class="nav nav-tabs" id="myTab">
+	
+					<li><a id="songstab"  style="color:red;" href="#" data-toggle="collapse"> Indie</a></li>
+					<li><a id="songstab"  style="color:red;" href="#" data-toggle="collapse"> Rock</a></li>
+					<li><a id="songstab"  style="color:red;" href="#" data-toggle="collapse"> Pop</a></li>
+					<li><a id="songstab"  style="color:red;" href="#" data-toggle="collapse"> Pachangeo</a></li>
+					<li><a id="songstab"  style="color:red;" href="#" data-toggle="collapse"> EDM</a></li>
+					<li><a id="songstab"  style="color:red;" href="#" data-toggle="collapse"> Otros</a></li>
+					<li><a id="songstab"  style="color:red;" href="#" data-toggle="collapse"> Top List</a></li>
+
+				
+			</ul>
+				  
+				  
+				
+			
+
+              
+          
+       
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script> 
+	
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script type="text/javascript" src="js/api.js"></script>
+	<script type="text/javascript" src="js/search.js"></script>
+				 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script type="text/javascript" src="js/api.js"></script>
+		   <script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/linkheaders.js"></script>
+	<script type="text/javascript" src="js/uritemplate.js"></script>
+	 <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+  <script type="text/javascript" src="js/jquery.cookie.js"></script>
+  <script type="text/javascript" src="js/jquery.base64.js"></script>
+
+  
+  </body>
+</html>
