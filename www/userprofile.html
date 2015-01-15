@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="file:///C:/Users/david/Desktop/music.jpg">
+    <link rel="icon" href="jpg/music.jpg">
 
     <title>Maverick </title>
 
@@ -41,7 +41,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-		  <img src="file:///C:/Users/david/Desktop/music.jpg"  border="0" height="55" width="55"class="img-rounded">
+		  <img src="jpg/music.jpg"  border="0" height="55" width="55"class="img-rounded">
        
         </div>
 		   
@@ -70,7 +70,7 @@
 	
 	 <div class="jumbotron">
         <h1><p align="center" id="usernameprofile">  </p> </h1>
-        <div align="center"><img src="file:///C:/Users/david/Desktop/user.png"  align="center" border="0" height="55" width="55"class="img-rounded"></div>
+        <div align="center"><img src="jpg/user.png"  align="center" border="0" height="55" width="55"class="img-rounded"></div>
 		<div align="center">
 		<li><a href="#"  id="nameofuser"> </a></li> 
 		<li><a href="#" id="emailofuser"></a></li> 
@@ -84,9 +84,10 @@
 							
 								
 								 <button type="button"   class="btn btn-success" style="background-color: #00FF00"  href="#success" data-toggle="modal" id="uploadsong">Upload Song</button>
-								
+								 
 								
 								<!-- Modal -->
+								
 								<div class="modal fade" id="success" tabindex="-1" role="dialog"
 									aria-labelledby="myModalLabel" aria-hidden="true">
 									<div class="modal-dialog">
@@ -255,7 +256,7 @@
 								
 								 <button type="button" align="center" class="btn btn-success" href="#delete" style="background-color: #00FF00"  data-toggle="modal" id="deleteprofile">Delete Profile</button>
 								
-								
+								<a class="UFILikeLink" href="#" role="button" aria-live="polite" id="megusta" title="Te gusta esto" data-ft="{&quot;tn&quot;:&quot;>&quot;}" data-reactid=".1u"><span data-reactid=".1u.1">Me gusta</span> </a>
 								<!-- Modal -->
 								<div class="modal fade"  id="delete"tabindex="-1" role="dialog"
 									aria-labelledby="myModalLabel" aria-hidden="true">
@@ -291,7 +292,25 @@
 								</div>
 							</div>
 							
-							
+			<!--		<div class="row">
+          <div class="col-sm-8">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">Resultado cancion</h3>
+              </div>
+              <div class="panel-body">
+                 <span id="todo_result"></span>
+              </div>
+            </div>
+          </div><!-- /.col-sm-8 -->
+       <!--   <div class="col-sm-4">
+            <button type="button" class="btn btn-info" id="button_get_todo">Me gusta</button>
+            <div class="input-group input-group-sm">
+              <span class="input-group-addon">SongName</span>
+              <input type="text" class="form-control" id="todo_id">
+            </div>
+          </div>
+        </div> -->
 						
 					
   
@@ -303,13 +322,17 @@
 	  
 	  <ul class="nav nav-tabs" id="myTab">
 				
-				<li><a id="songstab"  style="color:red;" href="#" data-toggle="collapse"> Songs</a></li>
+				<li><a id="songs"  style="color:red;" href="#" data-toggle="collapse"> Songs</a></li>
 				<li><a id="followingtab"  style="color:red;" href="#" data-toggle="collapse">
 						Following</a></li>
 				<li><a id="followertab" style="color:red;" href="#" data-toggle="collapse">Follower</a></li>
 				
 			</ul>
-			
+			 <ul class="nav nav-tabs" id="myResults">
+				
+				
+				
+			</ul>
 
               
           </div>
@@ -327,14 +350,15 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-	   <script type="text/javascript" src="api.js"></script>
-	   			
-		   <script type="text/javascript" src="jquery.js"></script>
-	<script type="text/javascript" src="linkheaders.js"></script>
-	<script type="text/javascript" src="uritemplate.js"></script>
-	 <script type="text/javascript" src="jquery-1.10.2.min.js"></script>
-  <script type="text/javascript" src="jquery.cookie.js"></script>
-  <script src="jquery.base64.js"></script>
+	   
+	   <script type="text/javascript" src="js/api.js"></script		
+		   <script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/linkheaders.js"></script>
+	<script type="text/javascript" src="js/uritemplate.js"></script>
+	 <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
+  <script type="text/javascript" src="js/jquery.cookie.js"></script>
+  <script src="js/jquery.base64.js"></script>
+ <!--  <script type="text/javascript" src="js/getstyle.js"></script> -->
   </body>
 	
   

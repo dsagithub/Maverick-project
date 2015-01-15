@@ -17,18 +17,182 @@ $("#searchartist").click(function(e) {
     $.cookie('elementobusqueda');
   
  
-	window.location.replace("file:///C:/Users/david/Desktop/search.html");
+	window.location.replace("/search.html");
 });
 
 $("#followingtab").click(function(e){
-	
+	console.log("pulsamos el boton");
 	e.preventDefault();
 	$("#result").text(' ');
 		  
-	getArtist($('#artisttosearch').val());
-        
+	getArtist2(username);
+        console.log("adios");
 	
 });
+
+
+function getArtist2(username){
+	//var url = API_BASE_URL +'songs/style?style=' + style_name;
+	var url = API_BASE_URL +'users/'+ username  +'/following';
+	console.log(url);
+	//$("#myResults").text('');
+	//alert(url);
+	
+	
+	$.ajax({
+		url : url,
+		type : 'GET',
+		crossDomain : true,
+		dataType : 'json',
+	}).done(function(data, status, jqxhr){
+		console.log(data);
+				var songs = data;
+				//console.log(songs);
+				//$('<strong> username: </strong>' + songs + '<br>').appendTo($('#myResults'));
+				$('<h4> Seguidores </h4>').appendTo($('#myResults'));
+				$.each(songs.users, function(i,v){
+				console.log(v);
+					var todo = v;
+					//alert("nombre" + todo.username);
+								
+					$('<strong> username: </strong>' + todo.username + '<br>').appendTo($('#myResults'));
+					$('</p>').appendTo($('#myResults'));
+					});
+					
+				
+	}).fail(function(){
+		$("#myResults").text('No hay Todos');
+	});
+}
+
+
+$("#followertab").click(function(e){
+	console.log("pulsamos el boton");
+	e.preventDefault();
+	$("#result").text(' ');
+		  
+	getArtist3(username);
+        console.log("adios");
+	
+});
+
+
+function getArtist3(username){
+	//var url = API_BASE_URL +'songs/style?style=' + style_name;
+	var url = API_BASE_URL +'users/'+ username +'/follower';
+	//console.log(url);
+	//$("#myResults").text('');
+	//alert(url);
+	
+	
+	$.ajax({
+		url : url,
+		type : 'GET',
+		crossDomain : true,
+		dataType : 'json',
+	}).done(function(data, status, jqxhr){
+		console.log(data);
+				var songs = data;
+				//console.log(songs);
+				//$('<strong> username: </strong>' + songs + '<br>').appendTo($('#myResults'));
+				$('<h4> Seguidos </h4>').appendTo($('#myResults'));
+				$.each(songs.users, function(i,v){
+				console.log(v);
+					var todo = v;
+					//alert("nombre" + todo.username);							
+					$('<strong> username: </strong>' + todo.username + '<br>').appendTo($('#myResults'));
+					$('</p>').appendTo($('#myResults'));
+					});
+					
+				
+	}).fail(function(){
+		$("#myResults").text('No hay Todos');
+	});
+}
+$('#megusta').click(function(e){
+	 e.preventDefault();
+	 //$('#megusta').text('');
+	 $('#megusta').hide();
+	 var nombre_cancion;
+	 var me_gusta;
+	 nombre_cancion= {
+	 "song_name": "maverick"}
+	//me_gusta ={"likes": "1"}
+	 Megusta(nombre_cancion);
+	console.log(nombre_cancion);
+});
+
+function Megusta(nombre_cancion) {
+	var url = API_BASE_URL + 'songs/likes/maverick';
+	var data= JSON.stringify(nombre_cancion);
+	console.log(url);
+	$.ajax({
+		url : url,
+		type : 'PUT',
+		crossDomain : true,
+		dataType : 'json',
+		contentType : 'application/vnd.maverick.api.song+json',
+		data:data,
+	}).done(function(data, status, jqxhr) {
+		//getArtist();
+		//$.each(songs.songs, function(i,v){
+		alert("Te gusta esto!");
+		//alert("likes" + me_gusta)
+		//});
+	}).fail(function() {
+		$("#myResults").text("NO RESULT");
+	});
+}
+
+$("#songs").click(function(e){
+	console.log("pulsamos el boton");
+	e.preventDefault();
+	$("#result").text(' ');
+		  
+	getArtist4(username);
+        console.log("adios");
+	
+});
+
+function getArtist4(){
+	//var url = API_BASE_URL +'songs/style?style=' + style_name;
+	var url = API_BASE_URL +'songs/search2?username=' + username;
+	//console.log(url);
+	//$("#myResults").text('');
+	//alert(url);
+	
+	
+	$.ajax({
+		url : url,
+		type : 'GET',
+		crossDomain : true,
+		dataType : 'json',
+	}).done(function(data, status, jqxhr){
+		console.log(data);
+				var songs = data;
+				//console.log(songs);
+				//$('<strong> username: </strong>' + songs + '<br>').appendTo($('#myResults'));
+				$('<h4> Canciones propias </h4>').appendTo($('#myResults'));
+				$.each(songs.songs, function(i,v){
+				console.log(v);
+					var todo = v;
+					$('<strong> username: </strong>' + todo.username + '<br>').appendTo($('#myResults'));
+					$('<strong> song_name: </strong>' + todo.song_name + '<br>').appendTo($('#myResults'));
+					//$('<strong> album_name: </strong>' + todo.album_name + '<br>').appendTo($('#myResults'));
+					$('<strong> description: </strong>' + todo.description + '<br>').appendTo($('#myResults'));
+					$('<strong> style: </strong>' + todo.style + '<br>').appendTo($('#myResults'));
+					$('</p>').appendTo($('#myResults'));
+					});
+					
+				
+	}).fail(function(){
+		$("#myResults").text('No has subido canciones!');
+	});
+}
+
+
+
+
 
 $("#deleteprofilefinal").click(function(e){
 	var usernametodelete =getCookie("username");
@@ -159,7 +323,7 @@ console.log(url);
 	}).done(function(data, status, jqxhr) {
 
 	 alert("Usuario eliminado correctamente, Esperamos volver a verle algún día");
-	 window.location.replace("file:///C:/Users/david/Desktop/signin.html");
+	 window.location.replace("signin.html");
 				
 				
 				

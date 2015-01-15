@@ -55,7 +55,7 @@ console.log(data);
 		$.cookie('role');
 
 		
-			window.location.replace("C:/Users/david/Desktop/dashboard.html");
+			window.location.replace("C:/Users/Felipe/git/Maverick-project/www/dashboard.html");
   	}).fail(function() {
 	if (status == "409"){ alert("Ya existe un usuario con este username"); 
 	}else if (stauts =="500"){

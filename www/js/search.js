@@ -60,7 +60,7 @@ console.log(url);
 				e.preventDefault();
 				// alert("Datos Modificados Correctamente");
 				 	
-					window.location.replace("file:///C:/Users/david/Desktop/seeprofile.html");
+					window.location.replace("file:///C:/Users/Felipe/git/Maverick-project/www/seeprofile.html");
 				//loadProfile(userjs.getLink('self').href);
 				//$('#searchpg').hide();
 				//$('#profilepg').show();
@@ -126,7 +126,7 @@ console.log(url);
 				e.preventDefault();
 				// alert("Datos Modificados Correctamente");
 				 	
-					window.location.replace("file:///C:/Users/david/Desktop/seeprofile.html");
+					window.location.replace("file:///C:/Users/Felipe/git/Maverick-project/www/seeprofile.html");
 				//loadProfile(userjs.getLink('self').href);
 				//$('#searchpg').hide();
 				//$('#profilepg').show();

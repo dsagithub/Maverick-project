@@ -14,7 +14,7 @@ $("#searchartist").click(function(e) {
     $.cookie('elementobusqueda');
   
  
-	window.location.replace("file:///C:/Users/david/Desktop/search.html");
+	window.location.replace("search.html");
 });
 
 
@@ -29,12 +29,6 @@ $("#followingtab").click(function(e){
         
 	
 });
-
-
-
-
-
-
 
 
 function getArtist(artisttosearch) {
@@ -81,6 +75,8 @@ console.log(url);
 
 }
 
+
+
 function Userdata(verusername) {
 var url = API_BASE_URL + 'users/' + verusername;
 
@@ -119,6 +115,41 @@ console.log(url);
 	});
 
 }
+$('#Indie').click(function (e){
+	style = $('#Indie').val();
+});
+$('#Rock').click(function (e){
+	style = $('#Rock').val();
+});
+$('#Pop').click(function (e){
+	style = $('#Pop').val();
+});
+$('#Pachangeo').click(function (e){
+	style = $('#Pachangeo').val();
+});
+$('#EDM').click(function (e){
+	style = $('#EDM').val();
+});
+$('#Otros').click(function (e){
+	style = $('#Otros').val();
+});
+$('#Top List').click(function (e){
+	style = $('#Top List').val();
+});
+
+function updateSong(){
+	//console.log(username, userprofilepgjs.username);
+	if(username != userprofilepgjs.username){
+	$('#songstab').hide();
+	}
+	else{
+		$('#songstab').show();
+	}
+	
+	 
+}
+
+
 
 
 

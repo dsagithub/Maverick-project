@@ -11,11 +11,11 @@ followsongs(username);
 
 $("#profile").click(function(e) {
 	e.preventDefault();
-	window.location.replace("C:/Users/david/Desktop/userprofile.html");
+	window.location.replace("userprofile.html");
 });
 $("#ranking").click(function(e) {
   e.preventDefault();
-  window.location.replace("file:///C:/Users/david/Desktop/ranking.html");
+  window.location.replace("ranking.html");
 });
 $("#searchartist").click(function(e) {
 	e.preventDefault();
@@ -24,7 +24,7 @@ $("#searchartist").click(function(e) {
     $.cookie('elementobusqueda');
   
  
-	window.location.replace("file:///C:/Users/david/Desktop/search.html");
+	window.location.replace("search.html");
 });
 
 
@@ -33,7 +33,7 @@ $("#searchartist").click(function(e) {
 function followsongs(username) {
 var url = API_BASE_URL + '/songs/' + username;
 
-console.log(url);
+//console.log(url);
   
   $("#searchtab").text('');
 

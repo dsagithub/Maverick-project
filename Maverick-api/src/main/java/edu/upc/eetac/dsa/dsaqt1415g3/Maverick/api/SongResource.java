@@ -87,7 +87,7 @@ public class SongResource {
 				song.setDescription(rs.getString("description"));
 				song.setStyle(rs.getString("style"));
 				song.setLast_modified(rs.getDate("last_modified"));
-				song.setSongURL(app.getProperties().get("uploadFolder")
+				song.setSongURL(app.getProperties().get("songBaseURL")
 						+ song.getSongid()+ ".mp3");
 				song.setLikes(rs.getInt("likes"));
 				songs.add(song);
@@ -390,61 +390,6 @@ public class SongResource {
 				return song;
 			}
 
-	
-	/*		private Songs getSongFromDatabase(String song_name) {
-				Connection conn = null;
-				// VideosCollection videos = new VideosCollection();
-			
-				Songs song = new Songs();
-				try {
-					conn = ds.getConnection();
-				} catch (SQLException e) {
-					throw new ServerErrorException("Could not connect to the database",
-							Response.Status.SERVICE_UNAVAILABLE);
-				}
-
-				PreparedStatement stmt = null;
-				try {
-					stmt = conn.prepareStatement(get_songdatos);
-					stmt.setString(1,song_name);
-
-					ResultSet rs = stmt.executeQuery();
-					if (rs.next()) {
-
-						song.setSong_name(rs.getString("song_name"));
-						song.setUsername(rs.getString("username"));
-						song.setSongid(rs.getString("songid"));
-						song.setAlbum(rs.getString("album_name"));
-						song.setDescription(rs.getString("description"));
-						song.setStyle(rs.getString("style"));
-						song.setDate(rs.getTimestamp("last_modified").getTime());
-						//song.setSongURL(rs.getString("songURL"));
-						song.setLikes(rs.getString("likes"));
-						
-						System.out.println("Query salida: " + stmt);;
-						
-					} else {
-
-					}
-
-				} catch (SQLException e) {
-					e.printStackTrace();
-				} finally {
-					try {
-						// Haya ido bien o haya ido mal cierra las conexiones
-						if (stmt != null)
-							stmt.close();
-						conn.close();
-					} catch (SQLException e) {
-						throw new ServerErrorException(e.getMessage(),
-								Response.Status.INTERNAL_SERVER_ERROR);
-					}
-				}
-				return song;
-			}
-			*/
-		 
-
 		
 		// MEtodo para listar canciones por género	
 		
@@ -489,15 +434,16 @@ public class SongResource {
 
 						song.setStyle(rs.getString("style"));
 						//song.setDate(rs.getTimestamp("last_modified").getTime());
-
+						song.setSongURL(app.getProperties().get("songBaseURL")
+								+ song.getSongid()+ ".mp3");
 						//song.setSongURL(rs.getString("songURL"));
 
 						//song.setStyle(rs.getString("style"));
 						song.setLast_modified(rs.getDate("last_modified"));
-						song.setSongURL(app.getProperties().get("uploadFolder")
-								+ song.getSongid()+ ".mp3");
+						//song.setSongURL(app.getProperties().get("uploadFolder")
+						//		+ song.getSongid()+ ".mp3");
 						//song.setDate(rs.getTimestamp("last_modified").getTime());
-						song.setSongURL(rs.getString("songURL"));
+						//song.setSongURL(rs.getString("songURL"));
 						song.setLikes(rs.getInt("likes"));
 
 						
@@ -565,7 +511,7 @@ public class SongResource {
 
 					song.setStyle(rs.getString("style"));
 					//song.setDate(rs.getTimestamp("last_modified").getTime());
-					song.setSongURL(rs.getString("songURL"));
+					//song.setSongURL(rs.getString("songURL"));
 
 					song.setStyle(rs.getString("style"));
 					song.setLast_modified(rs.getDate("last_modified"));
@@ -662,78 +608,6 @@ public class SongResource {
 		System.out.println(songs);
 		return songs;
 	}
-	//Metodo para listar las canciones de los usuarios a los que sigo
-	
-	@Path("/following")
-	@GET
-	@Produces(MediaType.MAVERICK_API_SONG_COLLECTION)
-	public SongsCollection getSongsFollowing(@QueryParam("length") int length,
-			@QueryParam("before") long before, @QueryParam("after") long after) {
-		SongsCollection songs = new SongsCollection();
-		Connection conn = null;
-		try {
-			conn = ds.getConnection();
-		} catch (SQLException e) {
-			throw new ServerErrorException("Could not connect to the database",
-					Response.Status.SERVICE_UNAVAILABLE);
-		}
-
-		PreparedStatement stmt = null;
-		try {
-			boolean updateFromLast = after > 0;
-			stmt = conn.prepareStatement(buildGetSongsFollowingQuery(updateFromLast));
-			//stmt.setString(1, security.getUserPrincipal().getName());
-			if (updateFromLast) {
-				stmt.setTimestamp(2, new Timestamp(after));
-			} else {
-				if (before > 0)
-					stmt.setTimestamp(2, new Timestamp(before));
-				else
-					stmt.setTimestamp(2, null);
-				length = (length <= 0) ? 20 : length;
-				stmt.setInt(3, length);
-			}
-			ResultSet rs = stmt.executeQuery();
-			while (rs.next()) {
-				
-				Songs song = new Songs();
-				song.setSong_name(rs.getString("song_name"));
-				song.setUsername(rs.getString("username"));
-				//song.setSongid(rs.getString("songid"));
-				song.setAlbum(rs.getString("album_name"));
-				song.setDescription(rs.getString("description"));
-				song.setStyle(rs.getString("style"));
-				//song.setDate(rs.getTimestamp("last_modified").getTime());
-				//song.setSongURL(rs.getString("songURL"));
-				song.setLikes(rs.getInt("likes"));
-				
-				System.out.println("Query salida: " + stmt);
-			
-				songs.add(song);
-				
-			}
-		} catch (SQLException e) {
-			throw new ServerErrorException(e.getMessage(),
-					Response.Status.INTERNAL_SERVER_ERROR);
-		} finally {
-			try {
-				if (stmt != null)
-					stmt.close();
-				conn.close();
-			} catch (SQLException e) {
-			}
-		}
-
-		return songs;
-	}
-
-	private String buildGetSongsFollowingQuery(boolean updateFromLast) {
-		if (updateFromLast)
-			return "select s.* from Songs s, Follow f where f.followername = ? and s.username = f.followingname and last_modified > ? order by last_modified desc";
-		else
-			return "select s.* from Songs s, Follow f where f.followername = ? and s.username = f.followingname and last_modified < ifnull(?, now())  order by last_modified desc limit ?";
-
-	}
 		
 	
 	//Método para listar canciones por likes
@@ -816,6 +690,7 @@ public class SongResource {
 	
 	private String GET_SONGS_QUERY_FROM_LAST = "select s.* from songs s, follow f where f.followername = ? and s.username = f.followingname and last_modified > ? order by last_modified desc";
 	private String GET_SONGS_QUERY = "select s.* from Songs s, Follow f where f.followername = ? and s.username = f.followingname and last_modified < ifnull(?, now())  order by last_modified desc limit ?";
+	
 	//Metodo para listar las canciones de los usuarios a los que sigo
 	@GET 
 	@Path("/{username}")
@@ -889,6 +764,56 @@ public class SongResource {
 	 
 		return songs;
 	}
+// Metodo para listar  comentarios de una cancion
+	private String ListarComment = "select * from comments where song_name like ?;";
+	@Path("/{song_name}/comments")
+	@GET
+	@Produces(MediaType.MAVERICK_API_COMMENT)
+	public SongsCollection getSongs(@PathParam("song_name") String song_name) {
+	
+			SongsCollection songs = new SongsCollection();
+			
+			System.out.println("no conectados a la BD");
+			Connection conn = null;
+			try {
+				conn = ds.getConnection();
+			} catch (SQLException e) {
+				throw new ServerErrorException("Could not connect to the database",
+						Response.Status.SERVICE_UNAVAILABLE);
+			}
+			System.out.println("conectados a la BD");
+			PreparedStatement stmt = null;
+			try {
+				stmt = conn.prepareStatement(ListarComment);
+				stmt.setString(1, song_name);
+				System.out.println(song_name);
+				ResultSet rs = stmt.executeQuery();
+				System.out.println(stmt);
+				
+				while (rs.next()) {
+
+					Songs song = new Songs();
+					song.setUsername(rs.getString("username"));
+					song.setDescription(rs.getString("text"));
+					//song.setLast_modified(rs.getDate("date"));
+					songs.add(song);
+					System.out.println("Query salida: " + stmt);
+					
+				}
+			} catch (SQLException e) {
+				throw new ServerErrorException(e.getMessage(),
+						Response.Status.INTERNAL_SERVER_ERROR);
+			} finally {
+				try {
+					if (stmt != null)
+						stmt.close();
+					conn.close();
+				} catch (SQLException e) {
+				}
+			}
+			System.out.println(songs);
+			return songs;
+		}
 
 	private String INSERT_COMMENT_QUERY = "insert into comments (song_name,username, text) values (?,?,?); ";
 	//Metodo para comentar una canción

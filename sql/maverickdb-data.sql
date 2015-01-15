@@ -12,6 +12,7 @@ insert into user_roles values ('david', 'artist');
 
 insert into songs (songid, username, song_name, album_name, description, style, likes) values('id','david', 'maverick', 'albert neve', 'New song', 'edm', 1);
 insert into songs (songid, username, song_name, album_name, description, style, likes) values('texto','canada', 'tema', 'autor', 'update', 'rock', 100);
+insert into comments (commentid, songid, song_name, username, text) values (1, 'id', 'maverick', 'felipe', 'Estamos dentro');
 insert into  follow values('felipe','david');
 insert into  follow values('felipe','canada');
 insert into  follow values('canada','felipe');
@@ -19,4 +20,4 @@ insert into  follow values('canada','raja');
 insert into  follow values('david','felipe');
 insert into  follow values('david','raja');
 insert into  follow values('raja','david');
-insert into  follow values('raja','canada');
+insert into  follow values('raja','felipe');
