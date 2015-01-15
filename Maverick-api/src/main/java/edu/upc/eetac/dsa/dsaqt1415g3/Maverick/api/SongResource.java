@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.UUID;
 import java.sql.Timestamp;
+
 import javax.sql.DataSource;
 import javax.ws.rs.BadRequestException;
 import javax.ws.rs.Consumes;
@@ -27,17 +28,24 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.ServerErrorException;
 import javax.ws.rs.core.Application;
-
+import javax.ws.rs.core.CacheControl;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.EntityTag;
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
+
+
 //import javax.ws.rs.core.Response;
 import org.glassfish.jersey.media.multipart.FormDataParam;
+
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
+
 import org.glassfish.jersey.media.multipart.FormDataParam;
+
 import javax.ws.rs.core.SecurityContext;
+
 import edu.upc.eetac.dsa.dsaqt1415g3.Maverick.api.DataSourceSPA;
 import edu.upc.eetac.dsa.dsaqt1415g3.Maverick.api.model.Songs;
 import edu.upc.eetac.dsa.dsaqt1415g3.Maverick.api.model.SongsCollection;
@@ -494,10 +502,11 @@ public class SongResource {
 
 						//song.setStyle(rs.getString("style"));
 						song.setLast_modified(rs.getDate("last_modified"));
-						song.setSongURL(app.getProperties().get("uploadFolder")
-								+ song.getSongid()+ ".mp3");
+						//song.setSongURL(app.getProperties().get("uploadFolder")
+							//	+ song.getSongid()+ ".mp3");
 						//song.setDate(rs.getTimestamp("last_modified").getTime());
-						song.setSongURL(rs.getString("songURL"));
+					//	song.setSongURL(rs.getString("songURL"));
+						
 						song.setLikes(rs.getInt("likes"));
 
 						
@@ -1146,6 +1155,98 @@ public class SongResource {
 		}
 		System.out.println(songs);
 		return songs;
+	}
+	
+	
+	private final static String GET_SONG_BY_NAME = "select * from songs where song_name = ?;";
+	
+	@Path("/{song_name}")
+	@GET
+	@Produces(MediaType.MAVERICK_API_SONG)
+	public Response getSongDetail(@PathParam("song_name") String song_name, @Context Request request){
+		
+		
+		System.out.println("Implementamos el cache");
+		
+		// Create CacheControl
+		CacheControl cc = new CacheControl();
+		System.out.println(song_name);
+		
+		Songs song = getprofileSongFromDatabase(song_name);
+		//pillamos el correo y el username para ver si ha modificado
+		String s = song.getSong_name();
+		
+		//Calculate the ETag on last modified date of user resource
+		EntityTag eTag = new EntityTag(Long.toString(s.hashCode()));
+	 
+		// Verify if it matched with etag available in http request
+		Response.ResponseBuilder rb = request.evaluatePreconditions(eTag);
+		
+		// If ETag matches the rb will be non-null;
+		// Use the rb to return the response without any further processing
+		if (rb != null) {
+			return rb.cacheControl(cc).tag(eTag).build();
+		}
+	 
+		// If rb is null then either it is first time request; or resource is
+		// modified
+		// Get the updated representation and return with Etag attached to it
+		rb = Response.ok(song).cacheControl(cc).tag(eTag);
+	 
+		return rb.build();
+		
+	}
+	
+	private Songs getprofileSongFromDatabase( String song_name) {
+		System.out.println("Conectamos a la base de datos" +  song_name);
+		
+		Songs song = new Songs();
+		 
+		Connection conn = null;
+		try {
+			conn = ds.getConnection();
+		} catch (SQLException e) {
+			throw new ServerErrorException("Could not connect to the database",
+					Response.Status.SERVICE_UNAVAILABLE);
+		}
+		
+		PreparedStatement stmt = null;
+		try {
+			System.out.println("Preparamos la query");
+			stmt = conn.prepareStatement(GET_SONG_BY_NAME);
+			stmt.setString(1, song_name);
+			ResultSet rs = stmt.executeQuery();
+			System.out.println("Ejecutamos la query");
+			if (rs.next()) {
+				song.setSong_name(song_name);
+				song.setUsername(rs.getString("username"));
+				//song.setText(rs.getString("text"));
+				song.setAlbum(rs.getString("album_name"));
+				song.setLikes(rs.getInt("likes"));
+				song.setStyle(rs.getString("style"));
+				song.setDescription(rs.getString("description"));
+				
+			
+			} else {
+				throw new NotFoundException("There's no user with username="
+						+ song_name);
+			}
+		} catch (SQLException e) {
+			throw new ServerErrorException(e.getMessage(),
+					Response.Status.INTERNAL_SERVER_ERROR);
+		} finally {
+			try {
+				if (stmt != null)
+					stmt.close();
+				conn.close();
+			} catch (SQLException e) {
+			}
+		}
+	 
+		return song;
+	 
+		
+		
 	}
 
 

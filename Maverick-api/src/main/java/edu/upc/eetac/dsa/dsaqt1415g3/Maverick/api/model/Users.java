@@ -28,6 +28,8 @@ public class Users {
 		@InjectLink(resource = UserResource.class, style = Style.ABSOLUTE, rel = "following", title = "Following", type = MediaType.MAVERICK_API_USER_COLLECTION, method = "getFollowing", bindings = @Binding(name = "username", value = "${instance.username}")),
 		@InjectLink(resource = SongResource.class, style = Style.ABSOLUTE, rel = "song", title = "create song", type = javax.ws.rs.core.MediaType.MULTIPART_FORM_DATA),
 		@InjectLink(resource = SongResource.class, style = Style.ABSOLUTE, rel = "songs Collection", title = "getAllSongs"),
+		@InjectLink(resource = UserResource.class, style = Style.ABSOLUTE, rel = "users Collection", title = "getAllUsers"),
+		@InjectLink(value = "/users/search?username={username}", style = Style.ABSOLUTE, rel = "my profile", title = "get my profile", type = MediaType.MAVERICK_API_USER, method = "getUserbyUsername", bindings ={ @Binding(name = "username", value = "${instance.username}")}), 
 		//@InjectLink(resource = SongResource.class, style = Style.ABSOLUTE, rel = "my songs", title = "get my songs", type = MediaType.MAVERICK_API_SONG, method = " SearchCancionbyUsername"), 
 		//@InjectLink(resource = SongResource.class, style = Style.ABSOLUTE, rel = "songs following", title = "get Songs following", type = MediaType.MAVERICK_API_SONG_COLLECTION, method = "getCancionesFollowing" , bindings = @Binding(name = "username", value = "${instance.username}")), 
 		//@InjectLink(resource = SongResource.class, style = Style.ABSOLUTE, rel = "songs style", title = "get songs style", type = MediaType.MAVERICK_API_SONG, method = "SearchStyles"), 

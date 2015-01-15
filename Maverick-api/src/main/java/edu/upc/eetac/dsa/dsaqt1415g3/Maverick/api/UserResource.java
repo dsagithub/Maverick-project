@@ -25,7 +25,11 @@ import javax.ws.rs.core.EntityTag;
 import javax.ws.rs.core.Request;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+
 import org.apache.commons.codec.digest.DigestUtils;
+
+import edu.upc.eetac.dsa.dsaqt1415g3.Maverick.api.model.Songs;
+import edu.upc.eetac.dsa.dsaqt1415g3.Maverick.api.model.SongsCollection;
 import edu.upc.eetac.dsa.dsaqt1415g3.Maverick.api.model.Users;
 import edu.upc.eetac.dsa.dsaqt1415g3.Maverick.api.model.UsersCollection;
 
@@ -548,9 +552,10 @@ public class UserResource {
 		PreparedStatement stmt = null;
 		try {
 			String sql = buildDeleteFollow();
-			stmt = conn.prepareStatement(sql);
+			stmt = conn.prepareStatement(sql);	
 			stmt.setString(1, username);
 			stmt.setString(2, following);
+			System.out.println(stmt);
 			int rows = stmt.executeUpdate();
 			if (rows == 0)
 				throw new NotFoundException("There's no User with username=" + username + " or " + following);
@@ -613,6 +618,185 @@ public class UserResource {
 		private String buildGetFollowingById() {
 			return "select u.* from users u, Follow f where f.followingname = u.username and f.followername = ?";
 		}
+		
+	
+				
+				private final static String GET_USERROLE_BY_USERNAME = "select rolename from user_roles where username = ?;";
+		@GET
+		@Path("{username}/userole")
+		@Produces(MediaType.MAVERICK_API_USER)
+		public UsersCollection getUserRole(@PathParam("username") String username) {
+			
+			UsersCollection users = new UsersCollection();
+			
+			Connection conn = null;
+			try{ conn =ds.getConnection();
+			}catch (SQLException e)
+			{
+				throw new ServerErrorException("Could not connect to the databes", 
+						Response.Status.SERVICE_UNAVAILABLE);
+			}
+			PreparedStatement stmt = null;
+			System.out.println("datos: " + username);
+			try{
+				
+				
+					stmt = conn.prepareStatement(GET_USERROLE_BY_USERNAME);
+					stmt.setString (1, username);
+					
+					
+				
+		
+				System.out.println("Query salida: " + stmt);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()){
+				Users user = new Users();
+				user.setRolename(rs.getString("rolename"));
+				
+				
+				
+				
+				users.addUser(user);
+			}
+				}
+				
+			
+			catch (SQLException e) {
+				throw new ServerErrorException(e.getMessage(),
+						Response.Status.INTERNAL_SERVER_ERROR);
+			}
+			finally {
+				try {
+					if (stmt != null)
+						stmt.close();
+					conn.close();
+				} catch (SQLException e) {
+				}
+			}
+			return users;
+			
+		
+		}
+		
+		
+		private final static String GET_USEfollow_BY_USERNAME = "select * from follow where followingname= ? and followername = ?;";
+@GET
+@Path("{username}/following/{following}")
+@Produces(MediaType.MAVERICK_API_USER)
+public UsersCollection getUserfollow(@PathParam("username") String username, @PathParam("following") String following) {
+	
+	UsersCollection users = new UsersCollection();
+	
+	Connection conn = null;
+	try{ conn =ds.getConnection();
+	}catch (SQLException e)
+	{
+		throw new ServerErrorException("Could not connect to the databes", 
+				Response.Status.SERVICE_UNAVAILABLE);
+	}
+	PreparedStatement stmt = null;
+	System.out.println("datos: " + username + following);
+	try{
+		
+		
+			stmt = conn.prepareStatement(GET_USEfollow_BY_USERNAME);
+			stmt.setString (1, username);
+			stmt.setString (2, following);
+			
+			
+		
+
+		System.out.println("Query salida: " + stmt);
+	ResultSet rs = stmt.executeQuery();
+	while (rs.next()){
+		Users user = new Users();
+		
+		
+		
+		user.setUsername(rs.getString("followername"));
+		
+		
+		
+		users.addUser(user);
+	}
+		}
+		
+	
+	catch (SQLException e) {
+		throw new ServerErrorException(e.getMessage(),
+				Response.Status.INTERNAL_SERVER_ERROR);
+	}
+	finally {
+		try {
+			if (stmt != null)
+				stmt.close();
+			conn.close();
+		} catch (SQLException e) {
+		}
+	}
+	return users;
+	
+
+}
+		
+				
+				
+				//Coleccion de usuarios
+				
+				private String Listarusuarios = "select * from users; ";
+				@GET
+				public UsersCollection getUsers(){
+					UsersCollection users = new UsersCollection();
+					
+					System.out.println("no conectados a la BD");
+					Connection conn = null;
+					try {
+						conn = ds.getConnection();
+					} catch (SQLException e) {
+						throw new ServerErrorException("Could not connect to the database",
+								Response.Status.SERVICE_UNAVAILABLE);
+					}
+					System.out.println("conectados a la BD");
+					PreparedStatement stmt = null;
+					try {
+						stmt = conn.prepareStatement(Listarusuarios);
+						//stmt.executeQuery();
+						ResultSet rs = stmt.executeQuery();
+						System.out.println(stmt);
+						
+						while (rs.next()) {
+							
+							Users user = new Users();
+							user.setUsername(rs.getString("username"));
+							user.setName(rs.getString("name"));
+							user.setEmail(rs.getString("email"));
+							user.setDescription(rs.getString("description"));
+							users.addUser(user);
+							
+							System.out.println("Query salida: " + stmt);
+							
+							
+						
+							
+						}
+					} catch (SQLException e) {
+						throw new ServerErrorException(e.getMessage(),
+								Response.Status.INTERNAL_SERVER_ERROR);
+					} finally {
+						try {
+							if (stmt != null)
+								stmt.close();
+							conn.close();
+						} catch (SQLException e) {
+						}
+					}
+					System.out.println(users);
+					return users;
+				}
+				
+		
+		
+				
 }
 	
 		

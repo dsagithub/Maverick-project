@@ -21,6 +21,8 @@ public class MaverickRootAPI {
 		@InjectLink(resource = UserResource.class, style = Style.ABSOLUTE, rel = "self edit", title = "Perfil", type = MediaType.MAVERICK_API_USER, method = "getprofile", bindings = @Binding(name = "username", value = "${instance.username}")), 
 		@InjectLink(resource = UserResource.class, style = Style.ABSOLUTE, rel = "users", title = "create user", type = MediaType.MAVERICK_API_USER),
 		@InjectLink(resource = SongResource.class, style = Style.ABSOLUTE, rel = "songs Collection", title = "getAllSongs"),
+		@InjectLink(resource = UserResource.class, style = Style.ABSOLUTE, rel = "users Collection", title = "getAllUsers"),
+		//@InjectLink(value = "/songs/{username}", style = Style.ABSOLUTE, rel = "songsfollowing", title = "get Songs following", type = MediaType.MAVERICK_API_SONG_COLLECTION, method = "getCancionesFollowing" , bindings = @Binding(name = "username", value = "${instance.username}")), 
 		@InjectLink(resource = UserResource.class, style = Style.ABSOLUTE, rel = "login", title = "login", type = MediaType.MAVERICK_API_USER, method = "login"),
 		 })
 	private List<Link> links; //atributo con getters y setters
