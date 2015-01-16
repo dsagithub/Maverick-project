@@ -1,4 +1,4 @@
-var API_BASE_URL = "http://147.83.7.156:8080/grupo3.dsa.eetac/Maverick-api/";
+var API_BASE_URL = "http://147.83.7.156:8080/Maverick-api/";
 var username = getCookie('username');
 //console.log(username);	
 var search = getCookie('elementobusqueda');
@@ -387,7 +387,7 @@ $("#myResults").text('');
 					songsResult = songs;
 					 
 					$.each(songs.songs, function(i, v) {
-					var song = v.song_name;
+					var song = v;
 					 html += '<tr>'
 					//var song = v;
 					//$('<h4> Datos canción: </h4> ').appendTo($('#myResults'));
@@ -399,7 +399,16 @@ $("#myResults").text('');
 					 html += '<td>'+v.last_modified+'</td>'
 				     html += '<td>'+ v.likes + '<button type="button" id=like class="btn btn-success">Like</button>'+'</td>'
 					 html += '<td>'+ '<div class="col-sd-4"><audio id ="song' + v.songid +'" src="'+ v.songURL+'" type="audio/mp3" style=background-color:#CEF6EC" controls><div><button  onclick="document.getElementById(\'song ' + v.songid +'\').play()">Reproducir</button> style=background-color:#CEF6EC </div></audio></div>'+'</td>' 
-			         
+			        
+					/* $('<h4> Datos canción: </h4> ').appendTo($('#myResults'));
+					 ('<strong> Datos Canción Nombre: </strong>' + song.song_name + '<br>').appendTo($('#myResults'));
+ 				    $('<strong> Username: </strong>' + song.username + '<br>').appendTo($('#myResults'));
+					 $('<strong> Style: </strong>' + song.style + '<br>').appendTo($('#myResults'));
+				$('<strong> Fecha: </strong>' + song.last_modified + '<br>').appendTo($('#myResults'));
+					$('<h4> Reproducir </h4>' ).appendTo($('#myResults'));
+					$('<div class="col-sd-4"><audio id ="song' + song.songid +'" src="'+ song.songURL+'" type="audio/mp3" style=background-color:#CEF6EC" controls><div><button onclick="document.getElementById(\'song ' + song.songid +'\').play()">Reproducir</button> <button onclick="document.getElementById(\'song ' + song.songid +'\').pause()">Pausar</button><button onclick="document.getElementById(\'song ' + song.songid +'\').volume+=0.1">Sube Volumen</button><button onclick="document.getElementById(\'song ' + song.songid +'\').volume-=0.1">Baja Volumen</button> </div></audio></div>').appendTo($('#myResults'));
++                  $('<strong> Likes: </strong>' + song.likes + '<br>').appendTo($('#myResults'));*/
+					//$('<strong> URL reproductor: </strong>' + song.songURL + '<br>').appendTo($('#myResults'));
 
 					
 					console.log(data);
